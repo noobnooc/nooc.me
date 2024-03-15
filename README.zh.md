@@ -1,10 +1,10 @@
-## Nooc's Homepage
+## Nooc 的个人主页
 
-[中文](./README.zh.md)
+[English](./README.md)
 
-This is the source code of My Homepage.
+这里是我个人主页的源码。
 
-## Stack
+## 技术栈
 
 - [React](https://react.dev)
 - [Next.js](https://nextjs.org)
