@@ -1,5 +1,4 @@
-import { EnvelopeIcon } from "@heroicons/react/24/solid";
-import { SiGithub, SiTwitter } from "@icons-pack/react-simple-icons";
+import { SiGithub } from "@icons-pack/react-simple-icons";
 import { ReactNode } from "react";
 import Card from "../../components/card";
 import ProfileCard from "../../components/profile-card";
@@ -7,7 +6,7 @@ import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import subnooc from "../../public/subnooc.png";
 import { shuffleArray } from "../../lib/array";
-import { getDictionary } from "../../dictionaries";
+import { getDictionary } from "@/dictionaries";
 
 export const runtime = "edge";
 
@@ -65,7 +64,7 @@ export default async function Home({
   return (
     <main className="mx-auto flex w-full max-w-screen-lg flex-col gap-4 px-4 py-8">
       <div className="grid relative grid-cols-1 sm:gap-8 sm:grid-cols-2">
-        <div className="flex flex-col gap-8 sm:sticky sm:top-10">
+        <div className="flex flex-col gap-4 sm:gap-8 sm:sticky sm:top-10">
           <ProfileCard
             className="bottom-0 aspect-auto sm:aspect-square"
             motto={dictionary.meta.motto}
@@ -95,7 +94,7 @@ export default async function Home({
         <Label className="col-span-2 mt-8 mb-4 sm:hidden">
           {dictionary.labels.doing}
         </Label>
-        <div className="grid grid-cols-2 gap-8 self-start">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 self-start">
           {dictionary.works
             .filter((work) => work.primary)
             .map((work) => (
@@ -128,7 +127,7 @@ export default async function Home({
             <Label className="col-span-2 mb-4">
               {dictionary.labels.writing}
             </Label>
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-4 sm:gap-8">
               <Card
                 className="flex aspect-square flex-col bg-red-300/10 dark:bg-red-400/10"
                 link="https://subnooc.com"

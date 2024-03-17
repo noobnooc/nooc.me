@@ -2,6 +2,7 @@ import Card from "../../../components/card";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { getDictionary } from "../../../dictionaries";
+import { Metadata } from "next";
 
 export const runtime = "edge";
 
@@ -9,10 +10,11 @@ export async function generateMetadata({
   params,
 }: {
   params: { lang: string };
-}) {
+}): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
 
   return {
+    metadataBase: new URL(dictionary.meta.baseUrl),
     title: dictionary.labels.works,
     description: dictionary.labels.noocWorks,
     keywords: dictionary.meta.fillKeywords([]),

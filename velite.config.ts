@@ -3,9 +3,24 @@ import { defineCollection, defineConfig, s } from "velite";
 
 const lang = s.enum(["en", "zh"]);
 
+const name = s.object({
+  en: s.string().max(20),
+  zh: s.string().max(20),
+});
+
+const description = s
+  .object({
+    en: s.string().max(100),
+    zh: s.string().max(100),
+  })
+  .optional();
+
 const count = s
-  .object({ total: s.number(), posts: s.number() })
-  .default({ total: 0, posts: 0 });
+  .object({
+    en: s.number(),
+    zh: s.number(),
+  })
+  .default({ en: 0, zh: 0 });
 
 const categories = defineCollection({
   name: "Category",
@@ -14,21 +29,16 @@ const categories = defineCollection({
     .object({
       slug: s.slug("posts", ["admin", "login"]),
       cover: s.image().optional(),
-      name: s.object({
-        en: s.string().max(20),
-        zh: s.string().max(20),
-      }),
-      description: s
-        .object({
-          en: s.string().max(100),
-          zh: s.string().max(100),
-        })
-        .optional(),
+      name,
+      description,
       count,
     })
     .transform((data) => ({
       ...data,
-      permalink: (lang: string) => `/${lang}/posts/categories/${data.slug}`,
+      permalink: {
+        en: `/en/posts/categories/${data.slug}`,
+        zh: `/zh/posts/categories/${data.slug}`,
+      },
     })),
 });
 
@@ -39,27 +49,22 @@ const tags = defineCollection({
     .object({
       slug: s.slug("posts", ["admin", "login"]),
       cover: s.image().optional(),
-      name: s.object({
-        en: s.string(),
-        zh: s.string(),
-      }),
-      description: s
-        .object({
-          en: s.string(),
-          zh: s.string(),
-        })
-        .optional(),
+      name,
+      description,
       count,
     })
     .transform((data) => ({
       ...data,
-      permalink: (lang: string) => `/${lang}/posts/tags/${data.slug}`,
+      permalink: {
+        en: `/en/posts/tags/${data.slug}`,
+        zh: `/zh/posts/tags/${data.slug}`,
+      },
     })),
 });
 
 const posts = defineCollection({
   name: "Post",
-  pattern: "posts/**/*.md",
+  pattern: "posts/**/*.mdx",
   schema: s
     .object({
       title: s.string().max(99),
@@ -82,7 +87,8 @@ const posts = defineCollection({
     })
     .transform((data) => ({
       ...data,
-      permalink: `/${data.lang}/posts/${data.slug}/${data.title}`,
+      permalink: `/${data.lang}/posts/${data.slug}`,
+      seoLink: `/${data.lang}/posts/${data.slug}/${data.title}`,
     })),
 });
 
@@ -119,5 +125,29 @@ export default defineConfig({
 
       return false;
     }
+
+    categories.forEach((category) => {
+      category.count = {
+        en: posts.filter(
+          (post) =>
+            post.categories.includes(category.slug) && post.lang === "en",
+        ).length,
+        zh: posts.filter(
+          (post) =>
+            post.categories.includes(category.slug) && post.lang === "zh",
+        ).length,
+      };
+    });
+
+    tags.forEach((tag) => {
+      tag.count = {
+        en: posts.filter(
+          (post) => post.tags.includes(tag.slug) && post.lang === "en",
+        ).length,
+        zh: posts.filter(
+          (post) => post.tags.includes(tag.slug) && post.lang === "zh",
+        ).length,
+      };
+    });
   },
 });

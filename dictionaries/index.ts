@@ -10,6 +10,8 @@ export const languageLabels = {
   zh: "中文",
 };
 
+export type Language = keyof typeof languageLabels;
+
 export const dictionaryKeys = Object.keys(dictionaries);
 
 export async function getDictionary(locale = "en") {

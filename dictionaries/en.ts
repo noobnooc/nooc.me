@@ -72,6 +72,12 @@ A fan of Serverless.
     home: "/en",
     works: "/en/works",
     posts: "/en/posts",
+
+    shareToX(title: string, postLink: string) {
+      return `https://twitter.com/share?text=${encodeURIComponent(
+        `I am reading ${title.toLocaleUpperCase()} @noobnooc`,
+      )}&url=${encodeURIComponent(`https://nooc.me${postLink}`)}`;
+    },
   },
   labels: {
     home: "Home",
@@ -83,6 +89,9 @@ A fan of Serverless.
     writing: "Writing",
     friends: "Friends",
     contactMe: "Contact Me",
+    toc: "Table of Contents",
+    categories: "Categories",
+    shareTo: "Share to: ",
     icon(label: string) {
       return `Icon for ${label}`;
     },

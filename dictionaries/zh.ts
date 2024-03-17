@@ -71,6 +71,12 @@ Serverless 爱好者。
     home: "/zh",
     works: "/zh/works",
     posts: "/zh/posts",
+
+    shareToX(title: string, postLink: string) {
+      return `https://twitter.com/share?text=${encodeURIComponent(
+        `我正在看「${title}」 @noobnooc`,
+      )}&url=${encodeURIComponent(`https://nooc.me${postLink}`)}`;
+    },
   },
   labels: {
     home: "主页",
@@ -82,6 +88,9 @@ Serverless 爱好者。
     writing: "在写什么",
     friends: "他们说",
     contactMe: "联系我",
+    toc: "目录",
+    categories: "分类",
+    shareTo: "分享到：",
     icon(label: string) {
       return `${label}的图标`;
     },

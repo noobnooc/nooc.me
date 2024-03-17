@@ -3,52 +3,71 @@ export const runtime = "edge";
 import { posts, categories } from "@/.velite";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { displayDate } from "../../../lib/date";
 import { Language, getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { displayDate } from "@/lib/date";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: string };
+  params: { lang: Language; categorySlug: string };
 }): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
+  const category = categories.find(
+    (category) => category.slug === params.categorySlug,
+  );
+
+  if (!category) {
+    notFound();
+  }
 
   return {
     metadataBase: new URL(dictionary.meta.baseUrl),
-    title: dictionary.labels.posts,
-    description: dictionary.labels.posts,
+    title: category.name[params.lang],
+    description: category.description?.[params.lang],
     keywords: dictionary.meta.fillKeywords([]),
     openGraph: {
-      title: dictionary.labels.posts,
-      description: dictionary.labels.posts,
+      title: category.name[params.lang],
+      description: category.description?.[params.lang],
     },
     twitter: {
-      title: dictionary.labels.posts,
-      description: dictionary.labels.posts,
+      title: category.name[params.lang],
+      description: category.description?.[params.lang],
       site: "@noobnooc",
       card: "summary_large_image",
     },
   };
 }
 
-function getPublishedPosts(lang: string) {
-  return posts.filter((post) => !post.draft && post.lang === lang);
+function getPublishedPosts(lang: string, category: string) {
+  return posts.filter(
+    (post) =>
+      !post.draft && post.lang === lang && post.categories.includes(category),
+  );
 }
 
-export default async function PostsPage({
+export default async function CategoryPostsPage({
   params,
 }: {
   params: {
     lang: Language;
+    categorySlug: string;
   };
 }) {
-  const dictionary = await getDictionary(params.lang);
-  const posts = getPublishedPosts(params.lang);
+  const category = categories.find(
+    (category) => category.slug === params.categorySlug,
+  );
+
+  if (!category) {
+    notFound();
+  }
+
+  const posts = getPublishedPosts(params.lang, category.slug);
 
   return (
-    <main className="mx-auto flex flex-col sm:flex-row sm:items-start w-full max-w-screen-lg gap-4 px-4 py-8">
-      <ul className="basis-3/4 flex flex-col gap-4">
+    <main className="mx-auto flex flex-col sm:flex-row w-full max-w-screen-lg gap-4 px-4 py-8">
+      <ul className="basis-3/4">
         {posts.map((post) => (
           <li
             key={post.slug}
@@ -68,19 +87,8 @@ export default async function PostsPage({
         ))}
       </ul>
       <section className="basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col">
-        <div className="opacity-50 mb-4">{dictionary.labels.categories}</div>
-        <ol className="underline">
-          {categories.map((category) => (
-            <li key={category.slug}>
-              <Link href={category.permalink[params.lang]}>
-                {category.name[params.lang]}{" "}
-                <span className="opacity-50">
-                  ({category.count[params.lang]})
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
+        <div className="opacity-50 mb-4">{category.name[params.lang]}</div>
+        <div>{category.description?.[params.lang]}</div>
       </section>
     </main>
   );

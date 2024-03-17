@@ -6,7 +6,44 @@ import { displayDate } from "@/lib/date";
 import { notFound } from "next/navigation";
 import { MDXContent } from "@/components/mdx-components";
 import Link from "next/link";
-import { languageLabels } from "@/dictionaries";
+import { getDictionary, languageLabels } from "@/dictionaries";
+import { SiX } from "@icons-pack/react-simple-icons";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: string; slug: string[] };
+}): Promise<Metadata> {
+  const dictionary = await getDictionary(params.lang);
+
+  const [postSlug] = params.slug;
+
+  const post = posts.find(
+    (post) => post.lang === params.lang && post.slug === postSlug,
+  );
+
+  if (!post) {
+    notFound();
+  }
+
+  return {
+    metadataBase: new URL(dictionary.meta.baseUrl),
+    title: post.title,
+    description: post.title,
+    keywords: dictionary.meta.fillKeywords(post.keywords),
+    openGraph: {
+      title: post.title,
+      description: post.title,
+    },
+    twitter: {
+      title: post.title,
+      description: post.title,
+      site: "@noobnooc",
+      card: "summary_large_image",
+    },
+  };
+}
 
 export default async function PostPage({
   params,
@@ -16,6 +53,7 @@ export default async function PostPage({
     slug: string[];
   };
 }) {
+  const dictionary = await getDictionary(params.lang);
   const [postSlug] = params.slug;
 
   const post = posts.find(
@@ -32,7 +70,7 @@ export default async function PostPage({
 
   return (
     <main className="mx-auto flex items-start w-full max-w-screen-lg gap-4 px-4 py-8 relative scroll-smooth">
-      <article className="rounded-3xl p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4">
+      <article className="rounded-3xl p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 leading-loose grow-0 min-w-0">
         <h1 className="text-3xl font-serif">{post.title}</h1>
         <div className="opacity-50 flex items-center gap-4 mt-2">
           <div className="flex items-center gap-1">
@@ -60,25 +98,38 @@ export default async function PostPage({
         <div className="flex flex-col gap-4">
           <MDXContent code={post.content} />
         </div>
+        <hr className="my-8" />
+        <div className="flex items-center gap-4">
+          <span className="opacity-50">{dictionary.labels.shareTo}</span>
+          <a
+            href={dictionary.urls.shareToX(post.title, post.permalink)}
+            target="_blank"
+          >
+            <SiX className="w-5 h-5" />
+          </a>
+        </div>
       </article>
-      <ol className="hidden md:block md:basis-1/4 sticky top-28 flex-col items-end">
-        {post.toc.map((entry) => (
-          <li className="text-right" key={entry.title}>
-            <Link className="opacity-80" href={`#${entry.title}`}>
-              {entry.title}
-            </Link>
-            <ol className="pr-4 flex flex-col items-end">
-              {entry.items.map((subEntry) => (
-                <li key={subEntry.url}>
-                  <Link className="opacity-60" href={`#${subEntry.title}`}>
-                    {subEntry.title}
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </li>
-        ))}
-      </ol>
+      <section className="hidden md:flex md:basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col shrink-0">
+        <label className="opacity-50 mb-4">{dictionary.labels.toc}</label>
+        <ul className="flex flex-col gap-2 underline list-disc list-inside">
+          {post.toc.map((entry) => (
+            <li className="" key={entry.title}>
+              <Link className="opacity-80" href={`#${entry.title}`}>
+                {entry.title}
+              </Link>
+              <ol className="pr-4 flex flex-col indent-4 list-[square] list-inside">
+                {entry.items.map((subEntry) => (
+                  <li key={subEntry.url}>
+                    <Link className="opacity-60" href={`#${subEntry.title}`}>
+                      {subEntry.title}
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
   );
 }

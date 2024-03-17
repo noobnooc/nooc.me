@@ -81,7 +81,7 @@ export default async function RootLayout({
     <html lang={params.lang} className="">
       <body className="bg-slate-50 text-black dark:bg-neutral-900 dark:text-slate-50">
         <header className="sticky top-0 z-10 text-md h-20">
-          <div className="w-full bg-white/50  dark:bg-neutral-900">
+          <div className="w-full bg-white/50 backdrop-blur-xl dark:bg-neutral-900">
             <div className="w-full bg-white/50 dark:bg-slate-100/5">
               <hr />
               <div className="mx-auto flex h-20 w-full max-w-screen-lg items-center justify-between gap-4 px-4 py-6">
