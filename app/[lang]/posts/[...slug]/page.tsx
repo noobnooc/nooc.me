@@ -70,7 +70,7 @@ export default async function PostPage({
 
   return (
     <main className="mx-auto flex items-start w-full max-w-screen-lg gap-4 px-4 py-8 relative scroll-smooth">
-      <article className="rounded-3xl p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 grow-0 min-w-0">
+      <article className="rounded-3xl p-4 sm:p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 grow-0 min-w-0">
         <h1 className="text-3xl font-serif">{post.title}</h1>
         <div className="opacity-50 flex items-center gap-4 mt-2">
           <div className="flex items-center gap-1">
@@ -98,7 +98,7 @@ export default async function PostPage({
         <div
           className={classNames(
             "prose dark:prose-invert",
-            "prose-headings:font-serif prose-headings:mt-8 prose-headings:pl-2 prose-headings:border-l-[.25rem] prose-headings:-ml-3",
+            "prose-headings:font-serif prose-headings:mt-8",
             "prose-h1:text-xl",
             "prose-h2:text-lg",
             "prose-blockquote:font-normal",
