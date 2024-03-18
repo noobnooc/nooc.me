@@ -63,14 +63,14 @@ export default async function Home({
 
   return (
     <main className="mx-auto flex w-full max-w-screen-lg flex-col gap-4 px-4 py-8">
-      <div className="grid relative grid-cols-1 sm:gap-8 sm:grid-cols-2">
+      <div className="grid relative grid-cols-1 gap-4 sm:gap-8 sm:grid-cols-2">
         <ProfileCard
-          className="bottom-0 aspect-auto sm:aspect-square"
+          className="aspect-auto sm:aspect-square"
           motto={dictionary.meta.motto}
           bio={dictionary.meta.bio}
         />
         <div>
-          <Label className="col-span-2 mt-8 mb-4 sm:hidden">
+          <Label className="col-span-2 m-4 sm:hidden">
             {dictionary.labels.doing}
           </Label>
           <div className="grid grid-cols-2 gap-4 sm:gap-8 self-start">
@@ -103,8 +103,8 @@ export default async function Home({
               ))}
           </div>
         </div>
-        <div className="col-span-2">
-          <Label className="mb-4">{dictionary.labels.contactMe}</Label>
+        <div className="sm:col-span-2">
+          <Label className="m-4 sm:mt-0">{dictionary.labels.contactMe}</Label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8">
             {dictionary.contacts.map((contact) => (
               <Card
@@ -123,7 +123,7 @@ export default async function Home({
         </div>
       </div>
 
-      <Label className="mt-4">{dictionary.labels.playing}</Label>
+      <Label className="mt-4 mx-4">{dictionary.labels.playing}</Label>
       <div className="grid grid-cols-2 gap-4 sm:gap-8 sm:col-span-2 sm:grid-cols-3">
         {dictionary.playingItems.map((playingItem) => (
           <Card
