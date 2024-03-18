@@ -12,6 +12,7 @@
     "@formatjs/intl-localematcher": "^0.5.4",
     "@heroicons/react": "^2.1.1",
     "@icons-pack/react-simple-icons": "^9.3.0",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",

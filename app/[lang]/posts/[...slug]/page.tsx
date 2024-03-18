@@ -2,11 +2,13 @@ import { posts } from "@/.velite";
 import { CalendarDaysIcon, LanguageIcon } from "@heroicons/react/24/solid";
 import { displayDate } from "@/lib/date";
 import { notFound } from "next/navigation";
-import { MDXContent } from "@/components/mdx-components";
 import Link from "next/link";
 import { getDictionary, languageLabels } from "@/dictionaries";
 import { SiX } from "@icons-pack/react-simple-icons";
 import { Metadata } from "next";
+import classNames from "classnames";
+
+export const runtime = "edge";
 
 export async function generateMetadata({
   params,
@@ -68,7 +70,7 @@ export default async function PostPage({
 
   return (
     <main className="mx-auto flex items-start w-full max-w-screen-lg gap-4 px-4 py-8 relative scroll-smooth">
-      <article className="rounded-3xl p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 leading-loose grow-0 min-w-0">
+      <article className="rounded-3xl p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 grow-0 min-w-0">
         <h1 className="text-3xl font-serif">{post.title}</h1>
         <div className="opacity-50 flex items-center gap-4 mt-2">
           <div className="flex items-center gap-1">
@@ -93,9 +95,17 @@ export default async function PostPage({
         </div>
         <p className="opacity-70 mt-2">{post.description}</p>
         <hr className="my-4" />
-        <div className="flex flex-col gap-4">
-          <MDXContent code={post.content} />
-        </div>
+        <div
+          className={classNames(
+            "prose dark:prose-invert",
+            "prose-headings:font-serif prose-headings:mt-8 prose-headings:pl-2 prose-headings:border-l-[.25rem] prose-headings:-ml-3",
+            "prose-h1:text-xl",
+            "prose-h2:text-lg",
+            "prose-blockquote:font-normal",
+            "before:prose-p:content-none after:prose-p:content-none",
+          )}
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        ></div>
         <hr className="my-8" />
         <div className="flex items-center gap-4">
           <span className="opacity-50">{dictionary.labels.shareTo}</span>

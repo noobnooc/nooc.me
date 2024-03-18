@@ -6,8 +6,7 @@ import avatar from "../../public/avatar.png";
 import Link from "next/link";
 import { dictionaryKeys, getDictionary } from "../../dictionaries";
 
-// MDX rendering will crash in edge runtime because `eval` is disabled in edge runtime.
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export async function generateMetadata({
   params,
