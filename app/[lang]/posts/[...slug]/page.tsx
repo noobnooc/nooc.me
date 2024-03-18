@@ -8,8 +8,6 @@ import { SiX } from "@icons-pack/react-simple-icons";
 import { Metadata } from "next";
 import { MDXContent } from "@/components/mdx-components";
 
-// export const runtime = "edge";
-
 export async function generateMetadata({
   params,
 }: {

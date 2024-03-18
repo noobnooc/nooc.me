@@ -4,8 +4,6 @@ import { twMerge } from "tailwind-merge";
 import { getDictionary } from "../../../dictionaries";
 import { Metadata } from "next";
 
-export const runtime = "edge";
-
 export async function generateMetadata({
   params,
 }: {

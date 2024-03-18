@@ -6,8 +6,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { displayDate } from "@/lib/date";
 
-export const runtime = "edge";
-
 export async function generateMetadata({
   params,
 }: {

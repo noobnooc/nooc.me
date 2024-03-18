@@ -6,8 +6,6 @@ import avatar from "../../public/avatar.png";
 import Link from "next/link";
 import { dictionaryKeys, getDictionary } from "../../dictionaries";
 
-// export const runtime = "edge";
-
 export async function generateMetadata({
   params,
 }: {

@@ -5,8 +5,6 @@ import { displayDate } from "../../../lib/date";
 import { Language, getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 
-export const runtime = "edge";
-
 export async function generateMetadata({
   params,
 }: {

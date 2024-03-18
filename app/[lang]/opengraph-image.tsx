@@ -1,8 +1,6 @@
 import { Language, getDictionary } from "@/dictionaries";
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
-
 export const alt = "Nooc's Homepage";
 export const size = {
   width: 1200,

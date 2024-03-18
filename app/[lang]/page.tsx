@@ -4,12 +4,9 @@ import ProfileCard from "../../components/profile-card";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import subnooc from "../../public/subnooc.png";
-import { shuffleArray } from "../../lib/array";
 import { getDictionary } from "@/dictionaries";
 import Link from "next/link";
 import { PencilIcon } from "@heroicons/react/24/solid";
-
-export const runtime = "edge";
 
 function Title({
   className,
