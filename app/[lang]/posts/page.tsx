@@ -1,11 +1,11 @@
-export const runtime = "edge";
-
 import { posts, categories } from "@/.velite";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { displayDate } from "../../../lib/date";
 import { Language, getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
+
+export const runtime = "edge";
 
 export async function generateMetadata({
   params,

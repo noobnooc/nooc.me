@@ -1,4 +1,3 @@
-import { SiGithub } from "@icons-pack/react-simple-icons";
 import { ReactNode } from "react";
 import Card from "../../components/card";
 import ProfileCard from "../../components/profile-card";
@@ -7,6 +6,8 @@ import { twMerge } from "tailwind-merge";
 import subnooc from "../../public/subnooc.png";
 import { shuffleArray } from "../../lib/array";
 import { getDictionary } from "@/dictionaries";
+import Link from "next/link";
+import { PencilIcon } from "@heroicons/react/24/solid";
 
 export const runtime = "edge";
 
@@ -128,6 +129,16 @@ export default async function Home({
               {dictionary.labels.writing}
             </Label>
             <div className="grid grid-cols-2 gap-4 sm:gap-8">
+              <Card>
+                <Link
+                  className="flex aspect-square flex-col"
+                  href={dictionary.urls.posts}
+                >
+                  <PencilIcon className="mb-auto box-border h-12 w-12 self-end rounded-lg border bg-black p-3 text-white sm:h-16 sm:w-16" />
+                  <Subtitle>nooc.me/posts</Subtitle>
+                  <Title className="">{dictionary.labels.posts}</Title>
+                </Link>
+              </Card>
               <Card
                 className="flex aspect-square flex-col bg-red-300/10 dark:bg-red-400/10"
                 link="https://subnooc.com"
@@ -140,15 +151,9 @@ export default async function Home({
                   src={subnooc}
                 />
                 <Subtitle>subnooc.com</Subtitle>
-                <Title className="text-red-500">主观世界</Title>
-              </Card>
-              <Card
-                className="flex aspect-square flex-col bg-neutral-300/10 dark:bg-neutral-400/10"
-                link="https://github.com/noobnooc/noobnooc/discussions"
-              >
-                <SiGithub className="mb-auto box-border h-12 w-12 self-end rounded-lg border bg-black p-2 text-white sm:h-16 sm:w-16" />
-                <Subtitle>github.com</Subtitle>
-                <Title className="">技术分享</Title>
+                <Title className="text-red-500">
+                  {dictionary.labels.subnooc}
+                </Title>
               </Card>
             </div>
           </div>

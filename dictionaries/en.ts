@@ -92,6 +92,7 @@ A fan of Serverless.
     toc: "Table of Contents",
     categories: "Categories",
     shareTo: "Share to: ",
+    subnooc: "Subjective Nooc",
     icon(label: string) {
       return `Icon for ${label}`;
     },

@@ -91,6 +91,7 @@ Serverless 爱好者。
     toc: "目录",
     categories: "分类",
     shareTo: "分享到：",
+    subnooc: "主观世界",
     icon(label: string) {
       return `${label}的图标`;
     },

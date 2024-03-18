@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { posts } from "@/.velite";
 import { CalendarDaysIcon, LanguageIcon } from "@heroicons/react/24/solid";
 import { displayDate } from "@/lib/date";
