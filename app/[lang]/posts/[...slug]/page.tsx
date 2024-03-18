@@ -36,14 +36,14 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.title,
-      images: "/banner.webp",
+      images: "/banner.png",
     },
     twitter: {
       title: post.title,
       description: post.title,
       site: "@noobnooc",
       card: "summary_large_image",
-      images: "/banner.webp",
+      images: "/banner.png",
     },
   };
 }

@@ -32,14 +32,14 @@ export async function generateMetadata({
       title: dictionary.meta.websiteName,
       description: dictionary.meta.motto,
       siteName: dictionary.meta.websiteName,
-      images: "/banner.webp",
+      images: "/banner.png",
     },
     twitter: {
       title: dictionary.meta.websiteName,
       description: dictionary.meta.motto,
       site: "@noobnooc",
       card: "summary_large_image",
-      images: "/banner.webp",
+      images: "/banner.png",
     },
     alternates: {
       languages: Object.fromEntries(langEntries),
