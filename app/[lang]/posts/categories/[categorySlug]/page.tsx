@@ -6,6 +6,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { displayDate } from "@/lib/date";
 
+export const runtime = "edge";
+
 export async function generateMetadata({
   params,
 }: {
@@ -85,7 +87,7 @@ export default async function CategoryPostsPage({
         ))}
       </ul>
       <section className="basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col">
-        <div className="opacity-50 mb-4">{category.name[params.lang]}</div>
+        <div className="opacity-50 mb-2">{category.name[params.lang]}</div>
         <div>{category.description?.[params.lang]}</div>
       </section>
     </main>

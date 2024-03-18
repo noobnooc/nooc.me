@@ -86,7 +86,6 @@ A fan of Serverless.
     noocWorks: "Nooc's Works",
     doing: "Doing",
     playing: "Playing",
-    writing: "Writing",
     friends: "Friends",
     contactMe: "Contact Me",
     toc: "Table of Contents",
@@ -233,14 +232,6 @@ A fan of Serverless.
       primary: true,
     },
     {
-      name: "Quwu.io",
-      summary: "A website to collect interesting items.",
-      image: quwu,
-      link: "https://quwu.io",
-      color: "amber",
-      primary: true,
-    },
-    {
       name: "AssisChat",
       summary: "A ChatGPT client for iOS.",
       image: AssisChat,
@@ -262,7 +253,7 @@ A fan of Serverless.
       image: subnooc,
       link: "https://subnooc.com",
       color: "red",
-      primary: false,
+      primary: true,
     },
     {
       name: "OhMyGPT",

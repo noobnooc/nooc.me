@@ -85,7 +85,6 @@ Serverless 爱好者。
     noocWorks: "Nooc的作品",
     doing: "在做什么",
     playing: "在玩什么",
-    writing: "在写什么",
     friends: "他们说",
     contactMe: "联系我",
     toc: "目录",
@@ -228,14 +227,6 @@ Serverless 爱好者。
       primary: true,
     },
     {
-      name: "趣物",
-      summary: "收集有趣物品的网站",
-      image: quwu,
-      link: "https://quwu.io",
-      color: "amber",
-      primary: true,
-    },
-    {
       name: "AssisChat",
       summary: "ChatGPT 客户端",
       image: AssisChat,
@@ -257,7 +248,7 @@ Serverless 爱好者。
       image: subnooc,
       link: "https://subnooc.com",
       color: "red",
-      primary: false,
+      primary: true,
     },
     {
       name: "OhMyGPT",

@@ -8,6 +8,8 @@ import { getDictionary } from "@/dictionaries";
 import Link from "next/link";
 import { PencilIcon } from "@heroicons/react/24/solid";
 
+export const runtime = "edge";
+
 function Title({
   className,
   children,
@@ -62,97 +64,61 @@ export default async function Home({
   return (
     <main className="mx-auto flex w-full max-w-screen-lg flex-col gap-4 px-4 py-8">
       <div className="grid relative grid-cols-1 sm:gap-8 sm:grid-cols-2">
-        <div className="flex flex-col gap-4 sm:gap-8 sm:sticky sm:top-10">
-          <ProfileCard
-            className="bottom-0 aspect-auto sm:aspect-square"
-            motto={dictionary.meta.motto}
-            bio={dictionary.meta.bio}
-          />
-          <div>
-            <Label className="col-span-2 mb-4">
-              {dictionary.labels.contactMe}
-            </Label>
-            <div className="grid grid-cols-2 gap-4 sm:gap-8">
-              {dictionary.contacts.map((contact) => (
+        <ProfileCard
+          className="bottom-0 aspect-auto sm:aspect-square"
+          motto={dictionary.meta.motto}
+          bio={dictionary.meta.bio}
+        />
+        <div>
+          <Label className="col-span-2 mt-8 mb-4 sm:hidden">
+            {dictionary.labels.doing}
+          </Label>
+          <div className="grid grid-cols-2 gap-4 sm:gap-8 self-start">
+            {dictionary.works
+              .filter((work) => work.primary)
+              .map((work) => (
                 <Card
-                  key={contact.name}
-                  className="flex justify-between bg-white/50 dark:bg-indigo-100/5"
-                  link={contact.link}
+                  key={work.name}
+                  className={twMerge(
+                    "relative flex aspect-square flex-col gap-2 sm:gap-4",
+                    `bg-${work.color}-300/10 dark:bg-${work.color}-400/10`,
+                  )}
+                  link={work.link}
                 >
-                  <div className="flex flex-col">
-                    <Title className="">{contact.label}</Title>
-                    <Subtitle>{contact.name}</Subtitle>
-                  </div>
-                  <contact.icon className="self-center h-6 w-6 sm:h-10 sm:w-10 opacity-50" />
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-        <Label className="col-span-2 mt-8 mb-4 sm:hidden">
-          {dictionary.labels.doing}
-        </Label>
-        <div className="grid grid-cols-2 gap-4 sm:gap-8 self-start">
-          {dictionary.works
-            .filter((work) => work.primary)
-            .map((work) => (
-              <Card
-                key={work.name}
-                className={twMerge(
-                  "relative flex aspect-square flex-col gap-2 sm:gap-4",
-                  `bg-${work.color}-300/10 dark:bg-${work.color}-400/10`,
-                )}
-                link={work.link}
-              >
-                <div className="flex gap-2 sm:gap-4">
-                  <Image
-                    className="h-10 w-10 sm:h-20 sm:w-20 rounded-xl"
-                    src={work.image!}
-                    alt={dictionary.labels.icon(work.name)}
-                  />
-                  <div className="flex flex-col">
-                    <Title className="text-md">{work.name}</Title>
-                    <div className="opacity-50 text-xs sm:text-sm">
-                      {new URL(work.link).host}
+                  <div className="flex gap-2 sm:gap-4">
+                    <Image
+                      className="h-10 w-10 sm:h-20 sm:w-20 rounded-xl"
+                      src={work.image!}
+                      alt={dictionary.labels.icon(work.name)}
+                    />
+                    <div className="flex flex-col">
+                      <Title className="text-md">{work.name}</Title>
+                      <div className="opacity-50 text-xs sm:text-sm">
+                        {new URL(work.link).host}
+                      </div>
                     </div>
                   </div>
+                  <Subtitle className="">{work.summary}</Subtitle>
+                </Card>
+              ))}
+          </div>
+        </div>
+        <div className="col-span-2">
+          <Label className="mb-4">{dictionary.labels.contactMe}</Label>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8">
+            {dictionary.contacts.map((contact) => (
+              <Card
+                key={contact.name}
+                className="flex justify-between bg-white/50 dark:bg-indigo-100/5"
+                link={contact.link}
+              >
+                <div className="flex flex-col">
+                  <Title className="">{contact.label}</Title>
+                  <Subtitle>{contact.name}</Subtitle>
                 </div>
-                <Subtitle className="">{work.summary}</Subtitle>
+                <contact.icon className="self-center h-6 w-6 sm:h-10 sm:w-10 opacity-50" />
               </Card>
             ))}
-
-          <div className="col-span-2">
-            <Label className="col-span-2 mb-4">
-              {dictionary.labels.writing}
-            </Label>
-            <div className="grid grid-cols-2 gap-4 sm:gap-8">
-              <Card>
-                <Link
-                  className="flex aspect-square flex-col"
-                  href={dictionary.urls.posts}
-                >
-                  <PencilIcon className="mb-auto box-border h-12 w-12 self-end rounded-lg border bg-black p-3 text-white sm:h-16 sm:w-16" />
-                  <Subtitle>nooc.me/posts</Subtitle>
-                  <Title className="">{dictionary.labels.posts}</Title>
-                </Link>
-              </Card>
-              <Card
-                className="flex aspect-square flex-col bg-red-300/10 dark:bg-red-400/10"
-                link="https://subnooc.com"
-              >
-                <Image
-                  className="mb-auto h-12 w-12 self-end rounded-lg border sm:h-16 sm:w-16"
-                  alt="Subnooc Icon"
-                  width="256"
-                  height={256}
-                  src={subnooc}
-                />
-                <Subtitle>subnooc.com</Subtitle>
-                <Title className="text-red-500">
-                  {dictionary.labels.subnooc}
-                </Title>
-              </Card>
-            </div>
           </div>
         </div>
       </div>

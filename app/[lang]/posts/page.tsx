@@ -5,6 +5,8 @@ import { displayDate } from "../../../lib/date";
 import { Language, getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 
+export const runtime = "edge";
+
 export async function generateMetadata({
   params,
 }: {
@@ -66,7 +68,7 @@ export default async function PostsPage({
         ))}
       </ul>
       <section className="basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col">
-        <div className="opacity-50 mb-4">{dictionary.labels.categories}</div>
+        <div className="opacity-50 mb-2">{dictionary.labels.categories}</div>
         <ol className="underline">
           {categories.map((category) => (
             <li key={category.slug}>
