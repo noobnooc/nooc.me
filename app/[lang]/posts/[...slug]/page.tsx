@@ -102,6 +102,7 @@ export default async function PostPage({
             "prose-h1:text-xl",
             "prose-h2:text-lg",
             "prose-blockquote:font-normal",
+            "prose-pre:border prose-pre:rounded-xl",
             "before:prose-p:content-none after:prose-p:content-none",
           )}
           dangerouslySetInnerHTML={{ __html: post.content }}

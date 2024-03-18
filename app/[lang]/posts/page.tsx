@@ -52,7 +52,7 @@ export default async function PostsPage({
         {posts.map((post) => (
           <li
             key={post.slug}
-            className="rounded-3xl p-4 border bg-white/50 dark:bg-indigo-100/5 flex flex-col gap-2"
+            className="rounded-3xl p-4 sm:px-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col gap-2"
           >
             <Link href={post.seoLink}>
               <h1 className="text-xl font-serif">{post.title}</h1>

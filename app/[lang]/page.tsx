@@ -183,34 +183,6 @@ export default async function Home({
           </Card>
         ))}
       </div>
-
-      <Label className="mt-4">{dictionary.labels.friends}</Label>
-      <div className="grid grid-cols-2 gap-4 sm:gap-8 sm:col-span-2 sm:grid-cols-3">
-        {shuffleArray(dictionary.friendComments)
-          .slice(0, 6)
-          .map((comment) => (
-            <Card
-              key={comment.name}
-              className={twMerge(
-                "flex aspect-square flex-col justify-between sm:aspect-video",
-                `bg-${comment.color}-300/10 dark:bg-${comment.color}-400/10`,
-              )}
-              link={comment.link}
-            >
-              <div className="flex justify-between gap-2">
-                <Title className={`text-${comment.color}-500`}>
-                  {comment.name}
-                </Title>
-                <Image
-                  className="h-8 w-8 rounded-full sm:h-12 sm:w-12"
-                  src={comment.avatar}
-                  alt={comment.name}
-                />
-              </div>
-              <Subtitle className="mt-4 text-sm">{comment.comment}</Subtitle>
-            </Card>
-          ))}
-      </div>
     </main>
   );
 }

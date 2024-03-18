@@ -45,25 +45,6 @@ export async function generateMetadata({
   };
 }
 
-const bottomNavItems = [
-  {
-    name: "主观世界",
-    link: "https://subnooc.com",
-  },
-  {
-    name: "趣物",
-    link: "https://quwu.io",
-  },
-  {
-    name: "AssisChat",
-    link: "https://assischat.com",
-  },
-  {
-    name: "Lofyee",
-    link: "https://lofyee.com",
-  },
-];
-
 export default async function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages
@@ -130,11 +111,13 @@ export default async function RootLayout({
           <div className="mx-auto flex w-full max-w-screen-lg flex-col justify-between gap-4 px-4 py-10 sm:flex-row">
             <nav className="opacity-80">
               <ul className="flex gap-4">
-                {bottomNavItems.map((item) => (
-                  <li key={item.name}>
-                    <a href={item.link}>{item.name}</a>
-                  </li>
-                ))}
+                {dictionary.works
+                  .filter((work) => work.primary)
+                  .map((item) => (
+                    <li key={item.name}>
+                      <a href={item.link}>{item.name}</a>
+                    </li>
+                  ))}
               </ul>
             </nav>
             <p className="opacity-60">© 2023 Nooc</p>
