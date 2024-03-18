@@ -36,14 +36,14 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.title,
-      images: `/${params.lang}/opengraph-image`,
+      images: "/banner.webp",
     },
     twitter: {
       title: post.title,
       description: post.title,
       site: "@noobnooc",
       card: "summary_large_image",
-      images: `/${params.lang}/twitter-image`,
+      images: "/banner.webp",
     },
   };
 }
