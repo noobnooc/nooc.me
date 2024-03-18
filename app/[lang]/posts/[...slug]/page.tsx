@@ -6,9 +6,9 @@ import Link from "next/link";
 import { getDictionary, languageLabels } from "@/dictionaries";
 import { SiX } from "@icons-pack/react-simple-icons";
 import { Metadata } from "next";
-import classNames from "classnames";
+import { MDXContent } from "@/components/mdx-components";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function generateMetadata({
   params,
@@ -97,7 +97,10 @@ export default async function PostPage({
         </div>
         <p className="opacity-70 mt-2">{post.description}</p>
         <hr className="my-4" />
-        <div
+        <div className="leading-loose flex flex-col gap-4">
+          <MDXContent code={post.content} />
+        </div>
+        {/* <div
           className={classNames(
             "prose dark:prose-invert",
             "prose-headings:font-serif prose-headings:mt-8",
@@ -108,7 +111,7 @@ export default async function PostPage({
             "before:prose-p:content-none after:prose-p:content-none",
           )}
           dangerouslySetInnerHTML={{ __html: post.content }}
-        ></div>
+        ></div> */}
         <hr className="my-8" />
         <div className="flex items-center gap-4">
           <span className="opacity-50">{dictionary.labels.shareTo}</span>

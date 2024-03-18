@@ -63,7 +63,14 @@ Based on these reasons, I ultimately chose to use Velite to integrate blogging f
 
 Velite has detailed documentation on its [official website](https://velite.js.org/guide/quick-start). If you want to explore what it can do and learn about specific details, you can refer to the official website. Here, I will provide a brief overview of how to integrate a static blog using Velite in a Next.js project.
 
-> I performed the following steps in a project created using `npx create-next-app@latest` with the default settings, including TypeScript, TailwindCSS, and App Router. You can refer to the [Next.js official documentation](https://nextjs.org/docs/getting-started/installation) if your project structure is different from mine and make the necessary changes accordingly.
+<Indicator type="info">
+  I performed the following steps in a project created using `npx
+  create-next-app@latest` with the default settings, including TypeScript,
+  TailwindCSS, and App Router. You can refer to the [Next.js official
+  documentation](https://nextjs.org/docs/getting-started/installation) if your
+  project structure is different from mine and make the necessary changes
+  accordingly.
+</Indicator>
 
 The workflow with Velite is as follows:
 
@@ -149,7 +156,11 @@ class VeliteWebpackPlugin {
 module.exports = nextConfig;
 ```
 
-> If you have already modified the default configuration file of Next.js before this, you can add the Velite-related logic based on your own configuration, referring to the above content.
+<Indicator type="info">
+  If you have already modified the default configuration file of Next.js before
+  this, you can add the Velite-related logic based on your own configuration,
+  referring to the above content.
+</Indicator>
 
 After adding the above configuration, we can develop our Next.js project as usual without worrying about Velite. When we want to use the files processed by Velite, we can directly import the contents from the `.velite` directory.
 

@@ -64,7 +64,7 @@ const tags = defineCollection({
 
 const posts = defineCollection({
   name: "Post",
-  pattern: "posts/**/*.md",
+  pattern: "posts/**/*.mdx",
   schema: s
     .object({
       title: s.string().max(99),
@@ -83,7 +83,7 @@ const posts = defineCollection({
       toc: s.toc(),
       metadata: s.metadata(),
       excerpt: s.excerpt(),
-      content: s.markdown(),
+      content: s.mdx(),
     })
     .transform((data) => ({
       ...data,
@@ -102,7 +102,7 @@ export default defineConfig({
     clean: true,
   },
   collections: { categories, tags, posts },
-  markdown: { rehypePlugins: [rehypePrettyCode] },
+  mdx: { rehypePlugins: [rehypePrettyCode] },
   prepare: ({ categories, tags, posts }) => {
     const docs = posts.filter(
       (i) => process.env.NODE_ENV !== "production" || !i.draft,
