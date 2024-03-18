@@ -119,18 +119,14 @@ export default async function PostPage({
       </article>
       <section className="hidden md:flex md:basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col shrink-0">
         <label className="opacity-50 mb-4">{dictionary.labels.toc}</label>
-        <ul className="flex flex-col gap-2 underline list-disc list-inside">
+        <ul className="flex flex-col gap-2 list-disc ml-6">
           {post.toc.map((entry) => (
             <li className="" key={entry.title}>
-              <Link className="opacity-80" href={`#${entry.title}`}>
-                {entry.title}
-              </Link>
-              <ol className="pr-4 flex flex-col indent-4 list-[square] list-inside">
+              <div className="opacity-80">{entry.title}</div>
+              <ol className="pr-4 flex flex-col ml-4 gap-2 list-[square]">
                 {entry.items.map((subEntry) => (
                   <li key={subEntry.url}>
-                    <Link className="opacity-60" href={`#${subEntry.title}`}>
-                      {subEntry.title}
-                    </Link>
+                    <div className="opacity-60">{subEntry.title}</div>
                   </li>
                 ))}
               </ol>

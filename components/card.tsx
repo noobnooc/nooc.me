@@ -11,7 +11,7 @@ export default function Card({
   link?: string;
 }) {
   const classString = twMerge(
-    "isolate rounded-3xl border bg-white/50 p-4 shadow-xl shadow-gray-400/10 transition-all duration-300 dark:bg-indigo-100/5 dark:shadow-black/0",
+    "isolate rounded-3xl border bg-white/50 p-4 shadow-lg shadow-gray-400/10 transition-all duration-300 dark:bg-indigo-100/5 dark:shadow-black/0",
     className,
   );
 
