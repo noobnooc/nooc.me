@@ -41,10 +41,12 @@ export async function generateMetadata({
 }
 
 function getPublishedPosts(lang: string, category: string) {
-  return posts.filter(
-    (post) =>
-      !post.draft && post.lang === lang && post.categories.includes(category),
-  );
+  return posts
+    .sort((p1, p2) => new Date(p2.date).getTime() - new Date(p1.date).getTime())
+    .filter(
+      (post) =>
+        !post.draft && post.lang === lang && post.categories.includes(category),
+    );
 }
 
 export default async function CategoryPostsPage({
