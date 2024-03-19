@@ -63,12 +63,7 @@ Velite 使用 Zod 提供了数据类型检查，可以很大程度地保证类�
 
 Velite 在其[官网](https://velite.js.org/guide/quick-start)有很详细的使用文档，如果想要仔细研究它能用来做什么，以及一些具体的细节，可以直接去官网查看。我这里只简单介绍一下在 Next.js 项目中，使用 Velite 集成一个静态博客的流程。
 
-<Indicator type="info">
-  我是在使用 `npx create-next-app@latest`
-  创建的项目中进行的后续操作，该项目使用的全默认设置，即启用了 TypeScript,
-  TailwindCSS 和 App Router 等，具体参照 [Next.js
-  官方文档](https://nextjs.org/docs/getting-started/installation)。如果你的项目结构与我不一致，可以自行进行一些相关变更。
-</Indicator>
+> 我是在使用 `npx create-next-app@latest` 创建的项目中进行的后续操作，该项目使用的全默认设置，即启用了 TypeScript, TailwindCSS 和 App Router 等，具体参照 [Next.js 官方文档](https://nextjs.org/docs/getting-started/installation)。如果你的项目结构与我不一致，可以自行进行一些相关变更。
 
 Velite 的工作流程为：
 
@@ -154,10 +149,7 @@ class VeliteWebpackPlugin {
 module.exports = nextConfig;
 ```
 
-<Indicator type="info">
-  如果在这之前你已经修改过了 Next.js
-  的默认配置文件，可以根据自己配置，参照以上的内容将 Velite 相关逻辑添加进去。
-</Indicator>
+> 如果在这之前你已经修改过了 Next.js 的默认配置文件，可以根据自己配置，参照以上的内容将 Velite 相关逻辑添加进去。
 
 添加以上配置后，我们就可以像正常开发 Next.js 项目一样，不用关心 Velite 的存在了，想要使用 Velite 处理过的文件时，直接引入 `.velite` 里的内容即可。
 

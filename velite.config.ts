@@ -64,7 +64,7 @@ const tags = defineCollection({
 
 const posts = defineCollection({
   name: "Post",
-  pattern: "posts/**/*.mdx",
+  pattern: "posts/**/*.md",
   schema: s
     .object({
       title: s.string().max(99),
