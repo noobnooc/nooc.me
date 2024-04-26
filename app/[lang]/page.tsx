@@ -85,9 +85,9 @@ export default async function Home({
                   )}
                   link={work.link}
                 >
-                  <div className="flex gap-2 sm:gap-4">
+                  <div className="flex items-center gap-2 sm:gap-4">
                     <Image
-                      className="h-10 w-10 sm:h-20 sm:w-20 rounded-xl"
+                      className="h-10 w-10 sm:h-16 sm:w-16 rounded-2xl"
                       src={work.image!}
                       alt={dictionary.labels.icon(work.name)}
                     />

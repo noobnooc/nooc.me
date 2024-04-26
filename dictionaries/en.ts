@@ -27,11 +27,12 @@ import lofyee from "../public/lofyee.png";
 import subnooc from "../public/subnooc.png";
 import quwu from "../public/quwu.png";
 import youminco from "../public/youminco.png";
+import SparkMemosLogo from '../public/sparkmemos.webp';
 
 const dictionary = {
   meta: {
     baseUrl: "https://nooc.me",
-    websiteName: "Nooc's Yard",
+    websiteName: "Nooc the Noob",
     motto: "A noob named Nooc.",
     bio: `
 A person.
@@ -224,6 +225,14 @@ A fan of Serverless.
   ],
   works: [
     {
+      name: "Spark Memos",
+      summary: "A simple short-note-taking app.",
+      image: SparkMemosLogo,
+      link: "https://sparkmemos.com",
+      color: "orange",
+      primary: true,
+    },
+    {
       name: "YouminCO",
       summary: "A digital nomad community in Chinese.",
       image: youminco,
@@ -237,7 +246,7 @@ A fan of Serverless.
       image: AssisChat,
       link: "https://assischat.com",
       color: "green",
-      primary: true,
+      primary: false,
     },
     {
       name: "Lofyee",

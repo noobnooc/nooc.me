@@ -27,6 +27,7 @@ import lofyee from "../public/lofyee.png";
 import subnooc from "../public/subnooc.png";
 import quwu from "../public/quwu.png";
 import youminco from "../public/youminco.png";
+import SparkMemosLogo from '../public/sparkmemos.webp';
 
 const dictionary = {
   meta: {
@@ -219,6 +220,14 @@ Serverless 爱好者。
   ],
   works: [
     {
+      name: "星火记",
+      summary: "一个简洁的短笔记应用",
+      image: SparkMemosLogo,
+      link: "https://apps.apple.com/cn/app/spark-memos-inspiration/id6480926767?platform=ipad",
+      color: "orange",
+      primary: true,
+    },
+    {
       name: "游民CO",
       summary: "数字游民资讯网站",
       image: youminco,
@@ -232,7 +241,7 @@ Serverless 爱好者。
       image: AssisChat,
       link: "https://assischat.com",
       color: "green",
-      primary: true,
+      primary: false,
     },
     {
       name: "Lofyee",

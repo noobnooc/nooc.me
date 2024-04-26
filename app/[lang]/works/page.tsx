@@ -52,7 +52,7 @@ export default async function WorksPage({
           >
             {work.image ? (
               <Image
-                className="h-14 w-14 rounded-lg"
+                className="h-14 w-14 rounded-xl"
                 src={work.image}
                 alt={dictionary.labels.icon(work.name)}
               />
