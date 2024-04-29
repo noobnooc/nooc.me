@@ -6,7 +6,6 @@ import Link from "next/link";
 import { getDictionary, languageLabels } from "@/dictionaries";
 import { SiX } from "@icons-pack/react-simple-icons";
 import { Metadata } from "next";
-import { MDXContent } from "@/components/mdx-components";
 import classNames from "classnames";
 
 export const runtime = "edge";

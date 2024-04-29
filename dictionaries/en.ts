@@ -25,7 +25,6 @@ import xiaoshuiAvatar from "../public/avatars/xiaoshui.jpg";
 import AssisChat from "../public/assischat.png";
 import lofyee from "../public/lofyee.png";
 import subnooc from "../public/subnooc.png";
-import quwu from "../public/quwu.png";
 import youminco from "../public/youminco.png";
 import SparkMemosLogo from '../public/sparkmemos.webp';
 
