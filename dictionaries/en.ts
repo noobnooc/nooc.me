@@ -9,24 +9,24 @@ import {
   SiX,
 } from "@icons-pack/react-simple-icons";
 
-import avatar from "../public/avatar.png";
-import blankAvatar from "../public/avatars/blank.jpeg";
-import jiaZombieAvatar from "../public/avatars/jiazombie.png";
-import liunengAvatar from "../public/avatars/liuneng.jpg";
-import pilotAvatar from "../public/avatars/pilot.jpg";
-import gartnerAvatar from "../public/avatars/gartner.jpg";
-import anonymousAvatar from "../public/avatars/anonymous.jpeg";
-import xiaochengAvatar from "../public/avatars/xiaocheng.jpg";
-import changefengAvatar from "../public/avatars/changfeng.jpg";
-import yinAvatar from "../public/avatars/yin.jpg";
-import kuiziAvatar from "../public/avatars/kuizi.jpeg";
-import xiaoshuiAvatar from "../public/avatars/xiaoshui.jpg";
+import avatar from "../public/static/avatar.png";
+import blankAvatar from "../public/static/avatars/blank.jpeg";
+import jiaZombieAvatar from "../public/static/avatars/jiazombie.png";
+import liunengAvatar from "../public/static/avatars/liuneng.jpg";
+import pilotAvatar from "../public/static/avatars/pilot.jpg";
+import gartnerAvatar from "../public/static/avatars/gartner.jpg";
+import anonymousAvatar from "../public/static/avatars/anonymous.jpeg";
+import xiaochengAvatar from "../public/static/avatars/xiaocheng.jpg";
+import changefengAvatar from "../public/static/avatars/changfeng.jpg";
+import yinAvatar from "../public/static/avatars/yin.jpg";
+import kuiziAvatar from "../public/static/avatars/kuizi.jpeg";
+import xiaoshuiAvatar from "../public/static/avatars/xiaoshui.jpg";
 
-import AssisChat from "../public/assischat.png";
-import lofyee from "../public/lofyee.png";
-import subnooc from "../public/subnooc.png";
-import youminco from "../public/youminco.png";
-import SparkMemosLogo from '../public/sparkmemos.webp';
+import AssisChat from "../public/static/assischat.png";
+import lofyee from "../public/static/lofyee.png";
+import subnooc from "../public/static/subnooc.png";
+import youminco from "../public/static/youminco.png";
+import SparkMemosLogo from '../public/static/sparkmemos.webp';
 
 const dictionary = {
   meta: {

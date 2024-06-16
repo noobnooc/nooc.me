@@ -2,7 +2,7 @@ import "../../styles/globals.css";
 
 import { Metadata } from "next";
 import Image from "next/image";
-import avatar from "../../public/avatar.png";
+import avatar from "../../public/static/avatar.png";
 import Link from "next/link";
 import { dictionaryKeys, getDictionary } from "../../dictionaries";
 
@@ -32,14 +32,14 @@ export async function generateMetadata({
       title: dictionary.meta.websiteName,
       description: dictionary.meta.motto,
       siteName: dictionary.meta.websiteName,
-      images: "/banner.png",
+      images: "/static/banner.png",
     },
     twitter: {
       title: dictionary.meta.websiteName,
       description: dictionary.meta.motto,
       site: "@noobnooc",
       card: "summary_large_image",
-      images: "/banner.png",
+      images: "/static/banner.png",
     },
     alternates: {
       languages: Object.fromEntries(langEntries),
