@@ -2,7 +2,7 @@ import "../../styles/globals.css";
 
 import { Metadata } from "next";
 import Image from "next/image";
-import avatar from "../../public/static/avatar.png";
+import avatar from "../../public/static/avatar.webp";
 import Link from "next/link";
 import { dictionaryKeys, getDictionary } from "../../dictionaries";
 

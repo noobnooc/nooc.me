@@ -3,7 +3,7 @@
 import Card from "./card";
 import Image from "next/image";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/solid";
-import avatar from "../public/static/avatar.png";
+import avatar from "../public/static/avatar.webp";
 import FlippableCard from "./flippable-card";
 import { useCallback, useState } from "react";
 import classNames from "classnames";
