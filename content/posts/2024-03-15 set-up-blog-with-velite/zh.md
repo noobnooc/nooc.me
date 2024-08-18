@@ -72,12 +72,23 @@ Velite 的工作流程为：
 - 将处理后的结果输出到配置文件里 `output` 所设置的目录
 - 在 Next.js 项目中直接导入 Velite 处理后的结果，然后就可以开始进行各种操作啦
 
+## 安装 Velite
+
+首先，我们需要安装 Velite，然后才能正常引入 Velite 相关的配置。打开终端，执行以下命令：
+
+```bash
+# 如果使用的是其他包管理器，可以使用相应的命令
+npm install velite
+```
+
 ## 添加必要配置
 
-以上可以看出，我们会通过 `velite.config.ts` 这个配置文件来告诉 Velite 该如何工作。那话不多说，先在项目跟目录创建一个名为 `velite.config.ts` 的文件，并填入一下内容：
+上面提到，我们会通过 `velite.config.ts` 这个配置文件来告诉 Velite 该如何工作。那话不多说，先在项目跟目录创建一个名为 `velite.config.ts` 的文件，并填入一下内容：
 
 ```ts
 // velite.config.ts
+
+import { defineConfig } from "velite";
 
 export default defineConfig({
   root: "content",
@@ -121,30 +132,19 @@ public/static
 ```js
 // next.config.js
 
+const isDev = process.argv.indexOf('dev') !== -1
+const isBuild = process.argv.indexOf('build') !== -1
+if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
+  process.env.VELITE_STARTED = '1'
+  const { build } = await import('velite')
+  await build({ watch: isDev, clean: !isDev })
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  webpack: (config) => {
-    config.plugins.push(new VeliteWebpackPlugin());
-    return config;
-  },
 };
-
-class VeliteWebpackPlugin {
-  static started = false;
-  apply(/** @type {import('webpack').Compiler} */ compiler) {
-    // executed three times in nextjs
-    // twice for the server (nodejs / edge runtime) and once for the client
-    compiler.hooks.beforeCompile.tapPromise("VeliteWebpackPlugin", async () => {
-      if (VeliteWebpackPlugin.started) return;
-      VeliteWebpackPlugin.started = true;
-      const dev = compiler.options.mode === "development";
-      const { build } = await import("velite");
-      await build({ watch: dev, clean: !dev });
-    });
-  }
-}
 
 module.exports = nextConfig;
 ```
