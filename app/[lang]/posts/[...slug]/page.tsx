@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getDictionary, languageLabels } from "@/dictionaries";
 import { SiX } from "@icons-pack/react-simple-icons";
 import { Metadata } from "next";
+import Image from "next/image";
 import classNames from "classnames";
 
 export const runtime = "edge";
@@ -72,57 +73,72 @@ export default async function PostPage({
 
   return (
     <main className="mx-auto flex items-start w-full max-w-screen-lg gap-4 px-4 py-8 relative scroll-smooth">
-      <article className="rounded-3xl p-4 pb-8 sm:p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 grow-0 min-w-0">
-        <h1 className="text-3xl font-serif">{post.title}</h1>
-        <div className="opacity-50 flex items-center gap-4 mt-2">
-          <div className="flex items-center gap-1">
-            <CalendarDaysIcon className="w-4 h-4" />
-            {displayDate(post.date, params.lang)}
-          </div>
-
-          {otherLanguages.length ? (
+      <div className="flex flex-col gap-4">
+        <article className="rounded-3xl p-4 pb-8 sm:p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 grow-0 min-w-0">
+          <h1 className="text-3xl font-serif">{post.title}</h1>
+          <div className="opacity-50 flex items-center gap-4 mt-2">
             <div className="flex items-center gap-1">
-              <LanguageIcon className="w-4 h-4" />
-              {otherLanguages.map((post) => (
-                <Link
-                  key={post.lang}
-                  className="underline"
-                  href={post.permalink}
-                >
-                  {languageLabels[post.lang]}
-                </Link>
-              ))}
+              <CalendarDaysIcon className="w-4 h-4" />
+              {displayDate(post.date, params.lang)}
             </div>
-          ) : undefined}
-        </div>
-        <p className="opacity-70 mt-2">{post.description}</p>
-        <hr className="my-4" />
-        {/* <div className="leading-loose flex flex-col gap-4">
+
+            {otherLanguages.length ? (
+              <div className="flex items-center gap-1">
+                <LanguageIcon className="w-4 h-4" />
+                {otherLanguages.map((post) => (
+                  <Link
+                    key={post.lang}
+                    className="underline"
+                    href={post.permalink}
+                  >
+                    {languageLabels[post.lang]}
+                  </Link>
+                ))}
+              </div>
+            ) : undefined}
+          </div>
+          <p className="opacity-70 mt-2">{post.description}</p>
+          <hr className="my-4" />
+          {/* <div className="leading-loose flex flex-col gap-4">
           <MDXContent code={post.content} />
         </div> */}
-        <div
-          className={classNames(
-            "prose dark:prose-invert",
-            "prose-headings:font-serif prose-headings:mt-8",
-            "prose-h1:text-xl",
-            "prose-h2:text-lg",
-            "prose-blockquote:font-normal",
-            "prose-pre:border prose-pre:rounded-xl",
-            "before:prose-p:content-none after:prose-p:content-none",
-          )}
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        ></div>
-        <hr className="my-8" />
-        <div className="flex items-center gap-4">
-          <span className="opacity-50">{dictionary.labels.shareTo}</span>
-          <a
-            href={dictionary.urls.shareToX(post.title, post.permalink)}
-            target="_blank"
-          >
-            <SiX className="w-5 h-5" />
-          </a>
-        </div>
-      </article>
+          <div
+            className={classNames(
+              "prose dark:prose-invert",
+              "prose-headings:font-serif prose-headings:mt-8",
+              "prose-h1:text-xl",
+              "prose-h2:text-lg",
+              "prose-blockquote:font-normal",
+              "prose-pre:border prose-pre:rounded-xl",
+              "before:prose-p:content-none after:prose-p:content-none",
+            )}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          ></div>
+          <hr className="my-8" />
+          <div className="flex items-center gap-4">
+            <span className="opacity-50">{dictionary.labels.shareTo}</span>
+            <a
+              href={dictionary.urls.shareToX(post.title, post.permalink)}
+              target="_blank"
+            >
+              <SiX className="w-5 h-5" />
+            </a>
+          </div>
+        </article>
+        
+        <a 
+          className="flex gap-4 rounded-3xl p-4 pb-8 sm:p-8 border bg-white/50 dark:bg-indigo-100/5 md:basis-3/4 grow-0 min-w-0"
+          href={dictionary.postAdvertising.link}
+          target="_blank"
+        >
+          <Image className="rounded-xl w-16 h-16" src={dictionary.postAdvertising.icon} alt={dictionary.postAdvertising.title} />
+          <div className="flex flex-col gap-2">
+            <div className="opacity-70 text-sm">{dictionary.postAdvertising.title}</div>
+            <div className="">{dictionary.postAdvertising.description}</div>
+          </div>
+        </a>
+
+      </div>
       <section className="hidden md:flex md:basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col shrink-0">
         <label className="opacity-50 mb-4">{dictionary.labels.toc}</label>
         <ul className="flex flex-col gap-2 list-disc ml-6">

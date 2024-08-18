@@ -208,6 +208,12 @@ A fan of Serverless.
       icon: EnvelopeIcon,
     },
   ],
+  postAdvertising: {
+    title: "Support me",
+    description: "Spark Memos is a concise note-taking app for capturing ideas, inspirations, or for later reading and book notes.",
+    icon: SparkMemosLogo,
+    link: "https://sparkmemos.com",
+  },
 };
 
 export default dictionary;

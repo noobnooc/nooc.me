@@ -203,6 +203,12 @@ Serverless 爱好者。
       icon: EnvelopeIcon,
     },
   ],
+  postAdvertising: {
+    title: "支持我",
+    description: "「星火记」是一个简洁的短笔记应用，可以用来记录灵感、想法，或者是用于稍后阅读、读书笔记等。",
+    icon: SparkMemosLogo,
+    link: "https://sparkmemos.com",
+  },
 };
 
 export default dictionary;
