@@ -3,6 +3,7 @@ title: Integrating a Static Blog in a Next.js Project with Velite
 slug: integrate-a-blog-in-nextjs-with-velite
 lang: en
 date: 2024-03-17 00:00:00
+updated: 2024-08-28 00:00:00
 categories:
   - development
 description: In this article, I'll explain how to use Velite to add a static blog feature to a website built with Next.js. The final result will be similar to the blog system on this site.
@@ -127,10 +128,10 @@ After adding these two lines to `.gitignore`, Velite will not affect the state o
 
 If we execute the `npx velite` command, Velite will start processing files according to our definitions (because we haven't told it how to process which files, so it won't process anything). However, every time we want to execute `npx velite` in the development process, it's a bit cumbersome. So we can integrate the processing into Next.js, and let Velite automatically detect file changes and process them during `next dev` or `next build`.
 
-To implement this operation, we can add Velite's processing logic to `next.config.js`. Open the `next.config.js` file in the root directory and replace it with the following content:
+To achieve this operation, we can add Velite's processing logic in `next.config.js`. However, because this configuration uses `await` at the root of the file, we need to convert the file to ES Module format. Therefore, rename `next.config.js` to `next.config.mjs` and replace the content with the following configuration:
 
 ```js
-// next.config.js
+// next.config.mjs
 
 const isDev = process.argv.indexOf('dev') !== -1
 const isBuild = process.argv.indexOf('build') !== -1
@@ -146,7 +147,7 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = nextConfig;
+export default nextConfig;
 ```
 
 > If you have modified the default configuration file of Next.js before, you can add the Velite-related logic according to your configuration.

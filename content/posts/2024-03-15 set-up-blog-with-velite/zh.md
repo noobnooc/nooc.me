@@ -3,6 +3,7 @@ title: 使用 Velite 在 Next.js 项目中集成一个静态博客
 slug: integrate-a-blog-in-nextjs-with-velite
 lang: zh
 date: 2024-03-17 00:00:00
+updated: 2024-08-28 00:00:00
 categories:
   - development
 description: 在这篇文章里，我会介绍如何使用 Velite ，为使用 Next.js 搭建的网站，添加一个静态博客的功能。最终效果如本站的博客系统。
@@ -127,10 +128,10 @@ public/static
 
 这时如果我们执行 `npx velite` 命令，Velite 就会按照我们的定义开始处理文件了（因为我们没有告诉它该以何种方式处理哪些文件，所以不会进行任何处理）。但是，在开发过程中，每次都要执行 `npx velite` 难免有点繁琐，所以我们可以将处理过程集成到 Next.js 中，在执行 `next dev` 或 `next build` 的过程中，让 Velite 自动检测文件变化并处理。
 
-要实现这个操作，我们可以在 `next.config.js` 中添加 Velite 的处理逻辑。打开根目录下的 `next.config.js` 文件，并替换为以下内容：
+要实现这个操作，我们可以在 `next.config.js` 中添加 Velite 的处理逻辑，不过因为该配置在文件根部使用了 `await` ，要将文件改为 ES Module 的形式，所以需要将 `next.config.js` 更名为 `next.config.mjs`，并将内容替换为如下配置：
 
 ```js
-// next.config.js
+// next.config.mjs
 
 const isDev = process.argv.indexOf('dev') !== -1
 const isBuild = process.argv.indexOf('build') !== -1
@@ -146,7 +147,7 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = nextConfig;
+export default nextConfig;
 ```
 
 > 如果在这之前你已经修改过了 Next.js 的默认配置文件，可以根据自己配置，参照以上的内容将 Velite 相关逻辑添加进去。
