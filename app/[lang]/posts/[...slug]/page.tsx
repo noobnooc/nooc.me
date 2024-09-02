@@ -31,19 +31,20 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(dictionary.meta.baseUrl),
     title: post.title,
-    description: post.title,
+    description: post.description,
     keywords: dictionary.meta.fillKeywords(post.keywords),
     openGraph: {
+      type: "article",
       title: post.title,
-      description: post.title,
-      images: "/static/banner.png",
+      description: post.description,
+      images: post.cover?.src ?? "/static/banner.png",
     },
     twitter: {
       title: post.title,
-      description: post.title,
+      description: post.description,
       site: "@noobnooc",
       card: "summary_large_image",
-      images: "/static/banner.png",
+      images: post.cover?.src ?? "/static/banner.png",
     },
   };
 }
