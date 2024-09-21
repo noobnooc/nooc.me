@@ -212,12 +212,20 @@ Serverless 爱好者。
       icon: EnvelopeIcon,
     },
   ],
-  postAdvertising: {
-    title: "支持我",
-    description: "「星火记」是一个简洁的短笔记应用，可以用来记录灵感、想法，或者是用于稍后阅读、读书笔记等。",
-    icon: SparkMemosLogo,
-    link: "https://sparkmemos.com",
-  },
+  postAdvertisements: [
+    {
+      title: "支持我",
+      description: "「星火记」是一个简洁的短笔记应用，可以用来记录灵感、想法，或者是用于稍后阅读、读书笔记等。",
+      icon: SparkMemosLogo,
+      link: "https://sparkmemos.com",
+    },
+    {
+      title: "支持我",
+      description: "「CassetteOne」是一个模拟磁带机设计的复古风格白噪音和音乐播放器。",
+      icon: CassetteOneLogo,
+      link: "https://cassette.one",
+    }
+  ],
 };
 
 export default dictionary;

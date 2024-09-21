@@ -3,11 +3,11 @@ import { CalendarDaysIcon, LanguageIcon } from "@heroicons/react/24/solid";
 import { displayDate } from "@/lib/date";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getDictionary, languageLabels } from "@/dictionaries";
+import { getDictionary, Language, languageLabels } from "@/dictionaries";
 import { SiX } from "@icons-pack/react-simple-icons";
 import { Metadata } from "next";
-import Image from "next/image";
 import classNames from "classnames";
+import { PostAdvertising } from "./Advertising";
 
 export const runtime = "edge";
 
@@ -53,7 +53,7 @@ export default async function PostPage({
   params,
 }: {
   params: {
-    lang: string;
+    lang: Language;
     slug: string[];
   };
 }) {
@@ -127,17 +127,7 @@ export default async function PostPage({
           </div>
         </article>
         
-        <a 
-          className="flex gap-4 rounded-3xl p-4 pb-8 sm:p-8 border bg-white/50 dark:bg-indigo-100/5 md:basis-3/4 grow-0 min-w-0"
-          href={dictionary.postAdvertising.link}
-          target="_blank"
-        >
-          <Image className="rounded-xl w-16 h-16" src={dictionary.postAdvertising.icon} alt={dictionary.postAdvertising.title} />
-          <div className="flex flex-col gap-2">
-            <div className="opacity-70 text-sm">{dictionary.postAdvertising.title}</div>
-            <div className="">{dictionary.postAdvertising.description}</div>
-          </div>
-        </a>
+        <PostAdvertising advertisements={dictionary.postAdvertisements} />
 
       </div>
       <section className="hidden md:flex md:basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col shrink-0">

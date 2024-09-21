@@ -10,6 +10,8 @@ export const languageLabels = {
   zh: "中文",
 };
 
+export type Dictionary = Awaited<ReturnType<typeof dictionaries[keyof typeof dictionaries]>>;
+
 export type Language = keyof typeof languageLabels;
 
 export const dictionaryKeys = Object.keys(dictionaries);

@@ -217,12 +217,20 @@ A fan of Serverless.
       icon: EnvelopeIcon,
     },
   ],
-  postAdvertising: {
-    title: "Support me",
-    description: "Spark Memos is a concise note-taking app for capturing ideas, inspirations, or for later reading and book notes.",
-    icon: SparkMemosLogo,
-    link: "https://sparkmemos.com",
-  },
+  postAdvertisements:[
+    {
+      title: "Support me",
+      description: "Spark Memos is a concise note-taking app for capturing ideas, inspirations, or for later reading and book notes.",
+      icon: SparkMemosLogo,
+      link: "https://sparkmemos.com",
+    },
+    {
+      title: "Support me",
+      description: "CassetteOne is a retro design cassette white noise and music player for iOS.",
+      icon: CassetteOneLogo,
+      link: "https://cassette.one",
+    },
+  ],
 };
 
 export default dictionary;
