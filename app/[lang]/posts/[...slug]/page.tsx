@@ -74,8 +74,8 @@ export default async function PostPage({
 
   return (
     <main className="mx-auto flex items-start w-full max-w-screen-lg gap-4 px-4 py-8 relative scroll-smooth">
-      <div className="flex flex-col gap-4">
-        <article className="rounded-3xl p-4 pb-8 sm:p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 grow-0 min-w-0">
+      <div className="flex flex-col gap-4 w-full">
+        <article className="rounded-3xl p-4 pb-8 md:p-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col md:basis-3/4 grow-0 min-w-0">
           <h1 className="text-3xl font-serif">{post.title}</h1>
           <div className="opacity-50 flex items-center gap-4 mt-2">
             <div className="flex items-center gap-1">
