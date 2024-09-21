@@ -14,6 +14,7 @@ import lofyee from "../public/static/lofyee.webp";
 import subnooc from "../public/static/subnooc.webp";
 import youminco from "../public/static/youminco.webp";
 import SparkMemosLogo from '../public/static/sparkmemos.webp';
+import CassetteOneLogo from '../public/static/cassette-one.webp';
 
 const dictionary = {
   meta: {
@@ -131,6 +132,14 @@ Serverless 爱好者。
       primary: true,
     },
     {
+      name: "CassetteOne",
+      summary: "一个模拟磁带机设计的复古风格白噪音和音乐播放器。",
+      image: CassetteOneLogo,
+      link: "https://cassette.one",
+      color: "orange",
+      primary: true,
+    },
+    {
       name: "游民CO",
       summary: "数字游民资讯网站",
       image: youminco,
@@ -152,7 +161,7 @@ Serverless 爱好者。
       image: lofyee,
       link: "https://lofyee.com",
       color: "rose",
-      primary: true,
+      primary: false,
     },
     {
       name: "主观世界",

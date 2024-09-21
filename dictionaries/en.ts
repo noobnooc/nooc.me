@@ -14,6 +14,7 @@ import lofyee from "../public/static/lofyee.webp";
 import subnooc from "../public/static/subnooc.webp";
 import youminco from "../public/static/youminco.webp";
 import SparkMemosLogo from '../public/static/sparkmemos.webp';
+import CassetteOneLogo from '../public/static/cassette-one.webp';
 
 const dictionary = {
   meta: {
@@ -136,6 +137,14 @@ A fan of Serverless.
       primary: true,
     },
     {
+      name: "CassetteOne",
+      summary: "A retro design cassette music player for iOS.",
+      image: CassetteOneLogo,
+      link: "https://cassette.one",
+      color: "orange",
+      primary: true,
+    },
+    {
       name: "YouminCO",
       summary: "A digital nomad community in Chinese.",
       image: youminco,
@@ -157,7 +166,7 @@ A fan of Serverless.
       image: lofyee,
       link: "https://lofyee.com",
       color: "rose",
-      primary: true,
+      primary: false,
     },
     {
       name: "Subject World",
