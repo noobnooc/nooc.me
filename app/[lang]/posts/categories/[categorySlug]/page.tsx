@@ -75,7 +75,7 @@ export default async function CategoryPostsPage({
             key={post.slug}
             className="rounded-3xl p-4 border bg-white/50 dark:bg-indigo-100/5 flex flex-col gap-2"
           >
-            <Link className="underline" href={post.seoLink}>
+            <Link className="underline" href={post.permalink}>
               <h1 className="text-xl font-serif">{post.title}</h1>
             </Link>
             <p className="opacity-70">{post.description}</p>

@@ -14,11 +14,11 @@ export const runtime = "edge";
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: string; slug: string[] };
+  params: { lang: string; slug: string };
 }): Promise<Metadata> {
   const dictionary = await getDictionary(params.lang);
 
-  const [postSlug] = params.slug;
+  const postSlug = params.slug;
 
   const post = posts.find(
     (post) => post.lang === params.lang && post.slug === postSlug,
@@ -126,9 +126,8 @@ export default async function PostPage({
             </a>
           </div>
         </article>
-        
-        <PostAdvertising advertisements={dictionary.postAdvertisements} />
 
+        <PostAdvertising advertisements={dictionary.postAdvertisements} />
       </div>
       <section className="hidden md:flex md:basis-1/4 sticky top-28 border rounded-3xl p-4 flex-col shrink-0">
         <label className="opacity-50 mb-4">{dictionary.labels.toc}</label>

@@ -88,7 +88,6 @@ const posts = defineCollection({
     .transform((data) => ({
       ...data,
       permalink: `/${data.lang}/posts/${data.slug}`,
-      seoLink: `/${data.lang}/posts/${data.slug}/${data.title}`,
     })),
 });
 
