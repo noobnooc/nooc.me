@@ -14,15 +14,16 @@ export const runtime = "edge";
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: string; slug: string };
+  params: { lang: Language; postSlug: string };
 }): Promise<Metadata> {
-  const dictionary = await getDictionary(params.lang);
-
-  const postSlug = params.slug;
+  const { lang, postSlug } = params;
+  const dictionary = await getDictionary(lang);
 
   const post = posts.find(
-    (post) => post.lang === params.lang && post.slug === postSlug,
+    (post) => post.lang === lang && post.slug === postSlug,
   );
+
+  console.log("###", post);
 
   if (!post) {
     notFound();
@@ -54,14 +55,15 @@ export default async function PostPage({
 }: {
   params: {
     lang: Language;
-    slug: string[];
+    postSlug: string;
   };
 }) {
-  const dictionary = await getDictionary(params.lang);
-  const [postSlug] = params.slug;
+  const { lang, postSlug } = params;
+
+  const dictionary = await getDictionary(lang);
 
   const post = posts.find(
-    (post) => post.lang === params.lang && post.slug === postSlug,
+    (post) => post.lang === lang && post.slug === postSlug,
   );
 
   const otherLanguages = posts.filter(
