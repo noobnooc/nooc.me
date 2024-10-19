@@ -13,8 +13,8 @@ import AssisChat from "../public/static/assischat.webp";
 import lofyee from "../public/static/lofyee.webp";
 import subnooc from "../public/static/subnooc.webp";
 import youminco from "../public/static/youminco.webp";
-import SparkMemosLogo from '../public/static/sparkmemos.webp';
-import CassetteOneLogo from '../public/static/cassette-one.webp';
+import SparkMemosLogo from "../public/static/sparkmemos.webp";
+import CassetteOneLogo from "../public/static/cassette-one.webp";
 
 const dictionary = {
   meta: {
@@ -70,6 +70,7 @@ Serverless 爱好者。
     home: "主页",
     works: "作品",
     posts: "博客",
+    latestPosts: "最新博客",
     noocWorks: "Nooc的作品",
     doing: "在做什么",
     playing: "在玩什么",
@@ -215,16 +216,18 @@ Serverless 爱好者。
   postAdvertisements: [
     {
       title: "支持我",
-      description: "「星火记」是一个简洁的短笔记应用，可以用来记录灵感、想法，或者是用于稍后阅读、读书笔记等。",
+      description:
+        "「星火记」是一个简洁的短笔记应用，可以用来记录灵感、想法，或者是用于稍后阅读、读书笔记等。",
       icon: SparkMemosLogo,
       link: "https://sparkmemos.com",
     },
     {
       title: "支持我",
-      description: "「CassetteOne」是一个模拟磁带机设计的复古风格白噪音和音乐播放器。",
+      description:
+        "「CassetteOne」是一个模拟磁带机设计的复古风格白噪音和音乐播放器。",
       icon: CassetteOneLogo,
       link: "https://cassette.one",
-    }
+    },
   ],
 };
 

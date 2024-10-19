@@ -13,8 +13,8 @@ import AssisChat from "../public/static/assischat.webp";
 import lofyee from "../public/static/lofyee.webp";
 import subnooc from "../public/static/subnooc.webp";
 import youminco from "../public/static/youminco.webp";
-import SparkMemosLogo from '../public/static/sparkmemos.webp';
-import CassetteOneLogo from '../public/static/cassette-one.webp';
+import SparkMemosLogo from "../public/static/sparkmemos.webp";
+import CassetteOneLogo from "../public/static/cassette-one.webp";
 
 const dictionary = {
   meta: {
@@ -71,6 +71,7 @@ A fan of Serverless.
     home: "Home",
     works: "Works",
     posts: "Blog",
+    latestPosts: "Latest Posts",
     noocWorks: "Nooc's Works",
     doing: "Doing",
     playing: "Playing",
@@ -217,16 +218,18 @@ A fan of Serverless.
       icon: EnvelopeIcon,
     },
   ],
-  postAdvertisements:[
+  postAdvertisements: [
     {
       title: "Support me",
-      description: "Spark Memos is a concise note-taking app for capturing ideas, inspirations, or for later reading and book notes.",
+      description:
+        "Spark Memos is a concise note-taking app for capturing ideas, inspirations, or for later reading and book notes.",
       icon: SparkMemosLogo,
       link: "https://sparkmemos.com",
     },
     {
       title: "Support me",
-      description: "CassetteOne is a retro design cassette white noise and music player for iOS.",
+      description:
+        "CassetteOne is a retro design cassette white noise and music player for iOS.",
       icon: CassetteOneLogo,
       link: "https://cassette.one",
     },
