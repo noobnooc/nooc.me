@@ -38,8 +38,7 @@ export async function generateMetadata({
     },
     alternates: {
       languages: await getAlternateLanguages(
-        (dictionary) =>
-          new URL(dictionary.urls.home, dictionary.meta.baseUrl).href,
+        (dictionary) => dictionary.urls.home,
       ),
     },
   };
@@ -75,9 +74,9 @@ export default async function RootLayout({
                     src={avatar}
                     alt="Nooc Avatar"
                   />
-                  <h1 className="font-bold opacity-80 sm:inline">
+                  <div className="font-bold opacity-80 sm:inline">
                     {dictionary.meta.websiteName}
-                  </h1>
+                  </div>
                 </Link>
                 <nav className="font-light">
                   <ul className="flex gap-4">

@@ -19,9 +19,9 @@ function Title({
   children: ReactNode;
 }) {
   return (
-    <h1 className={twMerge("text-base font-bold sm:text-lg", className)}>
+    <h2 className={twMerge("text-base font-bold sm:text-lg", className)}>
       {children}
-    </h1>
+    </h2>
   );
 }
 
@@ -33,9 +33,9 @@ function Subtitle({
   children: ReactNode;
 }) {
   return (
-    <h2 className={twMerge("text-sm opacity-60 sm:text-base", className)}>
+    <h3 className={twMerge("text-sm opacity-60 sm:text-base", className)}>
       {children}
-    </h2>
+    </h3>
   );
 }
 
@@ -118,7 +118,7 @@ export default async function Home({
                 className="rounded-3xl p-4 sm:px-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col gap-2"
               >
                 <Link className="underline" href={post.permalink}>
-                  <h1 className="text-xl font-serif">{post.title}</h1>
+                  <h2 className="text-xl font-serif">{post.title}</h2>
                 </Link>
                 <p className="opacity-70">{post.description}</p>
                 <div className="opacity-50 flex items-center gap-4">

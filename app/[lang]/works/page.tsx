@@ -35,8 +35,7 @@ export async function generateMetadata({
     },
     alternates: {
       languages: await getAlternateLanguages(
-        (dictionary) =>
-          new URL(dictionary.urls.works, dictionary.meta.baseUrl).href,
+        (dictionary) => dictionary.urls.works,
       ),
     },
   };
@@ -78,9 +77,9 @@ export default async function WorksPage({
               </div>
             )}
             <div>
-              <h1 className={`text-${work.color}-500 text-bold sm:text-lg`}>
+              <h2 className={`text-${work.color}-500 text-bold sm:text-lg`}>
                 {work.name}
-              </h1>
+              </h2>
               <p className="opacity-60">{work.summary}</p>
             </div>
           </Card>

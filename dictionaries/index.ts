@@ -17,7 +17,7 @@ export type Dictionary = Awaited<
 export type Language = keyof typeof languageLabels;
 
 export const defaultLanguage: Language = "en";
-export const dictionaryKeys = Object.keys(dictionaries);
+export const dictionaryKeys = Object.keys(dictionaries) as Language[];
 
 export async function getDictionary(locale: string = defaultLanguage) {
   if (!(locale in dictionaries)) {

@@ -3,12 +3,7 @@ import { CalendarDaysIcon, LanguageIcon } from "@heroicons/react/24/solid";
 import { displayDate } from "@/lib/date";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import {
-  dictionaryKeys,
-  getDictionary,
-  Language,
-  languageLabels,
-} from "@/dictionaries";
+import { getDictionary, Language, languageLabels } from "@/dictionaries";
 import { SiX } from "@icons-pack/react-simple-icons";
 import { Metadata } from "next";
 import classNames from "classnames";
@@ -33,6 +28,8 @@ export async function generateMetadata({
     notFound();
   }
 
+  const allLanguages = posts.filter((post) => post.slug === postSlug);
+
   return {
     metadataBase: new URL(dictionary.meta.baseUrl),
     title: post.title,
@@ -54,8 +51,8 @@ export async function generateMetadata({
       images: post.cover?.src ?? "/static/banner.png",
     },
     alternates: {
-      languages: await getAlternateLanguages(
-        (dictionary) => new URL(post.permalink, dictionary.meta.baseUrl).href,
+      languages: Object.fromEntries(
+        allLanguages.map((post) => [post.lang, post.permalink]),
       ),
     },
   };

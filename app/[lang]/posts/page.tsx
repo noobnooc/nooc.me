@@ -36,8 +36,7 @@ export async function generateMetadata({
     },
     alternates: {
       languages: await getAlternateLanguages(
-        (dictionary) =>
-          new URL(dictionary.urls.posts, dictionary.meta.baseUrl).href,
+        (dictionary) => dictionary.urls.posts,
       ),
     },
   };
