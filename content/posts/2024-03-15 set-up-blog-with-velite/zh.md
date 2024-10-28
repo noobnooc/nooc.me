@@ -18,7 +18,7 @@ keywords:
   - 静态博客
 ---
 
-# 为什么又搭建了一个博客
+## 为什么又搭建了一个博客
 
 是的，我又在我的个人主页上集成了一个博客系统。在这之前，我已经有了一个个人博客「[主观世界](https://subnooc.com)」，不时也会在上面发发牢骚。但我对该博客的定位一直是只分享我自己的一些心得想法，或者是读书笔记这些篇生活向的东西，从一开始就没有打算在上面发布技术折腾相关的东西，甚至一开始就决定不会在该博客中放任何图片，始终保持纯文本的状态。
 
@@ -26,7 +26,7 @@ keywords:
 
 自然而然，这个博客应该集成到我的个人主页之中，应该要有高度的自定义能力。而且既然从 GitHub 搬出来了，那就必须得添加一些之前没有功能，于是我便实现了多语言翻译。此时如果你回到这篇文章的标题处，在下方便能看见英文和中文的切换链接。
 
-# 为什么使用静态博客
+## 为什么使用静态博客
 
 现在搭建博客一般有两种选择，像是 Wordpress、Ghost、Typeecho 等为代表的动态博客，和 Hugo、Hexo、Jekyll 等为代表的静态博客。静态博客和动态博客一个明显的区别，就是有没有数据库之分。如果有数据库，那么就是动态博客，如果没有，那么就是静态博客。
 
@@ -36,7 +36,7 @@ keywords:
 
 我的个人主页本就托管在 Cloudflare Pages 上，暂时也不太想引入数据库这种庞然大物，而且我也不是很在意互动。所以毫不犹豫地就选择了静态博客。
 
-# 为什么选择 Velite
+## 为什么选择 Velite
 
 [Velite](https://github.com/zce/velite) 是一个开源的 JavaScript 内容转换工具，它可以将 Markdown/MDX、 YAML 等文件，转换为类型安全的 JavaScript 数据。比如用来实现一个静态博客，可以使用它来将 Markdown 格式的文件，转换为数据，然后再在代码中将其展示出来。可能看起来有一点绕，为什么不直接使用现成的，像 [Hugo](https://gohugo.io)、[Hexo](https://hexo.io/index.html)，不都是直接将 Markdown 生成为静态网站吗。
 
@@ -60,7 +60,7 @@ Velite 使用 Zod 提供了数据类型检查，可以很大程度地保证类�
 
 所以基于上面这些原因，我最终选择了使用 Velite 来为我的个人主页集成博客功能。
 
-# 开始使用 Velite
+## 开始使用 Velite
 
 Velite 在其[官网](https://velite.js.org/guide/quick-start)有很详细的使用文档，如果想要仔细研究它能用来做什么，以及一些具体的细节，可以直接去官网查看。我这里只简单介绍一下在 Next.js 项目中，使用 Velite 集成一个静态博客的流程。
 
@@ -73,7 +73,7 @@ Velite 的工作流程为：
 - 将处理后的结果输出到配置文件里 `output` 所设置的目录
 - 在 Next.js 项目中直接导入 Velite 处理后的结果，然后就可以开始进行各种操作啦
 
-## 安装 Velite
+### 安装 Velite
 
 首先，我们需要安装 Velite，然后才能正常引入 Velite 相关的配置。打开终端，执行以下命令：
 
@@ -82,7 +82,7 @@ Velite 的工作流程为：
 npm install velite
 ```
 
-## 添加必要配置
+### 添加必要配置
 
 上面提到，我们会通过 `velite.config.ts` 这个配置文件来告诉 Velite 该如何工作。那话不多说，先在项目跟目录创建一个名为 `velite.config.ts` 的文件，并填入一下内容：
 
@@ -133,12 +133,12 @@ public/static
 ```js
 // next.config.mjs
 
-const isDev = process.argv.indexOf('dev') !== -1
-const isBuild = process.argv.indexOf('build') !== -1
+const isDev = process.argv.indexOf("dev") !== -1;
+const isBuild = process.argv.indexOf("build") !== -1;
 if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
-  process.env.VELITE_STARTED = '1'
-  const { build } = await import('velite')
-  await build({ watch: isDev, clean: !isDev })
+  process.env.VELITE_STARTED = "1";
+  const { build } = await import("velite");
+  await build({ watch: isDev, clean: !isDev });
 }
 
 /** @type {import('next').NextConfig} */
@@ -172,7 +172,7 @@ export default nextConfig;
 
 添加以上配置后，我就可以在任何地方方便地使用 `import {posts} from '@/velite'` 来引入 Velite 处理过的文件。
 
-## 定义文件处理方式
+### 定义文件处理方式
 
 到目前为止，我们已经完成了 Velite 的所有必要配置，但还差了最重要的一步 —— 告诉 Velite 该处理哪些文件，如何处理。
 
@@ -249,7 +249,7 @@ categories:
 
 现在我们就可以直接从 `.velite` 目录下导入我们的分类信息和文章内容啦。
 
-# 在 Next.js 中使用 Velite 生成的数据
+## 在 Next.js 中使用 Velite 生成的数据
 
 经过以上的设置后，我们可以直接引入 `.velite` 目录下 Velite 所构建的数据，然后在页面中进行任意使用。
 

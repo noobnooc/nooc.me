@@ -18,7 +18,7 @@ keywords:
   - Static blog
 ---
 
-# Why I Built Another Blog
+## Why I Built Another Blog
 
 Yes, I've integrated another blog system into my personal homepage. Before this, I already had a personal blog called "[Subjective World](https://subnooc.com)", where I occasionally share my thoughts. However, I've always positioned that blog to share only my personal insights or book notes, more life-oriented content. From the beginning, I never intended to publish anything related to technical tinkering there, and I even decided not to include any images, keeping it purely text-based.
 
@@ -26,7 +26,7 @@ But sometimes I still have the urge to share some tinkering records. I tried usi
 
 Naturally, this blog should be integrated into my personal homepage and should have a high degree of customization capability. And since I'm moving away from GitHub, I must add some features that weren't there before, so I implemented multilingual translation. Now, if you go back to the title of this article, you'll see language switch links for English and Chinese below.
 
-# Why Use a Static Blog
+## Why Use a Static Blog
 
 Nowadays, there are generally two choices for setting up a blog: dynamic blogs represented by Wordpress, Ghost, Typeecho, etc., and static blogs represented by Hugo, Hexo, Jekyll, etc. A clear distinction between static and dynamic blogs is whether they use a database. If there's a database, it's a dynamic blog; if not, it's a static blog.
 
@@ -36,7 +36,7 @@ The advantages of static blogs are purity (because they're all in file form) and
 
 My personal homepage is already hosted on Cloudflare Pages, and I don't want to introduce a behemoth like a database for now. Plus, I'm not too concerned about interactivity. So I chose a static blog without hesitation.
 
-# Why Choose Velite
+## Why Choose Velite
 
 [Velite](https://github.com/zce/velite) is an open-source JavaScript content conversion tool that can convert Markdown/MDX, YAML, and other files into type-safe JavaScript data. For example, to implement a static blog, you can use it to convert Markdown format files into data, and then display it in your code. It might seem a bit roundabout, why not use ready-made solutions like [Hugo](https://gohugo.io) or [Hexo](https://hexo.io/index.html), which directly generate static websites from Markdown?
 
@@ -60,7 +60,7 @@ Velite uses Zod to provide data type checking, which can greatly ensure type saf
 
 So based on these reasons, I ultimately chose to use Velite to integrate blog functionality into my personal homepage.
 
-# Getting Started with Velite
+## Getting Started with Velite
 
 Velite has detailed usage documentation on its [official website](https://velite.js.org/guide/quick-start). If you want to carefully study what it can be used for and some specific details, you can go directly to the official website to check. Here, I'll just briefly introduce the process of integrating a static blog in a Next.js project using Velite.
 
@@ -73,7 +73,7 @@ The workflow of Velite is:
 - Output the processed results to the directory set by `output` in the configuration file
 - In the Next.js project, directly import the results processed by Velite, and then you can start various operations
 
-## Installing Velite
+### Installing Velite
 
 First, we need to install Velite before we can properly import Velite-related configurations. Open the terminal and execute the following command:
 
@@ -82,7 +82,7 @@ First, we need to install Velite before we can properly import Velite-related co
 npm install velite
 ```
 
-## Adding Necessary Configuration
+### Adding Necessary Configuration
 
 As mentioned above, we will use the `velite.config.ts` configuration file to tell Velite how to work. So let's create a file named `velite.config.ts` in the project root directory and fill it in with the following content:
 
@@ -133,12 +133,12 @@ To achieve this operation, we can add Velite's processing logic in `next.config.
 ```js
 // next.config.mjs
 
-const isDev = process.argv.indexOf('dev') !== -1
-const isBuild = process.argv.indexOf('build') !== -1
+const isDev = process.argv.indexOf("dev") !== -1;
+const isBuild = process.argv.indexOf("build") !== -1;
 if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
-  process.env.VELITE_STARTED = '1'
-  const { build } = await import('velite')
-  await build({ watch: isDev, clean: !isDev })
+  process.env.VELITE_STARTED = "1";
+  const { build } = await import("velite");
+  await build({ watch: isDev, clean: !isDev });
 }
 
 /** @type {import('next').NextConfig} */
@@ -172,7 +172,7 @@ If our project structure is deep, to avoid the situation of `import {posts} from
 
 After adding the above configuration, I can easily use `import {posts} from '@/velite'` to import the processed files.
 
-## Define file processing methods
+### Define file processing methods
 
 So far, we have completed all the necessary configurations for Velite, but we still need to tell Velite which files to process and how to process them.
 
@@ -249,7 +249,7 @@ Hello! This is my first article on my blog.
 
 Now we can directly import our category information and article content from the `.velite` directory.
 
-# Using Velite's generated data in Next.js
+## Using Velite's generated data in Next.js
 
 After the above settings, we can directly import the data built by Velite in the `.velite` directory, and then use it in the page as needed.
 

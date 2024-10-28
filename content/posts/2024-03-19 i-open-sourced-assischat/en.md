@@ -18,7 +18,7 @@ keywords:
   - Claude API
 ---
 
-# Introduction to AssisChat
+## Introduction to AssisChat
 
 About a year ago, when AI chat was gaining popularity and ChatGPT had a highly acclaimed model, there was no user-friendly web interface and no official mobile app. However, the demand for a mobile app was strong, and I myself wanted a mobile application to easily interact with ChatGPT anytime, anywhere.
 
@@ -42,7 +42,7 @@ The idea for the keyboard extension came from an interesting app called [Smarty]
 
 After some friends started using the app, they provided feedback and suggestions. As a result, I gradually added support for Claude API, context size limits, iCloud synchronization, QR code configuration import, and macOS support.
 
-# Why Open Source?
+## Why Open Source?
 
 Shortly after releasing the app to the store, I added an in-app purchase to see if it could cover the $600 annual Apple developer account fee. Although purchasing or not purchasing the in-app feature had no impact on the app's functionality, many users still bought it to show their support. I didn't keep detailed statistics, but I believe that over the course of the year, it roughly covered the developer fee.
 

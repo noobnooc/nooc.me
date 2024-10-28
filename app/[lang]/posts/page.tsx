@@ -2,8 +2,9 @@ import { posts, categories } from "@/.velite";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { displayDate } from "../../../lib/date";
-import { Language, getDictionary } from "@/dictionaries";
+import { Language, dictionaryKeys, getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
+import { getAlternateLanguages } from "@/lib/metadata";
 
 export const runtime = "edge";
 
@@ -20,14 +21,24 @@ export async function generateMetadata({
     description: dictionary.labels.posts,
     keywords: dictionary.meta.fillKeywords([]),
     openGraph: {
+      type: "website",
+      url: new URL(dictionary.urls.posts, dictionary.meta.baseUrl).href,
+      siteName: dictionary.meta.websiteName,
       title: dictionary.labels.posts,
       description: dictionary.labels.posts,
+      images: "/static/banner.png",
     },
     twitter: {
       title: dictionary.labels.posts,
       description: dictionary.labels.posts,
       site: "@noobnooc",
       card: "summary_large_image",
+    },
+    alternates: {
+      languages: await getAlternateLanguages(
+        (dictionary) =>
+          new URL(dictionary.urls.posts, dictionary.meta.baseUrl).href,
+      ),
     },
   };
 }
@@ -57,7 +68,7 @@ export default async function PostsPage({
             className="rounded-3xl p-4 sm:px-8 border bg-white/50 dark:bg-indigo-100/5 flex flex-col gap-2"
           >
             <Link className="underline" href={post.permalink}>
-              <h1 className="text-xl font-serif">{post.title}</h1>
+              <h2 className="text-xl font-serif">{post.title}</h2>
             </Link>
             <p className="opacity-70">{post.description}</p>
             <div className="opacity-50 flex items-center gap-4">

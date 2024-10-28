@@ -1,8 +1,9 @@
 import Card from "../../../components/card";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { getDictionary } from "../../../dictionaries";
+import { dictionaryKeys, getDictionary } from "../../../dictionaries";
 import { Metadata } from "next";
+import { getAlternateLanguages } from "@/lib/metadata";
 
 export const runtime = "edge";
 
@@ -19,14 +20,24 @@ export async function generateMetadata({
     description: dictionary.labels.noocWorks,
     keywords: dictionary.meta.fillKeywords([]),
     openGraph: {
+      type: "website",
+      url: new URL(dictionary.urls.works, dictionary.meta.baseUrl).href,
+      siteName: dictionary.meta.websiteName,
       title: dictionary.labels.works,
       description: dictionary.labels.noocWorks,
+      images: "/static/banner.png",
     },
     twitter: {
       title: dictionary.labels.works,
       description: dictionary.labels.noocWorks,
       site: "@noobnooc",
       card: "summary_large_image",
+    },
+    alternates: {
+      languages: await getAlternateLanguages(
+        (dictionary) =>
+          new URL(dictionary.urls.works, dictionary.meta.baseUrl).href,
+      ),
     },
   };
 }
