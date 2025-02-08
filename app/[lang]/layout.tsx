@@ -6,6 +6,7 @@ import avatar from "../../public/static/avatar.webp";
 import Link from "next/link";
 import { dictionaryKeys, getDictionary } from "../../dictionaries";
 import { getAlternateLanguages } from "@/lib/metadata";
+import Script from "next/script";
 
 export const runtime = "edge";
 
@@ -124,6 +125,12 @@ export default async function RootLayout({
           <hr />
         </footer>
       </body>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3512386112816826"
+        strategy="lazyOnload"
+        crossOrigin="anonymous"
+      ></Script>
     </html>
   );
 }
