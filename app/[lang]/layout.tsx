@@ -120,7 +120,7 @@ export default async function RootLayout({
                   ))}
               </ul>
             </nav>
-            <p className="opacity-60">© 2023 Nooc</p>
+            <p className="opacity-60">© 2025 Nooc</p>
           </div>
           <hr />
         </footer>
