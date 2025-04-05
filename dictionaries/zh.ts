@@ -15,6 +15,7 @@ import subnooc from "../public/static/subnooc.webp";
 import youminco from "../public/static/youminco.webp";
 import SparkMemosLogo from "../public/static/sparkmemos.webp";
 import CassetteOneLogo from "../public/static/cassette-one.webp";
+import echobellLogo from "../public/static/echobell.webp";
 
 const dictionary = {
   meta: {
@@ -125,6 +126,14 @@ Serverless 爱好者。
   ],
   works: [
     {
+      name: "回声铃",
+      summary: "Webhook/Email 转通知/电话",
+      image: echobellLogo,
+      link: "https://echobell.one",
+      color: "orange",
+      primary: true,
+    },
+    {
       name: "星火记",
       summary: "一个简洁的短笔记应用",
       image: SparkMemosLogo,
@@ -214,6 +223,13 @@ Serverless 爱好者。
     },
   ],
   postAdvertisements: [
+    {
+      title: "支持我",
+      description:
+        "「回声铃」是一款可以将 Webhook/Email 转为通知/电话的 iOS 应用。",
+      icon: echobellLogo,
+      link: "https://apps.apple.com/app/id6743597198",
+    },
     {
       title: "支持我",
       description:

@@ -15,6 +15,7 @@ import subnooc from "../public/static/subnooc.webp";
 import youminco from "../public/static/youminco.webp";
 import SparkMemosLogo from "../public/static/sparkmemos.webp";
 import CassetteOneLogo from "../public/static/cassette-one.webp";
+import echobellLogo from "../public/static/echobell.webp";
 
 const dictionary = {
   meta: {
@@ -130,6 +131,14 @@ A fan of Serverless.
   ],
   works: [
     {
+      name: "Echobell",
+      summary: "Instant alerts.",
+      image: echobellLogo,
+      link: "https://echobell.one",
+      color: "orange",
+      primary: true,
+    },
+    {
       name: "Spark Memos",
       summary: "A simple short-note-taking app.",
       image: SparkMemosLogo,
@@ -175,7 +184,7 @@ A fan of Serverless.
       image: subnooc,
       link: "https://subnooc.com",
       color: "red",
-      primary: true,
+      primary: false,
     },
     {
       name: "OhMyGPT",
@@ -219,6 +228,13 @@ A fan of Serverless.
     },
   ],
   postAdvertisements: [
+    {
+      title: "Support me",
+      description:
+        "Echobell can convert Webhook/Email to app notifications and calls.",
+      icon: echobellLogo,
+      link: "https://apps.apple.com/app/id6743597198",
+    },
     {
       title: "Support me",
       description:
