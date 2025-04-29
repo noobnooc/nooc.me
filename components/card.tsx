@@ -16,7 +16,7 @@ export default function Card({
   );
 
   return link ? (
-    <a className={classString} target="_blank" href={link}>
+    <a className={classString} target="_blank" rel="noopener" href={link}>
       {children}
     </a>
   ) : (

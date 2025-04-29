@@ -75,7 +75,7 @@ export default async function RootLayout({
                     src={avatar}
                     alt="Nooc Avatar"
                   />
-                  <div className="font-bold opacity-80 sm:inline">
+                  <div className="font-bold hidden opacity-80 md:inline">
                     {dictionary.meta.websiteName}
                   </div>
                 </Link>
@@ -94,6 +94,11 @@ export default async function RootLayout({
                     <li>
                       <Link href={dictionary.urls.works}>
                         {dictionary.labels.works}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href={dictionary.urls.tools}>
+                        {dictionary.labels.tools}
                       </Link>
                     </li>
                   </ul>

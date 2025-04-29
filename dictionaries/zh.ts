@@ -16,6 +16,13 @@ import youminco from "../public/static/youminco.webp";
 import SparkMemosLogo from "../public/static/sparkmemos.webp";
 import CassetteOneLogo from "../public/static/cassette-one.webp";
 import echobellLogo from "../public/static/echobell.webp";
+import raycast from "../public/images/tools/raycast.webp";
+import cleanshot from "../public/images/tools/cleanshot.webp";
+import orbstack from "../public/images/tools/orbstack.webp";
+import tableplus from "../public/images/tools/tableplus.webp";
+import httpie from "../public/images/tools/httpie.webp";
+import shots from "../public/images/tools/shots.webp";
+import astro from "../public/images/tools/astro.webp";
 
 const dictionary = {
   meta: {
@@ -60,6 +67,7 @@ Serverless 爱好者。
     home: "/zh",
     works: "/zh/works",
     posts: "/zh/posts",
+    tools: "/zh/tools",
 
     shareToX(title: string, postLink: string) {
       return `https://twitter.com/share?text=${encodeURIComponent(
@@ -71,8 +79,10 @@ Serverless 爱好者。
     home: "主页",
     works: "作品",
     posts: "博客",
+    tools: "工具",
     latestPosts: "最新博客",
     noocWorks: "Nooc的作品",
+    noocTools: "Nooc的工具",
     doing: "在做什么",
     playing: "在玩什么",
     contactMe: "联系我",
@@ -84,6 +94,79 @@ Serverless 爱好者。
       return `${label}的图标`;
     },
   },
+  tools: [
+    {
+      name: "Raycast",
+      summary: "Raycast 是一款功能丰富、扩展性强的 macOS 启动器。",
+      link: "https://raycast.com/?via=nooc",
+      color: "orange",
+      icon: raycast,
+      rating: 5,
+      platform: "macOS",
+      pricing: "免费增值",
+    },
+    {
+      name: "OrbStack",
+      summary: "OrbStack 是简单轻便的运行 Docker 容器和 Linux 的的方法。",
+      link: "https://orbstack.dev",
+      color: "indigo",
+      icon: orbstack,
+      rating: 5,
+      platform: "macOS",
+      pricing: "免费增值",
+    },
+    {
+      name: "CleanShot",
+      summary:
+        "CleanShot X 提供了从截图到录屏的大部分功能，且拥有简洁美观的界面。",
+      link: "https://cleanshot.com",
+      color: "blue",
+      icon: cleanshot,
+      rating: 4.5,
+      platform: "macOS",
+      pricing: "付费",
+    },
+    {
+      name: "HTTPie",
+      summary: "HTTPie 是一个简单直观的 HTTP 客户端。",
+      link: "https://httpie.io",
+      color: "green",
+      icon: httpie,
+      rating: 4.5,
+      platform: "Desktop, Web",
+      pricing: "免费",
+    },
+    {
+      name: "Shots",
+      summary: "Shots 帮助您从屏幕截图中创建精美的社交分享图。",
+      link: "https://shots.so",
+      color: "pink",
+      icon: shots,
+      rating: 4.5,
+      platform: "Web",
+      pricing: "免费",
+    },
+    {
+      name: "TablePlus",
+      summary: "TablePlus 是一个强大的数据库管理图形用户界面工具。",
+      link: "https://tableplus.com",
+      color: "yellow",
+      icon: tableplus,
+      rating: 4,
+      platform: "Desktop, iOS",
+      pricing: "免费增值",
+    },
+    {
+      name: "Astro",
+      summary: "Astro 是一款用于 App Store 优化的 ASO 关键词工具。",
+      link: "https://tryastro.app?aff=kMo5R",
+      color: "purple",
+      icon: astro,
+      rating: 3.5,
+      platform: "macOS",
+      pricing: "付费",
+    },
+  ],
   playingItems: [
     {
       name: "TypeScript",

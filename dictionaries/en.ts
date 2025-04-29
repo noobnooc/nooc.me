@@ -16,6 +16,13 @@ import youminco from "../public/static/youminco.webp";
 import SparkMemosLogo from "../public/static/sparkmemos.webp";
 import CassetteOneLogo from "../public/static/cassette-one.webp";
 import echobellLogo from "../public/static/echobell.webp";
+import raycast from "../public/images/tools/raycast.webp";
+import orbstack from "../public/images/tools/orbstack.webp";
+import cleanshot from "../public/images/tools/cleanshot.webp";
+import tableplus from "../public/images/tools/tableplus.webp";
+import httpie from "../public/images/tools/httpie.webp";
+import shots from "../public/images/tools/shots.webp";
+import astro from "../public/images/tools/astro.webp";
 
 const dictionary = {
   meta: {
@@ -61,6 +68,7 @@ A fan of Serverless.
     home: "/en",
     works: "/en/works",
     posts: "/en/posts",
+    tools: "/en/tools",
 
     shareToX(title: string, postLink: string) {
       return `https://twitter.com/share?text=${encodeURIComponent(
@@ -72,8 +80,10 @@ A fan of Serverless.
     home: "Home",
     works: "Works",
     posts: "Blog",
+    tools: "Tools",
     latestPosts: "Latest Posts",
     noocWorks: "Nooc's Works",
+    noocTools: "Nooc's Tools",
     doing: "Doing",
     playing: "Playing",
     contactMe: "Contact Me",
@@ -85,6 +95,83 @@ A fan of Serverless.
       return `Icon for ${label}`;
     },
   },
+  tools: [
+    {
+      name: "Raycast",
+      summary:
+        "Raycast is a blazingly fast, totally extendable launcher for macOS.",
+      link: "https://raycast.com/?via=nooc",
+      color: "orange",
+      icon: raycast,
+      rating: 5,
+      platform: "macOS",
+      pricing: "freemium",
+    },
+    {
+      name: "OrbStack",
+      summary:
+        "OrbStack is the fast, light, and easy way to run Docker containers and Linux.",
+      link: "https://orbstack.dev",
+      color: "indigo",
+      icon: orbstack,
+      rating: 5,
+      platform: "macOS",
+      pricing: "freemium",
+    },
+    {
+      name: "CleanShot",
+      summary:
+        "CleanShot X provides over 50 features making it the ultimate screen capturing tool.",
+      link: "https://cleanshot.com",
+      color: "blue",
+      icon: cleanshot,
+      rating: 4.5,
+      platform: "macOS",
+      pricing: "paid",
+    },
+    {
+      name: "HTTPie",
+      summary:
+        "HTTPie is a command-line HTTP client that makes APIs simple and intuitive.",
+      link: "https://httpie.io",
+      color: "green",
+      icon: httpie,
+      rating: 4.5,
+      platform: "Desktop, Web",
+      pricing: "free",
+    },
+    {
+      name: "Shots",
+      summary:
+        "Shots helps you create beautiful presentations from screen captures.",
+      link: "https://shots.so",
+      color: "pink",
+      icon: shots,
+      rating: 4.5,
+      platform: "Web",
+      pricing: "free",
+    },
+    {
+      name: "TablePlus",
+      summary: "TablePlus is a powerful GUI tool for database management.",
+      link: "https://tableplus.com",
+      color: "yellow",
+      icon: tableplus,
+      rating: 4,
+      platform: "Desktop, iOS",
+      pricing: "freemium",
+    },
+    {
+      name: "Astro",
+      summary: "Astro is an ASO keywords tool for App Store optimization.",
+      link: "https://tryastro.app?aff=kMo5R",
+      color: "purple",
+      icon: astro,
+      rating: 3.5,
+      platform: "macOS",
+      pricing: "paid",
+    },
+  ],
   playingItems: [
     {
       name: "TypeScript",
