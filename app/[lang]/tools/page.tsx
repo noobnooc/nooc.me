@@ -117,9 +117,9 @@ export default async function ToolsPage({
                       {tool.pricing && (
                         <span
                           className={`text-xs rounded-full px-2 py-0.5 ${
-                            tool.pricing === "free"
+                            ["free", "免费"].includes(tool.pricing)
                               ? "bg-green-200 dark:bg-green-800"
-                              : tool.pricing === "freemium"
+                              : ["freemium", "免费增值"].includes(tool.pricing)
                                 ? "bg-blue-200 dark:bg-blue-800"
                                 : "bg-amber-200 dark:bg-amber-800"
                           }`}
