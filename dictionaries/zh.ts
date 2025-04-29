@@ -107,7 +107,7 @@ Serverless 爱好者。
     },
     {
       name: "OrbStack",
-      summary: "OrbStack 是简单轻便的运行 Docker 容器和 Linux 的的方法。",
+      summary: "OrbStack 是一个简单轻便的运行 Docker 容器和 Linux 的工具。",
       link: "https://orbstack.dev",
       color: "indigo",
       icon: orbstack,
