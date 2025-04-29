@@ -179,7 +179,7 @@ Serverless 爱好者。
       image: subnooc,
       link: "https://subnooc.com",
       color: "red",
-      primary: true,
+      primary: false,
     },
     {
       name: "OhMyGPT",
