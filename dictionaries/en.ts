@@ -320,7 +320,7 @@ A fan of Serverless.
       description:
         "Echobell can convert Webhook/Email to app notifications and calls.",
       icon: echobellLogo,
-      link: "https://apps.apple.com/app/id6743597198",
+      link: "https://apps.apple.com/app/apple-store/id6743597198?pt=126931111&ct=Nooc&mt=8",
     },
     {
       title: "Support me",

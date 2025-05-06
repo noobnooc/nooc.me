@@ -220,7 +220,7 @@ Serverless 爱好者。
       name: "星火记",
       summary: "一个简洁的短笔记应用",
       image: SparkMemosLogo,
-      link: "https://apps.apple.com/cn/app/spark-memos-inspiration/id6480926767?platform=ipad",
+      link: "https://sparkmemos.com",
       color: "orange",
       primary: true,
     },
@@ -311,7 +311,7 @@ Serverless 爱好者。
       description:
         "「回声铃」是一款可以将 Webhook/Email 转为通知/电话的 iOS 应用。",
       icon: echobellLogo,
-      link: "https://apps.apple.com/app/id6743597198",
+      link: "https://apps.apple.com/app/apple-store/id6743597198?pt=126931111&ct=Nooc&mt=8",
     },
     {
       title: "支持我",
