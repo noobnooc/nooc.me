@@ -1,6 +1,6 @@
 ---
 title: Get Notified When Your GitHub Repository Receives a New Star
-slug: get-notified-when-github-repository-receives-a-new-star
+slug: get-notified-when-github-got-a-new-star
 lang: en
 date: 2025-05-07 14:30:00
 categories:
