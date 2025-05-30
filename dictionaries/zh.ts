@@ -119,7 +119,7 @@ Serverless 爱好者。
       name: "CleanShot",
       summary:
         "CleanShot X 提供了从截图到录屏的大部分功能，且拥有简洁美观的界面。",
-      link: "https://cleanshot.com",
+      link: "https://cleanshot.sjv.io/9LxN54",
       color: "blue",
       icon: cleanshot,
       rating: 4.5,

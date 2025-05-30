@@ -122,7 +122,7 @@ A fan of Serverless.
       name: "CleanShot",
       summary:
         "CleanShot X provides over 50 features making it the ultimate screen capturing tool.",
-      link: "https://cleanshot.com",
+      link: "https://cleanshot.sjv.io/9LxN54",
       color: "blue",
       icon: cleanshot,
       rating: 4.5,
