@@ -133,13 +133,13 @@ A fan of Serverless.
     {
       name: "Wise",
       summary:
-        "Wise 是一个跨境收款/转账/支付工具，汇率比较划算且 App 界面友好。",
+        "Wise is a cross-border payment/transfer tool with favorable exchange rates and a user-friendly app interface.",
       link: "https://wise.com/invite/ihpc/1q2ntua",
       color: "green",
       icon: wise,
       rating: 5,
       platform: "Web, iOS, Android",
-      pricing: "免费",
+      pricing: "free",
     },
     {
       name: "HTTPie",
