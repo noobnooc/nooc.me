@@ -23,6 +23,7 @@ import tableplus from "../public/images/tools/tableplus.webp";
 import httpie from "../public/images/tools/httpie.webp";
 import shots from "../public/images/tools/shots.webp";
 import astro from "../public/images/tools/astro.webp";
+import wise from "../public/images/tools/wise.webp";
 
 const dictionary = {
   meta: {
@@ -125,6 +126,17 @@ Serverless 爱好者。
       rating: 4.5,
       platform: "macOS",
       pricing: "付费",
+    },
+    {
+      name: "Wise",
+      summary:
+        "Wise 是一个跨境收款/转账/支付工具，汇率比较划算且 App 界面友好。",
+      link: "https://wise.com/invite/ihpc/1q2ntua",
+      color: "green",
+      icon: wise,
+      rating: 5,
+      platform: "Web, iOS, Android",
+      pricing: "免费",
     },
     {
       name: "HTTPie",
