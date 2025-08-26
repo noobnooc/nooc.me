@@ -6,6 +6,7 @@ import { getAlternateLanguages } from "@/lib/metadata";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { getToolSlug } from "@/lib/slugify";
 
 export const runtime = "edge";
 
@@ -90,6 +91,9 @@ export default async function ToolsPage({
     <main className="mx-auto flex w-full max-w-screen-lg flex-col gap-4 px-4 py-8">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {dictionary.tools.map((tool) => {
+          const toolSlug = getToolSlug(tool.name);
+          const toolUrl = `${dictionary.urls.tools}/${toolSlug}`;
+          
           return (
             <Card
               key={tool.name}
@@ -97,7 +101,7 @@ export default async function ToolsPage({
                 "flex flex-col gap-4",
                 `bg-${tool.color}-300/10 dark:bg-${tool.color}-400/10`,
               )}
-              link={tool.link}
+              link={toolUrl}
             >
               <div className="flex flex-col gap-3">
                 <div className="flex items-start justify-between">

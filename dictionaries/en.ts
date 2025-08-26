@@ -92,6 +92,10 @@ A fan of Serverless.
     categories: "Categories",
     shareTo: "Share to: ",
     subnooc: "Subjective Nooc",
+    backToTools: "Back to Tools",
+    platform: "Platform",
+    pricing: "Pricing",
+    visitTool: "Visit",
     icon(label: string) {
       return `Icon for ${label}`;
     },

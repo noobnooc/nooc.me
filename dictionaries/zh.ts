@@ -91,6 +91,10 @@ Serverless 爱好者。
     categories: "分类",
     shareTo: "分享到：",
     subnooc: "主观世界",
+    backToTools: "返回工具",
+    platform: "平台",
+    pricing: "定价",
+    visitTool: "访问",
     icon(label: string) {
       return `${label}的图标`;
     },
