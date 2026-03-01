@@ -291,9 +291,13 @@ const STICKERS: StickerDefinition[] = [
 ];
 
 type StickerLayout = Record<StickerId, { x: number; y: number }>;
+type StickerOrder = StickerId[];
 
-const STICKER_STORAGE_KEY = "__printer_sticker_layout_v4__";
+const DEFAULT_STICKER_ORDER: StickerOrder = STICKERS.map((sticker) => sticker.id);
+const STICKER_STORAGE_KEY = "__printer_sticker_layout_v5__";
+const STICKER_ORDER_STORAGE_KEY = "__printer_sticker_order_v1__";
 let stickerLayoutMemory: StickerLayout | null = null;
+let stickerOrderMemory: StickerOrder | null = null;
 const STICKER_NORMALIZE_EPSILON_PX = 4;
 const SHELL_BOTTOM_SECTION_HEIGHT_PX = 20;
 const SHELL_BOTTOM_SAFE_GAP_PX = 2;
@@ -315,7 +319,18 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-function createRandomStickerLayout(): StickerLayout {
+function getStickerBoundsForShell(sticker: StickerDefinition, shellWidth: number, shellHeight: number) {
+  const minCenterX = sticker.width / 2;
+  const maxCenterX = Math.max(minCenterX, shellWidth - sticker.width / 2);
+  const minCenterY = sticker.height / 2;
+  const maxCenterY = Math.max(
+    minCenterY,
+    shellHeight - SHELL_BOTTOM_SECTION_HEIGHT_PX - SHELL_BOTTOM_SAFE_GAP_PX - sticker.height / 2,
+  );
+  return { minCenterX, maxCenterX, minCenterY, maxCenterY };
+}
+
+function createRandomStickerLayout(shellRect: DOMRect): StickerLayout {
   const anchors = [...STICKER_ANCHORS];
 
   for (let i = anchors.length - 1; i > 0; i -= 1) {
@@ -328,9 +343,12 @@ function createRandomStickerLayout(): StickerLayout {
   for (let index = 0; index < STICKERS.length; index += 1) {
     const sticker = STICKERS[index];
     const anchor = anchors[index] ?? { x: 0.5, y: 0.5 };
+    const bounds = getStickerBoundsForShell(sticker, shellRect.width, shellRect.height);
+    const centerX = clamp((anchor.x + (Math.random() - 0.5) * 0.05) * shellRect.width, bounds.minCenterX, bounds.maxCenterX);
+    const centerY = clamp((anchor.y + (Math.random() - 0.5) * 0.04) * shellRect.height, bounds.minCenterY, bounds.maxCenterY);
     layout[sticker.id] = {
-      x: clamp(anchor.x + (Math.random() - 0.5) * 0.05, 0.08, 0.92),
-      y: clamp(anchor.y + (Math.random() - 0.5) * 0.04, 0.1, 0.94),
+      x: centerX,
+      y: centerY,
     };
   }
 
@@ -351,8 +369,8 @@ function parseStickerLayout(raw: string | null): StickerLayout | null {
       }
 
       layout[sticker.id] = {
-        x: clamp(position.x, 0, 1),
-        y: clamp(position.y, 0, 1),
+        x: position.x,
+        y: position.y,
       };
     }
 
@@ -360,6 +378,36 @@ function parseStickerLayout(raw: string | null): StickerLayout | null {
   } catch {
     return null;
   }
+}
+
+function parseStickerOrder(raw: string | null): StickerOrder | null {
+  if (!raw) return null;
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed) || parsed.length !== STICKERS.length) return null;
+
+    const seen = new Set<StickerId>();
+    const order: StickerOrder = [];
+
+    for (const value of parsed) {
+      if (typeof value !== "string") return null;
+      if (!(value in STICKER_BY_ID)) return null;
+      const id = value as StickerId;
+      if (seen.has(id)) return null;
+      seen.add(id);
+      order.push(id);
+    }
+
+    return order;
+  } catch {
+    return null;
+  }
+}
+
+function moveStickerToTop(order: StickerOrder, id: StickerId): StickerOrder {
+  if (order[order.length - 1] === id) return order;
+  return [...order.filter((item) => item !== id), id];
 }
 
 /**
@@ -508,8 +556,8 @@ const StickerButton = memo(function StickerButton({
       style={{
         width: `${sticker.width}px`,
         height: `${sticker.height}px`,
-        left: `${x * 100}%`,
-        top: `${y * 100}%`,
+        left: `${x}px`,
+        top: `${y}px`,
         transform: `translate3d(-50%, -50%, 0) rotate(${sticker.rotation}deg)`,
         filter: dragging ? "drop-shadow(0 6px 12px rgba(0,0,0,0.2)) drop-shadow(0 2px 4px rgba(0,0,0,0.12))" : "none",
         transition: dragging ? "none" : "filter 140ms ease-out",
@@ -562,6 +610,7 @@ export default function PrinterShell({
   const [displayLang, setDisplayLang] = useState(lang);
   const shellRef = useRef<HTMLDivElement>(null);
   const [stickerLayout, setStickerLayout] = useState<StickerLayout | null>(() => stickerLayoutMemory);
+  const [stickerOrder, setStickerOrder] = useState<StickerOrder>(() => stickerOrderMemory ?? [...DEFAULT_STICKER_ORDER]);
   const stickerLayoutRef = useRef<StickerLayout | null>(stickerLayoutMemory);
   const [draggingStickerId, setDraggingStickerId] = useState<StickerId | null>(null);
   const dragStateRef = useRef<{
@@ -600,15 +649,7 @@ export default function PrinterShell({
   }, [lang]);
 
   const getStickerBounds = useCallback((sticker: StickerDefinition, shellRect: DOMRect) => {
-    const minCenterX = sticker.width / 2;
-    const maxCenterX = Math.max(minCenterX, shellRect.width - sticker.width / 2);
-    const minCenterY = sticker.height / 2;
-    const maxCenterY = Math.max(
-      minCenterY,
-      shellRect.height - SHELL_BOTTOM_SECTION_HEIGHT_PX - SHELL_BOTTOM_SAFE_GAP_PX - sticker.height / 2,
-    );
-
-    return { minCenterX, maxCenterX, minCenterY, maxCenterY };
+    return getStickerBoundsForShell(sticker, shellRect.width, shellRect.height);
   }, []);
 
   const normalizeStickerLayoutToTopSection = useCallback((layout: StickerLayout): StickerLayout => {
@@ -624,8 +665,8 @@ export default function PrinterShell({
     for (const sticker of STICKERS) {
       const position = layout[sticker.id];
       const bounds = getStickerBounds(sticker, shellRect);
-      const rawCenterX = position.x * shellRect.width;
-      const rawCenterY = position.y * shellRect.height;
+      const rawCenterX = position.x;
+      const rawCenterY = position.y;
       const clampedCenterX = clamp(rawCenterX, bounds.minCenterX, bounds.maxCenterX);
       const clampedCenterY = clamp(rawCenterY, bounds.minCenterY, bounds.maxCenterY);
       const centerX =
@@ -634,8 +675,8 @@ export default function PrinterShell({
         Math.abs(clampedCenterY - rawCenterY) <= STICKER_NORMALIZE_EPSILON_PX ? rawCenterY : clampedCenterY;
 
       normalized[sticker.id] = {
-        x: centerX / shellRect.width,
-        y: centerY / shellRect.height,
+        x: centerX,
+        y: centerY,
       };
 
       if (!changed) {
@@ -652,6 +693,13 @@ export default function PrinterShell({
     stickerLayoutMemory = layout;
     try {
       localStorage.setItem(STICKER_STORAGE_KEY, JSON.stringify(layout));
+    } catch {}
+  }, []);
+
+  const persistStickerOrder = useCallback((order: StickerOrder) => {
+    stickerOrderMemory = order;
+    try {
+      localStorage.setItem(STICKER_ORDER_STORAGE_KEY, JSON.stringify(order));
     } catch {}
   }, []);
 
@@ -675,11 +723,29 @@ export default function PrinterShell({
       }
     } catch {}
 
-    const randomLayout = normalizeStickerLayoutToTopSection(createRandomStickerLayout());
+    const shellRect = shellRef.current?.getBoundingClientRect();
+    if (!shellRect || shellRect.width <= 0 || shellRect.height <= 0) return;
+    const randomLayout = createRandomStickerLayout(shellRect);
     setStickerLayout(randomLayout);
     stickerLayoutRef.current = randomLayout;
     persistStickerLayout(randomLayout);
   }, [normalizeStickerLayoutToTopSection, persistStickerLayout]);
+
+  useLayoutEffect(() => {
+    if (stickerOrderMemory) {
+      setStickerOrder(stickerOrderMemory);
+      return;
+    }
+
+    try {
+      const stored = parseStickerOrder(localStorage.getItem(STICKER_ORDER_STORAGE_KEY));
+      if (stored) {
+        setStickerOrder(stored);
+        stickerOrderMemory = stored;
+        return;
+      }
+    } catch {}
+  }, []);
 
   useEffect(() => {
     stickerLayoutRef.current = stickerLayout;
@@ -687,6 +753,10 @@ export default function PrinterShell({
       stickerLayoutMemory = stickerLayout;
     }
   }, [stickerLayout]);
+
+  useEffect(() => {
+    persistStickerOrder(stickerOrder);
+  }, [persistStickerOrder, stickerOrder]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -727,7 +797,9 @@ export default function PrinterShell({
     if (newLang === displayLang) return;
     const rest = pathname.split("/").slice(2);
     const newPath = `/${newLang}${rest.length ? `/${rest.join("/")}` : ""}`;
-    try { sessionStorage.setItem(LANG_SWITCH_KEY, '1'); } catch {}
+    try {
+      sessionStorage.setItem(LANG_SWITCH_KEY, "1");
+    } catch {}
     setDisplayLang(newLang);
     setPendingNavHref(null);
     setPendingFromPath(null);
@@ -737,22 +809,6 @@ export default function PrinterShell({
 
     langSwitchTimerRef.current = window.setTimeout(() => {
       langSwitchTimerRef.current = null;
-
-      const docWithTransition = document as Document & {
-        startViewTransition?: (callback: () => void) => { finished: Promise<void> };
-      };
-
-      if (typeof docWithTransition.startViewTransition === "function") {
-        try {
-          docWithTransition.startViewTransition(() => {
-            router.push(newPath);
-          });
-          return;
-        } catch {
-          // Fallback when browser implementation rejects the call.
-        }
-      }
-
       router.push(newPath);
     }, LANGUAGE_DIAL_ANIMATION_MS);
   }, [displayLang, pathname, router]);
@@ -779,8 +835,8 @@ export default function PrinterShell({
     const nextLayout: StickerLayout = {
       ...currentLayout,
       [id]: {
-        x: centerX / rect.width,
-        y: centerY / rect.height,
+        x: centerX,
+        y: centerY,
       },
     };
 
@@ -808,8 +864,8 @@ export default function PrinterShell({
     const rect = shell.getBoundingClientRect();
     const currentPosition = currentLayout[id];
 
-    const centerX = currentPosition.x * rect.width;
-    const centerY = currentPosition.y * rect.height;
+    const centerX = currentPosition.x;
+    const centerY = currentPosition.y;
 
     dragStateRef.current = {
       id,
@@ -818,6 +874,7 @@ export default function PrinterShell({
       offsetY: event.clientY - rect.top - centerY,
     };
 
+    setStickerOrder((currentOrder) => moveStickerToTop(currentOrder, id));
     setDraggingStickerId(id);
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -877,13 +934,15 @@ export default function PrinterShell({
 
           {/* Draggable shell stickers */}
           <div className="absolute inset-0 z-30 pointer-events-none" aria-label="shell stickers">
-            {stickerLayout && STICKERS.map((sticker) => {
-              const position = stickerLayout[sticker.id];
-              const dragging = draggingStickerId === sticker.id;
+            {stickerLayout && stickerOrder.map((stickerId) => {
+              const sticker = STICKER_BY_ID[stickerId];
+              const position = stickerLayout[stickerId];
+              const dragging = draggingStickerId === stickerId;
+              if (!sticker || !position) return null;
 
               return (
                 <StickerButton
-                  key={sticker.id}
+                  key={stickerId}
                   sticker={sticker}
                   x={position.x}
                   y={position.y}
