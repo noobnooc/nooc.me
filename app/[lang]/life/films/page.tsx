@@ -1,6 +1,7 @@
 import { getDictionary } from "@/dictionaries";
 import { Metadata } from "next";
 import Link from "next/link";
+import { getAlternateLanguages } from "@/lib/metadata";
 import { RiFilmLine as FilmIcon } from "@remixicon/react";
 import {
   PrintedSection,
@@ -38,6 +39,15 @@ export async function generateMetadata(
       description: dictionary.labels.films,
       site: "@noobnooc",
       card: "summary_large_image",
+    },
+    alternates: {
+      canonical: new URL(
+        `${dictionary.urls.life}/films`,
+        dictionary.meta.baseUrl,
+      ).href,
+      languages: await getAlternateLanguages(
+        (dictionary) => `${dictionary.urls.life}/films`,
+      ),
     },
   };
 }

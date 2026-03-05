@@ -4,6 +4,7 @@ import { displayDate } from "@/lib/date";
 import { getDictionary, Language } from "@/dictionaries";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getAlternateLanguages } from "@/lib/metadata";
 import { RiPriceTag3Line as TagIcon } from "@remixicon/react";
 import {
   PrintedSection,
@@ -46,6 +47,15 @@ export async function generateMetadata(
       description: category.description?.[params.lang],
       site: "@noobnooc",
       card: "summary_large_image",
+    },
+    alternates: {
+      canonical: new URL(
+        category.permalink[params.lang],
+        dictionary.meta.baseUrl,
+      ).href,
+      languages: await getAlternateLanguages(
+        (dictionary, lang) => category.permalink[lang],
+      ),
     },
   };
 }
