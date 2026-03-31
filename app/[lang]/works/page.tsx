@@ -13,8 +13,6 @@ import {
   PrintedPageTitle,
 } from "@/components/printed-elements";
 
-export const runtime = "edge";
-
 export async function generateMetadata(
   props: {
     params: Promise<{ lang: string }>;

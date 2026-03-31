@@ -9,8 +9,6 @@ import {
 } from "@/components/printed-elements";
 import { PostContent } from "@/components/post-content";
 
-export const runtime = "edge";
-
 export async function generateMetadata(
   props: {
     params: Promise<{ lang: Language }>;

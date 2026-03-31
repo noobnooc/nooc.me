@@ -1,8 +1,6 @@
 import { lifePosts } from "@/lib/velite";
 import { generateRssFeed } from "@/lib/feed";
 
-export const runtime = "edge";
-
 export async function GET() {
   const lifeItems = lifePosts
     .filter((p) => p.lang === "en")

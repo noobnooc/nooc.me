@@ -5,8 +5,6 @@ import {
   OG_IMAGE_CONTENT_TYPE,
 } from "@/lib/og-image";
 
-export const runtime = "edge";
-
 export const alt = "Films";
 export const size = OG_IMAGE_SIZE;
 export const contentType = OG_IMAGE_CONTENT_TYPE;

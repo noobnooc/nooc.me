@@ -8,8 +8,6 @@ import Script from "next/script";
 import PrinterShell from "../../components/printer-shell";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
-export const runtime = "edge";
-
 type ColorMode = "system" | "light" | "dark";
 type ResolvedColorMode = "light" | "dark";
 

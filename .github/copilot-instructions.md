@@ -1,6 +1,6 @@
 # Nooc.me - Personal Website & Blog
 
-nooc.me is a Next.js-based personal website with integrated blog functionality built using Velite for static content generation. The site supports internationalization (English/Chinese) and is deployed on Cloudflare Pages.
+nooc.me is a Next.js-based personal website with integrated blog functionality built using Velite for static content generation. The site supports internationalization (English/Chinese) and is deployed on Cloudflare Workers via OpenNext.
 
 **ALWAYS reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.**
 
@@ -51,8 +51,9 @@ npm run build  # Takes ~36 seconds. NEVER CANCEL. Set timeout to 60+ minutes.
 - `next.config.mjs` - Next.js configuration with Velite integration
 - `tailwind.config.js` - TailwindCSS configuration with custom colors
 - `tsconfig.json` - TypeScript configuration with path aliases (`@/*` → `./`)
-- `.eslintrc.json` - ESLint configuration for Next.js and Cloudflare Pages
-- `_routes.json` - Cloudflare Pages routing configuration
+- `.eslintrc.json` - ESLint configuration for Next.js
+- `wrangler.jsonc` - Cloudflare Workers configuration for the OpenNext bundle
+- `open-next.config.ts` - OpenNext Cloudflare adapter configuration
 
 ## Validation Requirements
 
@@ -132,11 +133,12 @@ tags: ["nextjs", "blog"]
 - **Styling issues**: Run `npx prettier --write .` to fix formatting
 - **Image loading**: Ensure images are in post directories for Velite processing
 
-### Deployment (Cloudflare Pages)
-- Build command: `npm run build`
-- Output directory: `.next`
+### Deployment (Cloudflare Workers)
+- Build command: `npx opennextjs-cloudflare build`
+- Worker entry: `.open-next/worker.js`
+- Static assets: `.open-next/assets`
 - Environment: Node.js 18+
-- Routing: Configured via `_routes.json`
+- Runtime: OpenNext on Cloudflare Workers via `wrangler.jsonc`
 
 ## Important Notes
 

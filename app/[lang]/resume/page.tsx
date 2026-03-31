@@ -19,8 +19,6 @@ import {
   PrintedSection,
 } from "@/components/printed-elements";
 
-export const runtime = "edge";
-
 const routePath = (lang: Language) => `/${lang}/resume`;
 
 const contactIcons = {

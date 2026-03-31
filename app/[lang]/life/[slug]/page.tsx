@@ -15,8 +15,6 @@ import { generateBlogPostingJsonLd, generateBreadcrumbJsonLd } from "@/lib/json-
 import { PostContent } from "@/components/post-content";
 import { PostAdvertising } from "../../posts/[postSlug]/Advertising";
 
-export const runtime = "edge";
-
 export async function generateMetadata(
   props: {
     params: Promise<{ lang: Language; slug: string }>;

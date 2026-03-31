@@ -13,17 +13,19 @@
 ## Build, Test, and Development Commands
 - `npm install`: Install dependencies.
 - `npm run dev`: Start local dev server.
-- `npm run lint`: Run ESLint (includes `next-on-pages` plugin checks).
+- `npm run lint`: Run ESLint.
 - `npm run build`: Production build.
+- `npm run preview`: Build with OpenNext and preview in the Cloudflare Workers runtime.
+- `npm run deploy`: Build with OpenNext and deploy to Cloudflare Workers.
 - `npm start`: Serve the production build.
 CI runs lint and build on push via `.github/workflows/ci.yml`.
 
 ## Coding Style & Naming Conventions
-- Language: TypeScript (strict mode). Framework: Next.js 14 App Router + React 18.
+- Language: TypeScript (strict mode). Framework: Next.js 15 App Router + React 19.
 - Indentation: 2 spaces; LF line endings (`.editorconfig`).
 - File naming: kebab-case for files (`flippable-card.tsx`), PascalCase for components, camelCase for variables.
 - Styling: Tailwind CSS; prefer utility classes and `tailwind-merge` to resolve conflicts.
-- Linting: ESLint (`next/core-web-vitals`, `plugin:next-on-pages/recommended`). Fix warnings before PR.
+- Linting: ESLint (`next/core-web-vitals`). Fix warnings before PR.
 
 ## Testing Guidelines
 - No formal test suite yet. Validate pages and content locally (`npm run dev`) and ensure production build passes.
@@ -38,5 +40,4 @@ CI runs lint and build on push via `.github/workflows/ci.yml`.
 
 ## Security & Configuration Tips
 - Do not commit secrets. Use environment variables for any local credentials.
-- Target Node 18+ locally to match Next.js and Cloudflare Pages tooling.
-
+- Target Node 18+ locally to match Next.js and Cloudflare Workers tooling.

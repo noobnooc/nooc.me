@@ -10,3 +10,7 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 const nextConfig = {};
 
 export default nextConfig;
+
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
+initOpenNextCloudflareForDev();

@@ -14,8 +14,6 @@ import {
   PrintedDivider,
 } from "@/components/printed-elements";
 
-export const runtime = "edge";
-
 function getLatestPosts(lang: string, count = 3) {
   return posts
     .sort(

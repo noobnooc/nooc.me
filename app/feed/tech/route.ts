@@ -1,8 +1,6 @@
 import { posts } from "@/lib/velite";
 import { generateRssFeed } from "@/lib/feed";
 
-export const runtime = "edge";
-
 export async function GET() {
   const techPosts = posts
     .filter((p) => !p.draft && p.lang === "en")

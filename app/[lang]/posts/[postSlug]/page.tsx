@@ -15,8 +15,6 @@ import {
   PrintedDivider,
 } from "@/components/printed-elements";
 
-export const runtime = "edge";
-
 export async function generateMetadata(
   props: {
     params: Promise<{ lang: Language; postSlug: string }>;
