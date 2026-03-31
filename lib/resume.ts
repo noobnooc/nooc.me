@@ -44,6 +44,7 @@ export interface ResumeContent {
   pageTitle: string;
   name: string;
   summary: string;
+  imageDescription: string;
   highlights: string[];
   sectionLabels: {
     preferences: string;
@@ -64,6 +65,8 @@ export const resumeContent = {
     name: "李志青 / Nooc",
     summary:
       "初中开始了解代码，大学学了计算机科学与技术专业，毕业后一直从事 web 前后端开发相关工作；做过 Web 端 SaaS、iOS 应用、Electron 桌面端应用；用过 TypeScript、Next.js、SwiftUI、Electron、MongoDB、Docker 等相关技术和工具；热衷于探索 AI 编程，尝试过使用 AI 不写一行代码做出完整产品；",
+    imageDescription:
+      "Web 开发者，做过 SaaS、iOS 和 Electron 产品，常用 Codex、Claude Code、TypeScript、Next.js 和 SwiftUI。",
     highlights: [],
     sectionLabels: {
       preferences: "求职偏好",
@@ -113,15 +116,13 @@ export const resumeContent = {
         role: "独立开发",
         organization: "个人项目",
         period: "2022 - 现在",
-        summary:
-          "自己在折腾独立开发，主要聚焦于 iOS 端应用和网站应用。",
+        summary: "自己在折腾独立开发，主要聚焦于 iOS 端应用和网站应用。",
         projects: [
           {
             name: "回声铃",
             note: "echobell.one",
             href: "https://echobell.one",
-            description:
-              "通过 Webhook / Email 向手机发送通知或电话提醒。",
+            description: "通过 Webhook / Email 向手机发送通知或电话提醒。",
             stack: ["Swift", "TypeScript", "Cloudflare"],
           },
           {
@@ -236,6 +237,8 @@ export const resumeContent = {
     name: "Li Zhiqing / Nooc",
     summary:
       "I started learning about code in middle school, majored in Computer Science and Technology in college, and have been working on web frontend and backend development since graduation. I have built web SaaS products, iOS apps, and Electron desktop apps, and have worked with technologies and tools such as TypeScript, Next.js, SwiftUI, Electron, MongoDB, and Docker. I am enthusiastic about exploring AI-assisted programming and have even tried building complete products with AI without writing a single line of code.",
+    imageDescription:
+      "Web developer building SaaS, iOS, and Electron products with Codex, Claude Code, TypeScript, Next.js, and SwiftUI.",
     highlights: [],
     sectionLabels: {
       preferences: "Preferences",
@@ -277,7 +280,11 @@ export const resumeContent = {
       {
         kind: "roles",
         label: "Preferred Roles",
-        items: ["Web Frontend Developer", "Web Full-stack Developer", "Background Actor"],
+        items: [
+          "Web Frontend Developer",
+          "Web Full-stack Developer",
+          "Background Actor",
+        ],
       },
     ],
     experiences: [
@@ -315,7 +322,8 @@ export const resumeContent = {
             name: "CassetteOne",
             note: "cassette.one",
             href: "https://cassette.one",
-            description: "A cassette-style white noise and music player for iOS.",
+            description:
+              "A cassette-style white noise and music player for iOS.",
             stack: ["Swift", "SwiftUI"],
           },
           {

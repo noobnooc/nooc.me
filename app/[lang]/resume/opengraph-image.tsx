@@ -22,7 +22,7 @@ export default async function Image({
 
   return generateOgImage({
     title: content.name,
-    description: content.summary,
+    description: content.imageDescription,
     type: "page",
     emoji: "📄",
     brandName: dictionary.labels.brandName,
