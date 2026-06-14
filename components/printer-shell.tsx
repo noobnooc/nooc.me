@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import classNames from "classnames";
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import RotaryDial from "./rotary-dial";
+import PrinterSnail from "./printer-snail";
 import {
   RiComputerLine as ComputerDesktopIcon,
   RiMoonLine as MoonIcon,
@@ -921,6 +922,8 @@ export default function PrinterShell({
     <div className="min-h-screen page-grid flex flex-col items-center px-3 py-6 sm:py-10">
       {/* Printer Body */}
       <div className="w-full max-w-3xl relative">
+        {/* Snail crawling along the very top edge of the printer shell */}
+        <PrinterSnail />
         {/* Unified Header Housing - Wraps both brand and slit areas to share a single shadow */}
         <div
           ref={shellRef}

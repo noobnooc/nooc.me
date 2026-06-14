@@ -422,3 +422,151 @@
     text-wrap: balance;
   }
 }
+
+/* ============================================================
+   Crawling snail on the printer's top edge.
+   Travel + the head-sweep turn are driven from JS (printer-snail.tsx);
+   only the small idle motions (eye-stalk sway, blink) live here.
+   ============================================================ */
+@layer components {
+  .snail-lane {
+    position: absolute;
+    left: 48px;
+    right: 48px;
+    top: -25px;
+    height: 28px;
+    z-index: 40;
+    pointer-events: none;
+
+    /* Snail palette (light) */
+    --snail-body: #b3c197;
+    --snail-body-shade: #97a87a;
+    --snail-shell: #e3aa64;
+    --snail-shell-spiral: #b87d3c;
+    --snail-line: rgba(54, 46, 36, 0.5);
+    --snail-eye: #34302b;
+  }
+  :is(.dark) .snail-lane {
+    --snail-body: #828f6b;
+    --snail-body-shade: #6c785a;
+    --snail-shell: #c08c4c;
+    --snail-shell-spiral: #8c6030;
+    --snail-line: rgba(8, 8, 10, 0.5);
+    --snail-eye: #1b1916;
+  }
+  @media (min-width: 640px) {
+    .snail-lane {
+      left: 64px;
+      right: 64px;
+      top: -27px;
+      height: 30px;
+    }
+  }
+
+  /* The traveller — transform is set each frame from JS */
+  .snail-walker {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 46px;
+    height: 28px;
+    /* tight contact shadow so it reads as sitting on the printer, no gap */
+    filter: drop-shadow(0 1px 0.5px rgba(0, 0, 0, 0.16));
+    will-change: transform;
+  }
+  @media (min-width: 640px) {
+    .snail-walker {
+      width: 50px;
+      height: 30px;
+    }
+  }
+
+  .snail-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* No outline on the body/head so the head blends into the foot and the
+     snail sits seamlessly against the printer (no border seam). */
+  .snail-foot,
+  .snail-neck {
+    fill: var(--snail-body);
+  }
+
+  /* Shell — intentionally static, no animation */
+  .snail-shell-disc {
+    fill: var(--snail-shell);
+    stroke: var(--snail-line);
+    stroke-width: 1;
+  }
+  .snail-shell-spiral {
+    stroke: var(--snail-shell-spiral);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+  .snail-shell-shine {
+    fill: #ffffff;
+    opacity: 0.28;
+  }
+
+  .snail-stalk-line {
+    stroke: var(--snail-body-shade);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+  }
+  .snail-eye {
+    fill: #ffffff;
+    stroke: var(--snail-line);
+    stroke-width: 0.6;
+  }
+  .snail-eye-pupil {
+    fill: var(--snail-eye);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: snail-blink 5.4s ease-in-out infinite;
+  }
+
+  /* Gentle eye-stalk sway, composed on top of the JS head transform */
+  .snail-stalk {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+  }
+  .snail-stalk-front {
+    animation: snail-sway 3s ease-in-out infinite;
+  }
+  .snail-stalk-back {
+    animation: snail-sway 3s ease-in-out -1.4s infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .snail-stalk-front,
+    .snail-stalk-back,
+    .snail-eye-pupil {
+      animation: none !important;
+    }
+  }
+}
+
+@keyframes snail-sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes snail-blink {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  93%,
+  95% {
+    transform: scaleY(0.12);
+  }
+}
