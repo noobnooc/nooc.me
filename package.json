@@ -9,7 +9,8 @@
     "build": "vite build",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "preview": "pnpm build && wrangler dev",
-    "deploy": "pnpm build && wrangler deploy"
+    "deploy": "pnpm build && wrangler deploy",
+    "upload": "pnpm build && wrangler versions upload"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
