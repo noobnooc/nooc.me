@@ -16,7 +16,7 @@
     class: className = "",
     children,
   }: {
-    kind: "github" | "x" | "email";
+    kind: "github" | "x" | "telegram" | "email";
     href: string;
     lang: Language;
     dictionary: Dictionary;
@@ -69,7 +69,7 @@
   // Contribution heatmap: column-major grid of GitHub-style weeks
   // (top = Sunday), newest week in the last column. -1 marks padding cells
   // beyond the data range.
-  const HEATMAP_WEEKS = 17;
+  const HEATMAP_WEEKS = 18;
   const LEVEL_OPACITY = [0.07, 0.25, 0.45, 0.68, 0.92];
 
   let heatmapCells = $derived.by(() => {
@@ -139,10 +139,20 @@
             class="inline-flex items-center gap-1.5 font-mono text-[9px] tracking-[0.25em] uppercase text-printer-ink-light dark:text-printer-ink-dark/50"
           >
             <Icon
-              name={kind === "email" ? "mail" : kind}
+              name={kind === "email"
+                ? "mail"
+                : kind === "telegram"
+                  ? "send"
+                  : kind}
               class="w-3 h-3 shrink-0"
             />
-            {kind === "email" ? "MAIL" : kind === "github" ? "GITHUB" : "X"}
+            {kind === "email"
+              ? "MAIL"
+              : kind === "github"
+                ? "GITHUB"
+                : kind === "telegram"
+                  ? "TELEGRAM"
+                  : "X"}
           </span>
           <span
             class="font-mono text-[9px] tracking-widest text-printer-ink-light dark:text-printer-ink-dark/40"
@@ -187,10 +197,13 @@
           </div>
 
           <!-- Dot-matrix contribution heatmap -->
-          <div class="grid grid-flow-col grid-rows-7 gap-[2px] w-fit">
+          <div
+            class="grid grid-flow-col grid-rows-7 gap-[2px] w-full"
+            style:grid-auto-columns="minmax(0, 1fr)"
+          >
             {#each heatmapCells as level, i (i)}
               <span
-                class="w-[5px] h-[5px] rounded-[1px] bg-printer-ink dark:bg-printer-ink-dark"
+                class="w-full aspect-square rounded-[1px] bg-printer-ink dark:bg-printer-ink-dark"
                 style:opacity={level < 0 ? 0 : LEVEL_OPACITY[level]}
               ></span>
             {/each}
@@ -242,6 +255,35 @@
                 </div>
               </div>
             {/each}
+          </div>
+        {:else if kind === "telegram"}
+          <div class="flex items-baseline gap-1.5">
+            <span
+              class="font-mono text-xs font-bold text-printer-ink dark:text-printer-ink-dark"
+            >
+              {stats.telegram.name}
+            </span>
+            <span
+              class="font-mono text-[10px] text-printer-ink-light dark:text-printer-ink-dark/40"
+            >
+              @{stats.telegram.handle}
+            </span>
+          </div>
+          {#if stats.telegram.bio}
+            <p
+              class="font-serif text-[11px] text-printer-ink/70 dark:text-printer-ink-dark/60 mt-1 leading-snug line-clamp-2 break-all"
+            >
+              {stats.telegram.bio}
+            </p>
+          {/if}
+          <div
+            class="flex items-center gap-1.5 font-mono text-[9px] text-printer-ink-light dark:text-printer-ink-dark/40 mt-2.5 pt-2 border-t border-dotted border-printer-ink/10 dark:border-printer-ink-dark/10"
+          >
+            <Icon
+              name="send"
+              class="w-2.5 h-2.5 text-printer-accent dark:text-printer-accent-dark"
+            />
+            {dictionary.social.telegramHint}
           </div>
         {:else}
           <!-- Printed envelope slip -->

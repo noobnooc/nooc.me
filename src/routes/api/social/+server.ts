@@ -3,6 +3,7 @@ import {
   socialFallback,
   type GitHubStats,
   type SocialStats,
+  type TelegramStats,
   type XStats,
 } from "$lib/social";
 import type { RequestHandler } from "./$types";
@@ -15,6 +16,7 @@ export const prerender = false;
 
 const GITHUB_HANDLE = "noobnooc";
 const X_HANDLE = "noobnooc";
+const TELEGRAM_HANDLE = "noobnooc";
 const KV_KEY = "social-stats:v1";
 /** Days of contribution history to expose (18 weeks). */
 const HEATMAP_DAYS = 126;
@@ -151,6 +153,35 @@ async function fetchXProfile(): Promise<XStats> {
   };
 }
 
+function decodeEntities(value: string): string {
+  return value
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#39;", "'")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&amp;", "&");
+}
+
+/** Telegram has no public profile API; the t.me page exposes the profile
+ * name and bio via OpenGraph tags. */
+async function fetchTelegramProfile(): Promise<TelegramStats> {
+  const res = await fetch(`https://t.me/${TELEGRAM_HANDLE}`, {
+    headers: { "User-Agent": USER_AGENT, Accept: "text/html" },
+  });
+  if (!res.ok) throw new Error(`telegram profile ${res.status}`);
+  const html = await res.text();
+  const name = /<meta property="og:title" content="([^"]*)"/.exec(html)?.[1];
+  const bio = /<meta property="og:description" content="([^"]*)"/.exec(
+    html,
+  )?.[1];
+  if (!name) throw new Error("telegram profile shape");
+  return {
+    handle: TELEGRAM_HANDLE,
+    name: decodeEntities(name),
+    bio: bio ? decodeEntities(bio) : "",
+  };
+}
+
 export const GET: RequestHandler = async ({ request, platform }) => {
   const cache = platform?.caches?.default;
   const cached = await cache?.match(request.url);
@@ -162,12 +193,13 @@ export const GET: RequestHandler = async ({ request, platform }) => {
     .catch(() => null)) as SocialStats | null;
   const base = lastGood ?? socialFallback;
 
-  const [profile, contributions, x] = await Promise.allSettled([
+  const [profile, contributions, x, telegram] = await Promise.allSettled([
     fetchGitHubProfile(),
     fetchGitHubContributions(),
     fetchXProfile(),
+    fetchTelegramProfile(),
   ]);
-  const anyFresh = [profile, contributions, x].some(
+  const anyFresh = [profile, contributions, x, telegram].some(
     (result) => result.status === "fulfilled",
   );
 
@@ -179,6 +211,11 @@ export const GET: RequestHandler = async ({ request, platform }) => {
       ...(contributions.status === "fulfilled" ? contributions.value : {}),
     },
     x: x.status === "fulfilled" ? x.value : base.x,
+    // `base` may predate the telegram field (old KV snapshots).
+    telegram:
+      telegram.status === "fulfilled"
+        ? telegram.value
+        : (base.telegram ?? socialFallback.telegram),
   };
 
   if (anyFresh && kv) {

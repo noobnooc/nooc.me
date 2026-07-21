@@ -280,6 +280,7 @@ const dictionary = {
     },
     emailTo: "To",
     emailHint: "Mail lands straight in my inbox.",
+    telegramHint: "DMs open — say hi anytime.",
   },
   postAdvertisements: [
     {

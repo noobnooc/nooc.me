@@ -73,7 +73,9 @@
               ? ("github" as const)
               : contact.icon === "mail"
                 ? ("email" as const)
-                : undefined}
+                : contact.icon === "send"
+                  ? ("telegram" as const)
+                  : undefined}
         {@const linkClass =
           "inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-sm border border-printer-ink/8 dark:border-printer-ink-dark/8 text-printer-ink-light dark:text-printer-ink-dark/50 hover:text-printer-accent dark:hover:text-printer-accent-dark hover:border-printer-accent/20 dark:hover:border-printer-accent-dark/20 transition-colors"}
         {#if kind}

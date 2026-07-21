@@ -16,10 +16,12 @@ export function ensureSocialStats(): void {
   if (!browser || started) return;
   started = true;
 
-  fetch("/api/social", { headers: { accept: "application/json" } })
+  // The query string versions the payload shape past stale edge-cache
+  // entries from earlier deploys.
+  fetch("/api/social?v=2", { headers: { accept: "application/json" } })
     .then((res) => (res.ok ? res.json() : null))
     .then((data: SocialStats | null) => {
-      if (data?.github?.levels && data.x) {
+      if (data?.github?.levels && data.x && data.telegram) {
         social.stats = data;
       }
     })

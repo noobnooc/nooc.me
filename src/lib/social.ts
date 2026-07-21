@@ -33,10 +33,17 @@ export interface XStats {
   joined: string;
 }
 
+export interface TelegramStats {
+  handle: string;
+  name: string;
+  bio: string;
+}
+
 export interface SocialStats {
   fetchedAt: string;
   github: GitHubStats;
   x: XStats;
+  telegram: TelegramStats;
 }
 
 export const socialFallback: SocialStats = fallback;
