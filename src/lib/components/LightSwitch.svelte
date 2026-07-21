@@ -51,16 +51,6 @@
     { opacity: 0, offset: 1 },
   ];
 
-  // …and sputtering out.
-  const FLICKER_OFF: Keyframe[] = [
-    { opacity: 0, offset: 0 },
-    { opacity: 0.55, offset: 0.2 },
-    { opacity: 0.1, offset: 0.38 },
-    { opacity: 0.75, offset: 0.55 },
-    { opacity: 0.35, offset: 0.72 },
-    { opacity: 1, offset: 1 },
-  ];
-
   function wait(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -107,16 +97,12 @@
       // …then the old bulb sputters awake.
       await run(blackoutElement, FLICKER_ON, { duration: 780, easing: "linear" });
     } else {
-      // The bulb flickers and dies…
-      await run(blackoutElement, FLICKER_OFF, { duration: 300, easing: "linear" });
+      // Daylight returns instantly, then the bulb clicks off and fades away
+      // (the CSS transitions on the bulb/shading layers do the "lamp dying").
       ontoggle(false);
+      await wait(120);
       pulled = false;
-      await wait(200);
-      // …and daylight fades back in.
-      await run(blackoutElement, [{ opacity: 1 }, { opacity: 0 }], {
-        duration: 520,
-        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-      });
+      await wait(450); // keep the switch busy until the bulb has faded out
     }
 
     busy = false;
@@ -124,12 +110,12 @@
 </script>
 
 <!-- Room shading — the further from the bulb, the darker the page -->
-<div class="lamp-shade hidden dark:lg:block fixed inset-0 z-[90] pointer-events-none" aria-hidden="true"></div>
-<div class="lamp-warmth hidden dark:lg:block fixed inset-0 z-[90] pointer-events-none" aria-hidden="true"></div>
+<div class="lamp-shade hidden lg:block fixed inset-0 z-[90] pointer-events-none" aria-hidden="true"></div>
+<div class="lamp-warmth hidden lg:block fixed inset-0 z-[90] pointer-events-none" aria-hidden="true"></div>
 
-<!-- The bulb, hanging top-left -->
+<!-- The bulb, hanging just left of the content column -->
 <div
-  class="hidden dark:lg:block fixed top-0 left-4 z-[95] pointer-events-none"
+  class="bulb-root hidden lg:block fixed top-0 left-[calc(50%-492px)] z-[95] pointer-events-none"
   aria-hidden="true"
 >
   <div class="bulb-sway relative">
@@ -159,14 +145,19 @@
       <!-- filament -->
       <path d="M46 100 V119 M54 100 V119" class="bulb-filament-post" />
       <path d="M46 119 l2 7 2 -7 2 7 2 -7" class="bulb-filament" />
+      <!-- dead-glass overlay, shown the instant the lamp switches off -->
+      <path
+        d="M44 89 L44 100 C44 108 32 112 29 124 A23 23 0 1 0 71 124 C68 112 56 108 56 100 L56 89 Z"
+        class="bulb-glass-dead"
+      />
       <!-- glass glint -->
       <path d="M38 122 a16 16 0 0 1 6 -9" class="bulb-glint" />
     </svg>
   </div>
 </div>
 
-<!-- The pull cord, hanging top-right -->
-<div class="hidden lg:block fixed -top-12 right-10 z-[95] cord-sway">
+<!-- The pull cord, hanging just right of the content column -->
+<div class="hidden lg:block fixed -top-12 right-[calc(50%-438px)] z-[95] cord-sway">
   <button
     type="button"
     role="switch"
@@ -201,10 +192,25 @@
 <style>
   /* ---------------- room lighting ---------------- */
 
-  /* Light falls off with distance from the bulb (fixed at ~66px, 135px) */
+  /* The bulb hangs at calc(50% - 442px), 135px — gradients are centred there.
+     Both layers appear instantly when dark mode arrives (hidden behind the
+     blackout curtain anyway) but fade away gently when the lamp is switched
+     off in daylight. */
+  .lamp-shade,
+  .lamp-warmth {
+    opacity: 0;
+    transition: opacity 420ms ease;
+  }
+  :global(.dark) .lamp-shade,
+  :global(.dark) .lamp-warmth {
+    opacity: 1;
+    transition: none;
+  }
+
+  /* Light falls off with distance from the bulb */
   .lamp-shade {
     background: radial-gradient(
-      140% 140% at 66px 135px,
+      140% 140% at calc(50% - 442px) 135px,
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 0.05) 22%,
       rgba(0, 0, 0, 0.16) 45%,
@@ -216,7 +222,7 @@
   /* Warm incandescent spill close to the bulb */
   .lamp-warmth {
     background: radial-gradient(
-      620px circle at 66px 135px,
+      620px circle at calc(50% - 442px) 135px,
       rgba(255, 190, 110, 0.14),
       rgba(255, 185, 105, 0.05) 45%,
       transparent 72%
@@ -226,12 +232,31 @@
 
   /* ---------------- bulb ---------------- */
 
+  /* Appears instantly with dark mode (under the blackout); when the lamp is
+     switched off it lingers a moment — dead grey glass — then fades away. */
+  .bulb-root {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 400ms ease 150ms,
+      visibility 0s linear 550ms;
+  }
+  :global(.dark) .bulb-root {
+    opacity: 1;
+    visibility: visible;
+    transition: none;
+  }
+
   .bulb-sway {
     transform-origin: 50px 0;
     animation: light-switch-sway 9s ease-in-out infinite;
   }
 
   .bulb-svg {
+    filter: none;
+    transition: filter 130ms ease-out;
+  }
+  :global(.dark) .bulb-svg {
     filter: drop-shadow(0 0 18px rgba(255, 190, 100, 0.4));
   }
 
@@ -248,6 +273,11 @@
       transparent 100%
     );
     filter: blur(6px);
+    opacity: 0;
+    transition: opacity 130ms ease-out;
+  }
+  :global(.dark) .bulb-glow {
+    opacity: 1;
     animation: light-switch-shimmer 4s ease-in-out infinite;
   }
 
@@ -279,11 +309,27 @@
     stroke-width: 1;
   }
   .bulb-filament {
-    stroke: #ffcf7a;
+    stroke: #8a7f70;
     stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
+    filter: none;
+    transition:
+      stroke 130ms ease-out,
+      filter 130ms ease-out;
+  }
+  :global(.dark) .bulb-filament {
+    stroke: #ffcf7a;
     filter: drop-shadow(0 0 4px rgba(255, 190, 90, 0.95));
+  }
+  /* Grey glass overlay revealed the instant the lamp dies */
+  .bulb-glass-dead {
+    fill: #cfccc4;
+    opacity: 0.88;
+    transition: opacity 130ms ease-out;
+  }
+  :global(.dark) .bulb-glass-dead {
+    opacity: 0;
   }
   .bulb-glint {
     stroke: rgba(255, 255, 255, 0.55);
