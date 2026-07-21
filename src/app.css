@@ -382,9 +382,10 @@
 }
 
 /* ============================================================
-   Crawling snail on the printer's top edge.
+   Crawling robo-snail on the printer's top edge — plastic body,
+   antenna LEDs, and a roll of thermal paper for a shell.
    Travel + the head-sweep turn are driven from JS (PrinterSnail.svelte);
-   only the small idle motions (eye-stalk sway, blink) live here.
+   only the small idle motions (antenna sway, LED pulse) live here.
    ============================================================ */
 @layer components {
   .snail-lane {
@@ -396,21 +397,29 @@
     z-index: 40;
     pointer-events: none;
 
-    /* Snail palette (light) */
-    --snail-body: #b3c197;
-    --snail-body-shade: #97a87a;
-    --snail-shell: #e3aa64;
-    --snail-shell-spiral: #b87d3c;
-    --snail-line: rgba(54, 46, 36, 0.5);
-    --snail-eye: #34302b;
+    /* Robo-snail palette (light) — printer plastic + thermal paper */
+    --snail-body: #d8cfc2;
+    --snail-body-shade: #a3978a;
+    --snail-line: rgba(54, 46, 36, 0.4);
+    --snail-roll: #fffef9;
+    --snail-roll-edge: rgba(54, 46, 36, 0.32);
+    --snail-roll-print: rgba(54, 46, 36, 0.42);
+    --snail-core: #b8ad9f;
+    --snail-core-hole: #5f574c;
+    --snail-led: #ff6b35;
+    --snail-led-glow: rgba(255, 107, 53, 0.5);
   }
   :is(.dark) .snail-lane {
-    --snail-body: #828f6b;
-    --snail-body-shade: #6c785a;
-    --snail-shell: #c08c4c;
-    --snail-shell-spiral: #8c6030;
-    --snail-line: rgba(8, 8, 10, 0.5);
-    --snail-eye: #1b1916;
+    --snail-body: #2a2e3a;
+    --snail-body-shade: #4d5468;
+    --snail-line: rgba(0, 0, 0, 0.55);
+    --snail-roll: #232734;
+    --snail-roll-edge: rgba(255, 255, 255, 0.18);
+    --snail-roll-print: rgba(208, 212, 224, 0.48);
+    --snail-core: #3c4254;
+    --snail-core-hole: #0d0f14;
+    --snail-led: #ff8c5a;
+    --snail-led-glow: rgba(255, 140, 90, 0.65);
   }
   @media (min-width: 640px) {
     .snail-lane {
@@ -432,6 +441,9 @@
     filter: drop-shadow(0 1px 0.5px rgba(0, 0, 0, 0.16));
     will-change: transform;
   }
+  :is(.dark) .snail-walker {
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+  }
   @media (min-width: 640px) {
     .snail-walker {
       width: 50px;
@@ -452,41 +464,75 @@
   .snail-neck {
     fill: var(--snail-body);
   }
+  /* Dashed rubber tread along the underside of the foot */
+  .snail-tread {
+    stroke: var(--snail-body-shade);
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    stroke-dasharray: 2.6 2.4;
+    opacity: 0.75;
+  }
+  /* Faint panel seam on the face plate */
+  .snail-seam {
+    stroke: var(--snail-body-shade);
+    stroke-width: 0.9;
+    stroke-linecap: round;
+    opacity: 0.65;
+  }
 
-  /* Shell — intentionally static, no animation */
-  .snail-shell-disc {
-    fill: var(--snail-shell);
-    stroke: var(--snail-line);
+  /* Shell: thermal paper roll — intentionally static, no animation */
+  .snail-roll {
+    fill: var(--snail-roll);
+    stroke: var(--snail-roll-edge);
     stroke-width: 1;
   }
-  .snail-shell-spiral {
-    stroke: var(--snail-shell-spiral);
-    stroke-width: 1.8;
+  .snail-roll-spiral {
+    stroke: var(--snail-roll-print);
+    stroke-width: 1.4;
     stroke-linecap: round;
   }
-  .snail-shell-shine {
+  .snail-roll-core {
+    fill: var(--snail-core);
+    stroke: var(--snail-line);
+    stroke-width: 0.5;
+  }
+  .snail-roll-hole {
+    fill: var(--snail-core-hole);
+  }
+  .snail-roll-tape {
+    fill: var(--snail-led);
+    opacity: 0.85;
+  }
+  .snail-roll-shine {
     fill: #ffffff;
-    opacity: 0.28;
+    opacity: 0.22;
+  }
+  :is(.dark) .snail-roll-shine {
+    opacity: 0.05;
   }
 
   .snail-stalk-line {
     stroke: var(--snail-body-shade);
-    stroke-width: 2.2;
+    stroke-width: 1.9;
     stroke-linecap: round;
   }
-  .snail-eye {
-    fill: #ffffff;
-    stroke: var(--snail-line);
-    stroke-width: 0.6;
+  /* Antenna LEDs — slow pulse instead of a blink, echoing the ON light */
+  .snail-led {
+    fill: var(--snail-led);
+    animation: snail-led-pulse 3.6s ease-in-out infinite;
   }
-  .snail-eye-pupil {
-    fill: var(--snail-eye);
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: snail-blink 5.4s ease-in-out infinite;
+  .snail-led-front {
+    animation-delay: -0.9s;
+  }
+  :is(.dark) .snail-led {
+    filter: drop-shadow(0 0 3px var(--snail-led-glow));
+  }
+  .snail-led-glint {
+    fill: #ffffff;
+    opacity: 0.85;
   }
 
-  /* Gentle eye-stalk sway, composed on top of the JS head transform */
+  /* Gentle antenna sway, composed on top of the JS head transform */
   .snail-stalk {
     transform-box: fill-box;
     transform-origin: 50% 100%;
@@ -501,7 +547,7 @@
   @media (prefers-reduced-motion: reduce) {
     .snail-stalk-front,
     .snail-stalk-back,
-    .snail-eye-pupil {
+    .snail-led {
       animation: none !important;
     }
   }
@@ -517,14 +563,12 @@
   }
 }
 
-@keyframes snail-blink {
+@keyframes snail-led-pulse {
   0%,
-  90%,
   100% {
-    transform: scaleY(1);
+    opacity: 1;
   }
-  93%,
-  95% {
-    transform: scaleY(0.12);
+  50% {
+    opacity: 0.55;
   }
 }

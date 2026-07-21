@@ -433,22 +433,17 @@
         onpointercancel={finishDrag}
         onlostpointercapture={finishDrag}
         class={[
-          "absolute pointer-events-auto touch-none select-none",
-          dragging ? "z-50 cursor-grabbing" : "z-20 cursor-grab",
+          "shell-sticker absolute pointer-events-auto touch-none select-none",
+          dragging ? "dragging z-50 cursor-grabbing" : "z-20 cursor-grab",
         ]}
         style:width="{sticker.width}px"
         style:height="{sticker.height}px"
         style:left="{position.x}px"
         style:top="{position.y}px"
         style:transform="translate3d(-50%, -50%, 0) rotate({sticker.rotation}deg)"
-        style:filter={dragging
-          ? "drop-shadow(0 6px 12px rgba(0,0,0,0.2)) drop-shadow(0 2px 4px rgba(0,0,0,0.12))"
-          : "none"}
-        style:transition={dragging ? "none" : "filter 140ms ease-out"}
-        style:will-change={dragging ? "transform, filter" : "auto"}
       >
         <svg
-          class="block h-full w-full"
+          class="sticker-art block h-full w-full"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
@@ -535,3 +530,32 @@
     {/each}
   {/if}
 </div>
+
+<style>
+  /* Resting stickers get a faint contact shadow so they read as stuck to the
+     shell; dragging lifts them with a bigger, softer one. */
+  .shell-sticker {
+    filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.16));
+    transition: filter 140ms ease-out;
+  }
+  .shell-sticker.dragging {
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2))
+      drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+    transition: none;
+    will-change: transform, filter;
+  }
+  :global(.dark) .shell-sticker {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55));
+  }
+  :global(.dark) .shell-sticker.dragging {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6))
+      drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+  }
+
+  /* In dark mode the shell sits in dim ambient light — tone the whole
+     sticker down uniformly (white backing included) instead of leaving the
+     backings glaring at full #fff. */
+  :global(.dark) .sticker-art {
+    filter: saturate(0.9) brightness(0.82);
+  }
+</style>
