@@ -7,6 +7,7 @@
   import PrinterSnail from "./PrinterSnail.svelte";
   import SocialHoverCard from "./SocialHoverCard.svelte";
   import RotaryDial from "./RotaryDial.svelte";
+  import LightSwitch from "./LightSwitch.svelte";
   import Stickers from "./Stickers.svelte";
 
   type ColorMode = "system" | "light" | "dark";
@@ -49,6 +50,10 @@
   // before paint; this just handles user toggling afterwards.
   // ------------------------------------------------------------------
   let colorMode = $state<ColorMode>("system");
+  let systemDark = $state(false);
+  let isDark = $derived(
+    colorMode === "dark" || (colorMode === "system" && systemDark),
+  );
 
   onMount(() => {
     const stored = document.documentElement.dataset.colorMode;
@@ -57,7 +62,9 @@
     }
 
     const media = window.matchMedia("(prefers-color-scheme: dark)");
+    systemDark = media.matches;
     const onMediaChange = () => {
+      systemDark = media.matches;
       if (colorMode === "system") {
         document.documentElement.classList.toggle("dark", media.matches);
       }
@@ -148,6 +155,13 @@
 
   const currentYear = new Date().getFullYear();
 </script>
+
+<!-- Desktop-only pull-cord light switch (bulb top-left, cord top-right) -->
+<LightSwitch
+  {isDark}
+  lang={displayLang}
+  ontoggle={(dark) => setColorMode(dark ? "dark" : "light")}
+/>
 
 <div class="min-h-screen page-grid flex flex-col items-center px-3 py-6 sm:py-10">
   <!-- Printer Body -->
@@ -258,21 +272,24 @@
               onchange={switchToLanguage}
               title={displayLang === "en" ? "切换到中文" : "Switch to English"}
             />
-            <RotaryDial
-              options={[
-                { value: "system", icon: "computer" },
-                { value: "light", icon: "sun" },
-                { value: "dark", icon: "moon" },
-              ]}
-              value={colorMode}
-              onchange={(mode) => setColorMode(mode as ColorMode)}
-              labelLayout="inline"
-              title={colorMode === "system"
-                ? "System"
-                : colorMode === "light"
-                  ? "Light"
-                  : "Dark"}
-            />
+            <!-- Mobile/tablet: rotary dial. Desktop: replaced by the pull-cord light switch. -->
+            <div class="lg:hidden">
+              <RotaryDial
+                options={[
+                  { value: "system", icon: "computer" },
+                  { value: "light", icon: "sun" },
+                  { value: "dark", icon: "moon" },
+                ]}
+                value={colorMode}
+                onchange={(mode) => setColorMode(mode as ColorMode)}
+                labelLayout="inline"
+                title={colorMode === "system"
+                  ? "System"
+                  : colorMode === "light"
+                    ? "Light"
+                    : "Dark"}
+              />
+            </div>
           </div>
         </div>
       </div>
