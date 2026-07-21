@@ -8,12 +8,15 @@
     "directory": ".svelte-kit/cloudflare",
     "binding": "ASSETS"
   },
-  "kv_namespaces": [
-    {
-      "binding": "SOCIAL_CACHE",
-      "id": "52db7bdf2a49485682c8bf78a7669126"
-    }
-  ],
+  // Optional last-good cache for /api/social. The endpoint works without
+  // it (edge cache + bundled fallback); uncomment once the Workers Builds
+  // token has KV permissions. Namespace "nooc-social-cache" already exists.
+  // "kv_namespaces": [
+  //   {
+  //     "binding": "SOCIAL_CACHE",
+  //     "id": "52db7bdf2a49485682c8bf78a7669126"
+  //   }
+  // ],
   "observability": {
     "enabled": true
   }
