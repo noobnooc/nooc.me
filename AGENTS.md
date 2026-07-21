@@ -34,8 +34,9 @@ CI runs check and build on push via `.github/workflows/ci.yml`.
   `/api/social`, all cached at the edge with the Cloudflare Cache API.
 - `/api/social` serves live GitHub/X profile stats for the social hover
   cards (`src/lib/components/SocialHoverCard.svelte`). It layers caches:
-  edge Cache API → optional `SOCIAL_CACHE` KV (last-good snapshot; binding
-  commented out in `wrangler.jsonc`) → committed fallback
+  edge Cache API → optional `SOCIAL_CACHE` KV last-good snapshot (add a
+  `kv_namespaces` binding named `SOCIAL_CACHE` in `wrangler.jsonc` to
+  enable; namespace `nooc-social-cache` exists) → committed fallback
   `src/lib/social-fallback.json`.
 - OG images are rendered at build time with satori + resvg
   (`src/lib/og/image.ts`); CJK glyph subsets and Twemoji are fetched during
