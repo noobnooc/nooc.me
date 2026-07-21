@@ -4,6 +4,11 @@ declare global {
     interface Platform {
       env?: {
         ASSETS: { fetch: typeof fetch };
+        /** KV last-good cache for /api/social (optional in local dev). */
+        SOCIAL_CACHE?: {
+          get(key: string, type: "json"): Promise<unknown>;
+          put(key: string, value: string): Promise<void>;
+        };
       };
       context?: {
         waitUntil(promise: Promise<unknown>): void;

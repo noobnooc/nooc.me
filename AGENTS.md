@@ -30,8 +30,12 @@ CI runs check and build on push via `.github/workflows/ci.yml`.
 ## Architecture Notes
 - The whole site is prerendered (`prerender = true` in the root layout). The
   worker only handles the `Accept-Language` locale redirect
-  (`src/hooks.server.ts`) and the extensionless `/feed*` routes, which are
-  cached at the edge with the Cloudflare Cache API.
+  (`src/hooks.server.ts`), the extensionless `/feed*` routes, and
+  `/api/social`, all cached at the edge with the Cloudflare Cache API.
+- `/api/social` serves live GitHub/X profile stats for the social hover
+  cards (`src/lib/components/SocialHoverCard.svelte`). It layers caches:
+  edge Cache API → `SOCIAL_CACHE` KV (last-good snapshot, binding in
+  `wrangler.jsonc`) → committed fallback `src/lib/social-fallback.json`.
 - OG images are rendered at build time with satori + resvg
   (`src/lib/og/image.ts`); CJK glyph subsets and Twemoji are fetched during
   the build, so builds need network access.

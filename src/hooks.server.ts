@@ -3,6 +3,7 @@ import { defaultLanguage, isLanguage, languages } from "$lib/dictionaries";
 
 /** Paths that live outside the /{lang}/ namespace. */
 const NON_LOCALIZED_PREFIXES = [
+  "/api",
   "/feed",
   "/og",
   "/blog",

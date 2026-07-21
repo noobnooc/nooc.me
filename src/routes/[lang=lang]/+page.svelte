@@ -8,6 +8,7 @@
   import PrintedLabel from "$lib/components/PrintedLabel.svelte";
   import PrintedSection from "$lib/components/PrintedSection.svelte";
   import Seo from "$lib/components/Seo.svelte";
+  import SocialHoverCard from "$lib/components/SocialHoverCard.svelte";
 
   let { data } = $props();
 
@@ -65,15 +66,40 @@
     <!-- Contact strip -->
     <div class="flex flex-wrap gap-2 mt-4">
       {#each dictionary.contacts as contact (contact.link)}
-        <a
-          href={contact.link}
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-sm border border-printer-ink/8 dark:border-printer-ink-dark/8 text-printer-ink-light dark:text-printer-ink-dark/50 hover:text-printer-accent dark:hover:text-printer-accent-dark hover:border-printer-accent/20 dark:hover:border-printer-accent-dark/20 transition-colors"
-        >
-          <Icon name={contact.icon} class="w-3 h-3" />
-          {contact.label}
-        </a>
+        {@const kind =
+          contact.icon === "x"
+            ? ("x" as const)
+            : contact.icon === "github"
+              ? ("github" as const)
+              : contact.icon === "mail"
+                ? ("email" as const)
+                : undefined}
+        {@const linkClass =
+          "inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-sm border border-printer-ink/8 dark:border-printer-ink-dark/8 text-printer-ink-light dark:text-printer-ink-dark/50 hover:text-printer-accent dark:hover:text-printer-accent-dark hover:border-printer-accent/20 dark:hover:border-printer-accent-dark/20 transition-colors"}
+        {#if kind}
+          <SocialHoverCard
+            {kind}
+            href={contact.link}
+            {lang}
+            {dictionary}
+            align="left"
+            side="bottom"
+            class={linkClass}
+          >
+            <Icon name={contact.icon} class="w-3 h-3" />
+            {contact.label}
+          </SocialHoverCard>
+        {:else}
+          <a
+            href={contact.link}
+            target="_blank"
+            rel="noopener"
+            class={linkClass}
+          >
+            <Icon name={contact.icon} class="w-3 h-3" />
+            {contact.label}
+          </a>
+        {/if}
       {/each}
     </div>
   </PrintedSection>

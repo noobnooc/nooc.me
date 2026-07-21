@@ -268,6 +268,19 @@ const dictionary = {
     },
   ],
   contacts,
+  social: {
+    followers: "Followers",
+    following: "Following",
+    posts: "Posts",
+    repos: "Repos",
+    contributions: "Contribs/yr",
+    recentActivity: "Recent activity",
+    since(year: string) {
+      return `since ${year}`;
+    },
+    emailTo: "To",
+    emailHint: "Mail lands straight in my inbox.",
+  },
   postAdvertisements: [
     {
       title: "Support me",

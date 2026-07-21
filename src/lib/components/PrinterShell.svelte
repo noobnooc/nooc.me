@@ -5,6 +5,7 @@
   import type { Snippet } from "svelte";
   import type { Dictionary, Language } from "$lib/dictionaries";
   import PrinterSnail from "./PrinterSnail.svelte";
+  import SocialHoverCard from "./SocialHoverCard.svelte";
   import RotaryDial from "./RotaryDial.svelte";
   import Stickers from "./Stickers.svelte";
 
@@ -354,22 +355,34 @@
               <div
                 class="font-mono text-[10px] tracking-widest uppercase flex items-center gap-4 order-1 sm:order-2"
               >
-                <a
+                <SocialHoverCard
+                  kind="github"
                   href="https://github.com/noobnooc"
-                  target="_blank"
-                  rel="noopener"
-                  class="hover:text-printer-accent transition-colors">GitHub</a
+                  {lang}
+                  {dictionary}
+                  class="hover:text-printer-accent transition-colors"
                 >
-                <a
+                  GitHub
+                </SocialHoverCard>
+                <SocialHoverCard
+                  kind="x"
                   href="https://x.com/noobnooc"
-                  target="_blank"
-                  rel="noopener"
-                  class="hover:text-printer-accent transition-colors">X</a
+                  {lang}
+                  {dictionary}
+                  class="hover:text-printer-accent transition-colors"
                 >
-                <a
+                  X
+                </SocialHoverCard>
+                <SocialHoverCard
+                  kind="email"
                   href="mailto:nooc@nooc.me"
-                  class="hover:text-printer-accent transition-colors">Email</a
+                  {lang}
+                  {dictionary}
+                  align="right"
+                  class="hover:text-printer-accent transition-colors"
                 >
+                  Email
+                </SocialHoverCard>
               </div>
             </div>
           </div>

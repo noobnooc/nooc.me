@@ -254,6 +254,19 @@ const dictionary: Dictionary = {
       icon: "send",
     },
   ],
+  social: {
+    followers: "关注者",
+    following: "关注中",
+    posts: "帖子",
+    repos: "仓库",
+    contributions: "年贡献",
+    recentActivity: "近期活动",
+    since(year: string) {
+      return `${year} 年至今`;
+    },
+    emailTo: "收件人",
+    emailHint: "邮件会直达我的收件箱。",
+  },
   postAdvertisements: [
     {
       title: "支持我",
