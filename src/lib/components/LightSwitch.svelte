@@ -102,7 +102,7 @@
       ontoggle(false);
       await wait(120);
       pulled = false;
-      await wait(450); // keep the switch busy until the bulb has faded out
+      await wait(650); // keep the switch busy until the bulb has been hoisted away
     }
 
     busy = false;
@@ -113,9 +113,9 @@
 <div class="lamp-shade hidden lg:block fixed inset-0 z-[90] pointer-events-none" aria-hidden="true"></div>
 <div class="lamp-warmth hidden lg:block fixed inset-0 z-[90] pointer-events-none" aria-hidden="true"></div>
 
-<!-- The bulb, hanging just left of the content column -->
+<!-- The bulb, hanging left of the content column -->
 <div
-  class="bulb-root hidden lg:block fixed top-0 left-[calc(50%-492px)] z-[95] pointer-events-none"
+  class="bulb-root hidden lg:block fixed top-0 left-[max(8px,calc(50%-532px))] z-[95] pointer-events-none"
   aria-hidden="true"
 >
   <div class="bulb-sway relative">
@@ -156,8 +156,8 @@
   </div>
 </div>
 
-<!-- The pull cord, hanging just right of the content column -->
-<div class="hidden lg:block fixed -top-12 right-[calc(50%-438px)] z-[95] cord-sway">
+<!-- The pull cord, hanging right of the content column -->
+<div class="hidden lg:block fixed -top-12 right-[calc(50%-468px)] z-[95] cord-sway">
   <button
     type="button"
     role="switch"
@@ -192,7 +192,7 @@
 <style>
   /* ---------------- room lighting ---------------- */
 
-  /* The bulb hangs at calc(50% - 442px), 135px — gradients are centred there.
+  /* The bulb hangs at max(58px, 50% - 482px), 135px — gradients are centred there.
      Both layers appear instantly when dark mode arrives (hidden behind the
      blackout curtain anyway) but fade away gently when the lamp is switched
      off in daylight. */
@@ -210,7 +210,7 @@
   /* Light falls off with distance from the bulb */
   .lamp-shade {
     background: radial-gradient(
-      140% 140% at calc(50% - 442px) 135px,
+      140% 140% at max(58px, 50% - 482px) 135px,
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 0.05) 22%,
       rgba(0, 0, 0, 0.16) 45%,
@@ -222,7 +222,7 @@
   /* Warm incandescent spill close to the bulb */
   .lamp-warmth {
     background: radial-gradient(
-      620px circle at calc(50% - 442px) 135px,
+      620px circle at max(58px, 50% - 482px) 135px,
       rgba(255, 190, 110, 0.14),
       rgba(255, 185, 105, 0.05) 45%,
       transparent 72%
@@ -232,19 +232,19 @@
 
   /* ---------------- bulb ---------------- */
 
-  /* Appears instantly with dark mode (under the blackout); when the lamp is
-     switched off it lingers a moment — dead grey glass — then fades away. */
+  /* Lowered down from above the screen when the lamp arrives; when switched
+     off it dies first (grey glass) and is then hoisted back up out of view. */
   .bulb-root {
-    opacity: 0;
     visibility: hidden;
+    transform: translateY(-240px);
     transition:
-      opacity 400ms ease 150ms,
-      visibility 0s linear 550ms;
+      transform 540ms cubic-bezier(0.5, 0, 0.85, 0.6) 180ms,
+      visibility 0s linear 720ms;
   }
   :global(.dark) .bulb-root {
-    opacity: 1;
     visibility: visible;
-    transition: none;
+    transform: translateY(0);
+    transition: transform 680ms cubic-bezier(0.22, 1.18, 0.36, 1) 80ms;
   }
 
   .bulb-sway {
@@ -421,6 +421,9 @@
     .cord-sway,
     .bulb-glow {
       animation: none !important;
+    }
+    .bulb-root {
+      transition: none !important;
     }
   }
 </style>
