@@ -1,7 +1,9 @@
 <script lang="ts">
   /**
    * Desktop-only light switch: a pull cord on the right edge of the screen
-   * toggles dark mode like an old incandescent bulb hanging on the left.
+   * toggles dark mode via a Braun/TE-style pendant lamp hanging on the left —
+   * a matte plastic drum housing with an orange trim ring and a frosted
+   * diffuser globe, matching the printer-shell design language.
    *
    * Pulling the cord in light mode blacks out the whole screen, then the
    * bulb sputters awake revealing the dark theme. Pulling again makes the
@@ -122,36 +124,41 @@
     <div class="bulb-glow absolute"></div>
     <svg width="100" height="190" viewBox="0 0 100 190" fill="none" class="bulb-svg relative block">
       <defs>
-        <radialGradient id="light-switch-glass" cx="0.5" cy="0.42" r="0.7">
+        <radialGradient id="light-switch-diffuser" cx="0.5" cy="0.42" r="0.75">
           <stop offset="0" stop-color="#fff8dd" />
-          <stop offset="0.45" stop-color="#ffe9a8" />
-          <stop offset="0.8" stop-color="#ffc86e" stop-opacity="0.75" />
-          <stop offset="1" stop-color="#ff9d3f" stop-opacity="0.35" />
+          <stop offset="0.5" stop-color="#ffeaae" />
+          <stop offset="0.85" stop-color="#ffcd78" />
+          <stop offset="1" stop-color="#ffb45a" />
         </radialGradient>
+        <!-- horizontal sheen that makes the flat drum read as a cylinder -->
+        <linearGradient id="light-switch-cyl" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#ffffff" stop-opacity="0.32" />
+          <stop offset="0.3" stop-color="#ffffff" stop-opacity="0.06" />
+          <stop offset="0.6" stop-color="#ffffff" stop-opacity="0" />
+          <stop offset="1" stop-color="#000000" stop-opacity="0.16" />
+        </linearGradient>
       </defs>
-      <!-- twisted hanging wire -->
-      <path d="M50 -2 V64" class="bulb-wire" />
-      <path d="M50 -2 V64" class="bulb-wire-braid" />
-      <!-- socket -->
-      <rect x="42" y="62" width="16" height="6" rx="1.5" class="bulb-cap" />
-      <rect x="40" y="68" width="20" height="21" rx="2.5" class="bulb-socket" />
-      <path d="M41 73.5 H59 M41 78 H59 M41 82.5 H59" class="bulb-socket-thread" />
-      <!-- glass -->
+      <!-- straight rubber pendant cable -->
+      <path d="M50 -2 V58" class="bulb-wire" />
+      <!-- strain relief where the cable enters the housing -->
+      <rect x="46" y="55" width="8" height="14" rx="4" class="bulb-cap" />
+      <!-- frosted diffuser globe -->
+      <circle cx="50" cy="128" r="23" fill="url(#light-switch-diffuser)" class="bulb-glass" />
+      <!-- dead-diffuser overlay, shown the instant the lamp switches off -->
+      <circle cx="50" cy="128" r="23" class="bulb-glass-dead" />
+      <!-- soft highlight on the globe -->
+      <path d="M35.5 122 a17.5 17.5 0 0 1 7.5 -10.5" class="bulb-glint" />
+      <!-- matte plastic housing drum -->
+      <path d="M29 104 v-29 a7 7 0 0 1 7 -7 h28 a7 7 0 0 1 7 7 v29 z" class="bulb-shade" />
       <path
-        d="M44 89 L44 100 C44 108 32 112 29 124 A23 23 0 1 0 71 124 C68 112 56 108 56 100 L56 89 Z"
-        fill="url(#light-switch-glass)"
-        class="bulb-glass"
+        d="M29 104 v-29 a7 7 0 0 1 7 -7 h28 a7 7 0 0 1 7 7 v29 z"
+        fill="url(#light-switch-cyl)"
+        class="bulb-shade-sheen"
       />
-      <!-- filament -->
-      <path d="M46 100 V119 M54 100 V119" class="bulb-filament-post" />
-      <path d="M46 119 l2 7 2 -7 2 7 2 -7" class="bulb-filament" />
-      <!-- dead-glass overlay, shown the instant the lamp switches off -->
-      <path
-        d="M44 89 L44 100 C44 108 32 112 29 124 A23 23 0 1 0 71 124 C68 112 56 108 56 100 L56 89 Z"
-        class="bulb-glass-dead"
-      />
-      <!-- glass glint -->
-      <path d="M38 122 a16 16 0 0 1 6 -9" class="bulb-glint" />
+      <!-- vent slots -->
+      <path d="M40 79 H60 M40 84.5 H60 M40 90 H60" class="bulb-vent" />
+      <!-- accent trim ring where the globe meets the housing -->
+      <rect x="29" y="104" width="42" height="4" rx="2" class="bulb-ring" />
     </svg>
   </div>
 </div>
@@ -169,15 +176,35 @@
     class:pulled
   >
     <svg width="28" height="270" viewBox="0 0 28 270" fill="none" class="block">
-      <line x1="14" y1="0" x2="14" y2="197" class="cord-rope" />
-      <line x1="14" y1="0" x2="14" y2="197" class="cord-rope-braid" />
-      <circle cx="14" cy="199" r="2.6" class="cord-knot" />
-      <!-- wooden handle -->
-      <path
-        d="M11.2 203 h5.6 c1.6 0 2.7 1 2.9 2.6 l1.5 21.5 c0.2 3.1 -2.2 5.6 -7.2 5.6 s-7.4 -2.5 -7.2 -5.6 l1.5 -21.5 c0.2 -1.6 1.3 -2.6 2.9 -2.6 z"
-        class="cord-handle"
-      />
-      <path d="M11.5 208 l-0.9 16" class="cord-handle-shine" />
+      <defs>
+        <linearGradient id="light-switch-handle-sheen" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#ffffff" stop-opacity="0.35" />
+          <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.06" />
+          <stop offset="0.65" stop-color="#ffffff" stop-opacity="0" />
+          <stop offset="1" stop-color="#000000" stop-opacity="0.18" />
+        </linearGradient>
+        <clipPath id="light-switch-handle-clip">
+          <rect x="6.5" y="202" width="15" height="32" rx="7.5" />
+        </clipPath>
+      </defs>
+      <!-- straight rubber cable -->
+      <line x1="14" y1="0" x2="14" y2="196" class="cord-rope" />
+      <!-- ferrule where the cable enters the handle -->
+      <rect x="11" y="193" width="6" height="10" rx="3" class="cord-ferrule" />
+      <!-- matte plastic pull handle -->
+      <rect x="6.5" y="202" width="15" height="32" rx="7.5" class="cord-handle" />
+      <g clip-path="url(#light-switch-handle-clip)">
+        <rect x="6.5" y="207.5" width="15" height="3.5" class="cord-accent" />
+        <rect
+          x="6.5"
+          y="202"
+          width="15"
+          height="32"
+          fill="url(#light-switch-handle-sheen)"
+          class="cord-sheen"
+        />
+        <path d="M10 220 H18 M10 224.5 H18 M10 229 H18" class="cord-grip" />
+      </g>
     </svg>
   </button>
 </div>
@@ -262,7 +289,7 @@
 
   .bulb-glow {
     left: -8px;
-    top: 75px;
+    top: 70px;
     width: 116px;
     height: 116px;
     border-radius: 9999px;
@@ -282,58 +309,64 @@
   }
 
   .bulb-wire {
-    stroke: rgba(210, 216, 235, 0.35);
-    stroke-width: 2.4;
+    stroke: rgba(60, 56, 50, 0.45);
+    stroke-width: 3;
+    stroke-linecap: round;
   }
-  .bulb-wire-braid {
-    stroke: rgba(15, 17, 24, 0.6);
-    stroke-width: 2.4;
-    stroke-dasharray: 3 3;
+  :global(.dark) .bulb-wire {
+    stroke: rgba(205, 212, 232, 0.3);
   }
   .bulb-cap {
-    fill: #3a3d49;
+    fill: #33363f;
   }
-  .bulb-socket {
-    fill: #8f7a4f;
+  :global(.dark) .bulb-cap {
+    fill: #3c4150;
   }
-  .bulb-socket-thread {
-    stroke: rgba(0, 0, 0, 0.35);
+  /* Cream Braun-plastic drum in daylight, charcoal plastic at night */
+  .bulb-shade {
+    fill: #ece5d4;
+    stroke: rgba(0, 0, 0, 0.14);
     stroke-width: 1;
+  }
+  :global(.dark) .bulb-shade {
+    fill: #272b36;
+    stroke: rgba(255, 255, 255, 0.1);
+  }
+  :global(.dark) .bulb-shade-sheen {
+    opacity: 0.55;
+  }
+  .bulb-vent {
+    stroke: rgba(0, 0, 0, 0.16);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  :global(.dark) .bulb-vent {
+    stroke: rgba(0, 0, 0, 0.5);
+  }
+  .bulb-ring {
+    fill: var(--color-printer-accent);
+  }
+  :global(.dark) .bulb-ring {
+    fill: var(--color-printer-accent-dark);
   }
   .bulb-glass {
-    stroke: rgba(255, 232, 180, 0.55);
+    stroke: rgba(255, 226, 170, 0.55);
     stroke-width: 0.8;
   }
-  .bulb-filament-post {
-    stroke: rgba(160, 120, 70, 0.8);
-    stroke-width: 1;
-  }
-  .bulb-filament {
-    stroke: #8a7f70;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    filter: none;
-    transition:
-      stroke 130ms ease-out,
-      filter 130ms ease-out;
-  }
-  :global(.dark) .bulb-filament {
-    stroke: #ffcf7a;
-    filter: drop-shadow(0 0 4px rgba(255, 190, 90, 0.95));
-  }
-  /* Grey glass overlay revealed the instant the lamp dies */
+  /* Frosted off-white overlay revealed the instant the lamp dies */
   .bulb-glass-dead {
-    fill: #cfccc4;
-    opacity: 0.88;
+    fill: #e9e5db;
+    stroke: rgba(0, 0, 0, 0.12);
+    stroke-width: 0.8;
+    opacity: 0.95;
     transition: opacity 130ms ease-out;
   }
   :global(.dark) .bulb-glass-dead {
     opacity: 0;
   }
   .bulb-glint {
-    stroke: rgba(255, 255, 255, 0.55);
-    stroke-width: 1.6;
+    stroke: rgba(255, 255, 255, 0.6);
+    stroke-width: 1.8;
     stroke-linecap: round;
   }
 
@@ -358,38 +391,44 @@
   }
 
   .cord-rope {
-    stroke: rgba(74, 62, 48, 0.55);
-    stroke-width: 2.4;
+    stroke: rgba(60, 56, 50, 0.5);
+    stroke-width: 2.5;
   }
   :global(.dark) .cord-rope {
-    stroke: rgba(215, 220, 238, 0.3);
+    stroke: rgba(205, 212, 232, 0.3);
   }
-  .cord-rope-braid {
-    stroke: rgba(255, 255, 255, 0.5);
-    stroke-width: 2.4;
-    stroke-dasharray: 2.5 2.5;
+  .cord-ferrule {
+    fill: #33363f;
   }
-  :global(.dark) .cord-rope-braid {
-    stroke: rgba(10, 12, 18, 0.55);
+  :global(.dark) .cord-ferrule {
+    fill: #3c4150;
   }
-  .cord-knot {
-    fill: #7a6248;
-  }
-  :global(.dark) .cord-knot {
-    fill: #9a8062;
-  }
+  /* Capsule pull handle in the same Braun plastic as the lamp housing */
   .cord-handle {
-    fill: #a97c50;
-    stroke: rgba(0, 0, 0, 0.28);
+    fill: #ece5d4;
+    stroke: rgba(0, 0, 0, 0.16);
     stroke-width: 1;
   }
   :global(.dark) .cord-handle {
-    fill: #c09468;
+    fill: #272b36;
+    stroke: rgba(255, 255, 255, 0.12);
   }
-  .cord-handle-shine {
-    stroke: rgba(255, 255, 255, 0.4);
-    stroke-width: 1.4;
+  .cord-accent {
+    fill: var(--color-printer-accent);
+  }
+  :global(.dark) .cord-accent {
+    fill: var(--color-printer-accent-dark);
+  }
+  :global(.dark) .cord-sheen {
+    opacity: 0.55;
+  }
+  .cord-grip {
+    stroke: rgba(0, 0, 0, 0.18);
+    stroke-width: 1.6;
     stroke-linecap: round;
+  }
+  :global(.dark) .cord-grip {
+    stroke: rgba(0, 0, 0, 0.5);
   }
   .cord-group:focus-visible .cord-handle {
     stroke: var(--color-printer-accent);
