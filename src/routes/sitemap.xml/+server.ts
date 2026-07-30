@@ -20,9 +20,8 @@ export const GET: RequestHandler = () => {
     const dictionary = getDictionary(lang);
     return [
       { loc: dictionary.urls.home, lastmod: now, priority: 1 },
-      { loc: dictionary.urls.posts, lastmod: now, priority: 1 },
       { loc: dictionary.urls.life, lastmod: now, priority: 1 },
-      { loc: dictionary.urls.works, lastmod: now, priority: 0.8 },
+      { loc: dictionary.urls.works, lastmod: now, priority: 1 },
       { loc: dictionary.urls.about, lastmod: now, priority: 0.8 },
       ...activities.map((activity) => ({
         loc: `${dictionary.urls.life}/${activity}`,

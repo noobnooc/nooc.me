@@ -62,8 +62,9 @@ const dictionary = {
   },
   urls: {
     home: "/en",
-    works: "/en/works",
-    posts: "/en/posts",
+    works: "/en/work",
+    // Tech posts are merged into the Work page; kept for back-links.
+    posts: "/en/work",
     life: "/en/life",
     about: "/en/about",
 
@@ -75,7 +76,7 @@ const dictionary = {
   },
   labels: {
     home: "Home",
-    works: "Works",
+    works: "Work",
     posts: "Tech",
     life: "Life",
     about: "About",
@@ -91,7 +92,7 @@ const dictionary = {
     brandName: "NOOC",
     brandTagline: "Nooc the Noob",
     backToSection: {
-      posts: "← BACK TO TECH",
+      posts: "← BACK TO WORK",
       life: "← BACK TO LIFE",
     },
     allSectionPosts: {
