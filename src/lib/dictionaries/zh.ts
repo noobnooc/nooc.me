@@ -27,8 +27,9 @@ const dictionary: Dictionary = {
   },
   urls: {
     home: "/zh",
-    works: "/zh/works",
-    posts: "/zh/posts",
+    works: "/zh/work",
+    // 技术文章已并入作品页，保留此项用于返回链接。
+    posts: "/zh/work",
     life: "/zh/life",
     about: "/zh/about",
 
@@ -56,7 +57,7 @@ const dictionary: Dictionary = {
     brandName: "NOOC",
     brandTagline: "Nooc the Noob",
     backToSection: {
-      posts: "← 返回技术",
+      posts: "← 返回作品",
       life: "← 返回生活",
     },
     allSectionPosts: {
