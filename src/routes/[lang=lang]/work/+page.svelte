@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { getDictionary, type Language } from "$lib/dictionaries";
+  import Icon from "$lib/components/Icon.svelte";
   import PostList from "$lib/components/PostList.svelte";
   import PrintedDivider from "$lib/components/PrintedDivider.svelte";
   import PrintedLabel from "$lib/components/PrintedLabel.svelte";
@@ -89,9 +90,28 @@
 
   <PrintedDivider style="dashed" />
 
-  <!-- Other works -->
+  <!-- Other works, collapsed by default -->
   {#if otherWorks.length > 0}
-    <PrintedSection label={dictionary.labels.archive} labelIcon="archive">
+    <details class="group/archive mb-8">
+      <summary
+        class="flex items-center gap-2 mb-3 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden"
+      >
+        <span
+          class="inline-flex items-center gap-1.5 leading-none align-middle font-mono text-[10px] tracking-[0.3em] uppercase text-printer-ink-light dark:text-printer-ink-dark/50 bg-printer-ink/5 dark:bg-printer-ink-dark/5 px-2 py-[3px] rounded-sm"
+        >
+          <Icon name="archive" class="w-2.5 h-2.5 shrink-0" />
+          <span class="inline-flex items-center leading-none translate-y-[0.5px]">
+            {dictionary.labels.archive}
+          </span>
+        </span>
+        <span class="flex-1 h-px bg-printer-ink/5 dark:bg-printer-ink-dark/5"></span>
+        <span
+          class="inline-flex items-center gap-1 font-mono text-[10px] text-printer-ink-light dark:text-printer-ink-dark/40"
+        >
+          {dictionary.labels.entries(otherWorks.length)}
+          <span class="transition-transform group-open/archive:rotate-90">▸</span>
+        </span>
+      </summary>
       <div class="flex flex-col gap-1">
         {#each otherWorks as work (work.name)}
           <a
@@ -136,7 +156,7 @@
           </a>
         {/each}
       </div>
-    </PrintedSection>
+    </details>
   {/if}
 
   <PrintedDivider style="dashed" />
