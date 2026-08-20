@@ -161,6 +161,18 @@ const dictionary: Dictionary = {
   ],
   works: [
     {
+      name: "inlabel",
+      summary: "扫描商品标签，按你的过敏源和饮食需求分析成分。",
+      link: "https://inlabel.app",
+      primary: true,
+    },
+    {
+      name: "Onei",
+      summary: "精选的 AI 工具、技能与 MCP 服务目录。",
+      link: "https://onei.ai",
+      primary: true,
+    },
+    {
       name: "Dippod",
       summary: "AI 闪卡学习，支持主题、PDF 和笔记转卡。",
       image: "/static/dippod.webp",

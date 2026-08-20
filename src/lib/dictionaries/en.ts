@@ -200,6 +200,19 @@ const dictionary = {
   ],
   works: [
     {
+      name: "inlabel",
+      summary:
+        "Scan any label and get ingredient verdicts for your allergies and diet.",
+      link: "https://inlabel.app",
+      primary: true,
+    },
+    {
+      name: "Onei",
+      summary: "A curated directory of AI tools, skills, and MCP servers.",
+      link: "https://onei.ai",
+      primary: true,
+    },
+    {
       name: "Dippod",
       summary: "AI flashcards from topics, PDFs, and notes.",
       image: "/static/dippod.webp",
