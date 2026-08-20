@@ -162,8 +162,7 @@ const dictionary: Dictionary = {
   works: [
     {
       name: "inlabel",
-      summary:
-        "扫描食品、饮料、化妆品和日用品标签，支持 50+ 语言，按你的过敏源和饮食需求评分。",
+      summary: "扫描食品、化妆品和日用品标签，支持 50+ 语言。",
       image: "/static/inlabel.webp",
       link: "https://inlabel.app",
       primary: true,
