@@ -168,7 +168,7 @@ const dictionary: Dictionary = {
       primary: true,
     },
     {
-      name: "Onei",
+      name: "Onei AI",
       summary: "精选的 AI 工具、技能与 MCP 服务目录。",
       image: "/static/onei.webp",
       link: "https://onei.ai",

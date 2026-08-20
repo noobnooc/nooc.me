@@ -207,7 +207,7 @@ const dictionary = {
       primary: true,
     },
     {
-      name: "Onei",
+      name: "Onei AI",
       summary: "A curated directory of AI tools, skills, and MCP servers.",
       image: "/static/onei.webp",
       link: "https://onei.ai",
