@@ -202,13 +202,15 @@ const dictionary = {
     {
       name: "inlabel",
       summary:
-        "Scan any label and get ingredient verdicts for your allergies and diet.",
+        "Scan food, drink, cosmetics, and household labels in 50+ languages, scored against your allergies and diet.",
+      image: "/static/inlabel.webp",
       link: "https://inlabel.app",
       primary: true,
     },
     {
       name: "Onei",
       summary: "A curated directory of AI tools, skills, and MCP servers.",
+      image: "/static/onei.webp",
       link: "https://onei.ai",
       primary: true,
     },
