@@ -201,8 +201,7 @@ const dictionary = {
   works: [
     {
       name: "inlabel",
-      summary:
-        "Scan food, drink, cosmetics, and household labels in 50+ languages, scored against your allergies and diet.",
+      summary: "Scan food, cosmetics, and household labels in 50+ languages.",
       image: "/static/inlabel.webp",
       link: "https://inlabel.app",
       primary: true,
