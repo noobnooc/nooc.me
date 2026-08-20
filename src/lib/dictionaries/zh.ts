@@ -162,13 +162,16 @@ const dictionary: Dictionary = {
   works: [
     {
       name: "inlabel",
-      summary: "扫描商品标签，按你的过敏源和饮食需求分析成分。",
+      summary:
+        "扫描食品、饮料、化妆品和日用品标签，支持 50+ 语言，按你的过敏源和饮食需求评分。",
+      image: "/static/inlabel.webp",
       link: "https://inlabel.app",
       primary: true,
     },
     {
       name: "Onei",
       summary: "精选的 AI 工具、技能与 MCP 服务目录。",
+      image: "/static/onei.webp",
       link: "https://onei.ai",
       primary: true,
     },
