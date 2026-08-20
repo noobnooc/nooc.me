@@ -162,7 +162,7 @@ const dictionary: Dictionary = {
   works: [
     {
       name: "inlabel",
-      summary: "扫描食品、化妆品和日用品标签，支持 50+ 语言。",
+      summary: "扫描食品、化妆品和日用品标签，支持多种语言。",
       image: "/static/inlabel.webp",
       link: "https://inlabel.app",
       primary: true,
